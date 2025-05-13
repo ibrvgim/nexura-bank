@@ -1,9 +1,15 @@
-import DescriptionCard from "@/components/home/DescriptionCard";
+import CurrencyConverterCard from "@/components/personal/CurrencyConverterCard";
+import DescriptionCard from "@/components/personal/DescriptionCard";
+import Features from "@/components/personal/Features";
+import ServicesCard from "@/components/personal/ServicesCard";
 
 export default function Home() {
   return (
-    <main className="px-20 py-16">
+    <main className="mx-auto max-w-[110rem] px-20 pt-16">
       <DescriptionCard />
+      <Features />
+      <CurrencyConverterCard />
+      <ServicesCard />
     </main>
   );
 }

@@ -18,7 +18,7 @@ function Navigation() {
         </li>
 
         <li>
-          <NavLink path="">Development</NavLink>
+          <NavLink path="/enterprise">Enterprise</NavLink>
         </li>
       </ul>
 

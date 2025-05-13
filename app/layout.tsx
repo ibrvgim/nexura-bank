@@ -9,7 +9,7 @@ const font = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "Nexura Bank",
+  title: "Nexura | Secure Online Banking",
   description: "",
 };
 
