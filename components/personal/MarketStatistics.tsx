@@ -2,7 +2,27 @@ import Image from "next/image";
 import { StarIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-function MarketStatistics({
+function MarketStatistics() {
+  return (
+    <div className="mb-5 flex gap-7">
+      <MarketItem
+        marketName="Apple Store"
+        downloads="3.2"
+        rating="4.8"
+        icon="app-store"
+      />
+
+      <MarketItem
+        marketName="Google Play"
+        downloads="5.8"
+        rating="4.6"
+        icon="google-play"
+      />
+    </div>
+  );
+}
+
+function MarketItem({
   marketName,
   icon,
   rating,

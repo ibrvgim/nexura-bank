@@ -6,21 +6,7 @@ function DescriptionCard() {
   return (
     <div className="flex items-center gap-5 border-b-2 border-b-gray-200 pb-30">
       <div className="tracking-wider">
-        <div className="mb-5 flex gap-7">
-          <MarketStatistics
-            marketName="Apple Store"
-            downloads="3.2"
-            rating="4.8"
-            icon="app-store"
-          />
-
-          <MarketStatistics
-            marketName="Google Play"
-            downloads="5.8"
-            rating="4.6"
-            icon="google-play"
-          />
-        </div>
+        <MarketStatistics />
 
         <div className="flex flex-col gap-3 text-7xl font-extrabold text-gray-700 uppercase">
           <p>Experience</p>

@@ -10,7 +10,7 @@ function PrimaryButton({
   return (
     <Link
       href={path}
-      className="rounded-full border-3 border-green-500 bg-green-500 px-8 py-1 font-medium tracking-wide text-gray-50 transition-all hover:border-green-600 hover:bg-green-600 hover:shadow hover:shadow-green-400"
+      className="rounded-full border-3 border-green-500 bg-green-500 px-8 py-1 font-medium tracking-wide text-gray-50 transition-all hover:border-green-600 hover:bg-green-600"
     >
       {children}
     </Link>

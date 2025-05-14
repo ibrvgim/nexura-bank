@@ -1,6 +1,8 @@
+import AppCard from "@/components/personal/AppCard";
 import CurrencyConverterCard from "@/components/personal/CurrencyConverterCard";
 import DescriptionCard from "@/components/personal/DescriptionCard";
 import Features from "@/components/personal/Features";
+import OrdersCard from "@/components/personal/OrdersCard";
 import ServicesCard from "@/components/personal/ServicesCard";
 
 export default function Home() {
@@ -10,6 +12,8 @@ export default function Home() {
       <Features />
       <CurrencyConverterCard />
       <ServicesCard />
+      <OrdersCard />
+      <AppCard />
     </main>
   );
 }

@@ -14,7 +14,7 @@ function ServicesCard() {
     <div className="flex gap-5 py-30">
       <div className={containerStyle}>
         <BriefcaseIcon className={iconStyle} />
-        <p className={titleStyle}>Boost your business to new levels</p>
+        <p className={titleStyle}>Boost your business to new areas</p>
         <p className={descriptionStyle}>
           Register for the fast, easy international business account that saves
           you money wherever you want to use it.
@@ -44,14 +44,16 @@ function ServicesCard() {
 
 function Button({
   children,
+  path,
   primary = true,
 }: {
   children: React.ReactNode;
+  path?: string;
   primary?: boolean;
 }) {
   return (
     <Link
-      href=""
+      href={path || ""}
       className={`rounded-full border-2 px-8 py-1 font-medium text-gray-700 transition-all duration-500 ${primary ? "border-green-200 bg-green-200 hover:border-green-300 hover:bg-green-300" : "border-green-200 text-green-200 hover:border-green-300 hover:text-green-300"}`}
     >
       {children}
