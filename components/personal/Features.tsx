@@ -13,7 +13,7 @@ function Features() {
       <FeatureItem
         image="support.svg"
         imageSize={145}
-        title="24/7 Customer Support"
+        title="Constant Customer Support"
         description="Reach out to our specialists anytime via email, phone, or chat, ensuring smooth and stress-free banking — we are always here to help."
       />
 

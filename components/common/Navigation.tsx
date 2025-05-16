@@ -5,7 +5,7 @@ import SecondaryButton from "./SecondaryButton";
 
 function Navigation() {
   return (
-    <nav className="flex items-center px-20 py-8 text-[15px]">
+    <nav className="relative flex items-center px-20 py-8 text-[15px]">
       <Logo />
 
       <ul className="ml-10 flex gap-1">
@@ -22,7 +22,7 @@ function Navigation() {
         </li>
       </ul>
 
-      <ul className="ml-auto flex gap-1">
+      <ul className="ml-auto flex items-center gap-1">
         <li>
           <NavLink path="">Features</NavLink>
         </li>

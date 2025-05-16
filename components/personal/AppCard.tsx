@@ -9,7 +9,7 @@ function AppCard() {
         <MarketStatistics />
       </div>
       <p className="text-7xl font-extrabold text-gray-700 uppercase">
-        Everything you need - in <span className="text-green-500">Nexura</span>
+        Everything you need - <span className="text-green-500">Nexura</span>
       </p>
 
       <Image
