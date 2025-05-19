@@ -1,11 +1,17 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 
 function Footer() {
-  const listsStyle =
-    "flex gap-8 *:cursor-pointer *:transition-all *:duration-500 *:hover:text-green-900";
+  const pathname = usePathname();
+  const isFooterDark = pathname.includes("business");
+  const listsStyle = `flex gap-8 *:cursor-pointer *:transition-all *:duration-300 ${isFooterDark ? "*:hover:text-green-400" : "*:hover:text-green-900"}`;
 
   return (
-    <footer className="bg-green-400 px-20 py-16">
+    <footer
+      className={`px-20 py-24 ${isFooterDark ? "bg-green-900" : "bg-green-400"}`}
+    >
       <div className="inline-block">
         <Logo style="white" />
       </div>

@@ -23,7 +23,7 @@ function FeatureItem({
       />
 
       <div>
-        <p className="mb-4 text-2xl font-semibold tracking-wider text-gray-700">
+        <p className="mb-4 text-lg font-semibold tracking-wider text-gray-700 uppercase">
           {title}
         </p>
         <p className="leading-7 text-gray-500">{description}</p>

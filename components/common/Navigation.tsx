@@ -1,12 +1,19 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import NavLink from "./NavLink";
-import PrimaryButton from "./PrimaryButton";
-import SecondaryButton from "./SecondaryButton";
+import { PrimaryButton, SecondaryButton } from "./Buttons";
 
 function Navigation() {
+  const pathname = usePathname();
+  const darkNavigation = pathname.includes("business");
+
   return (
-    <nav className="relative flex items-center px-20 py-8 text-[15px]">
-      <Logo />
+    <nav
+      className={`flex w-full items-center px-20 py-6 text-[15px] ${darkNavigation ? "bg-green-900 text-white" : "bg-white"}`}
+    >
+      <Logo style={darkNavigation ? "white" : "green"} />
 
       <ul className="ml-10 flex gap-1">
         <li>
@@ -38,11 +45,15 @@ function Navigation() {
 
       <ul className="ml-10 flex items-center gap-3">
         <li>
-          <SecondaryButton path="">Log in</SecondaryButton>
+          <SecondaryButton path="" isStyleLight={darkNavigation}>
+            Log in
+          </SecondaryButton>
         </li>
 
         <li>
-          <PrimaryButton path="">Create a Bank Account</PrimaryButton>
+          <PrimaryButton path="" isStyleLight={darkNavigation}>
+            Create an Account
+          </PrimaryButton>
         </li>
       </ul>
     </nav>

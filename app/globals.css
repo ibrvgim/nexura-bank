@@ -1,16 +1,6 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 ::selection {
   background-color: oklch(72.3% 0.219 149.579);
   color: #ffffff;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
 }

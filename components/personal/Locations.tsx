@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PrimaryButton from "../common/PrimaryButton";
+import { PrimaryButton } from "../common/Buttons";
 
 function Locations() {
   return (

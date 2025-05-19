@@ -7,8 +7,8 @@ function Logo({ style = "green" }: { style?: string }) {
       <Image
         src={`/logos/logo_${style}.png`}
         alt="nexura-bank-logo"
-        width={200}
-        height={200}
+        width={150}
+        height={150}
       />
     </Link>
   );

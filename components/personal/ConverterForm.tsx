@@ -1,14 +1,10 @@
 import { ChevronRightIcon } from "@heroicons/react/16/solid";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
+import { PrimaryButton, SecondaryButton } from "../common/Buttons";
 
 function ConverterForm() {
-  const baseButton =
-    "w-full cursor-pointer rounded-full py-2 text-xs font-medium tracking-wider uppercase transition-all";
-  const grayButton = `${baseButton} border-2 border-gray-500 hover:border-green-500 hover:text-green-500`;
-  const greenButton = `${baseButton} border-2 border-green-500 bg-green-500 text-white hover:border-green-600 hover:bg-green-600`;
-
   return (
-    <form className="flex w-[35%] flex-col gap-5 rounded-2xl bg-gray-50 px-8 py-8 shadow-lg">
+    <form className="flex w-[35%] flex-col gap-5 rounded-2xl bg-gray-50 px-8 py-8 shadow-xl">
       <div className="text-gray-600">
         <LockClosedIcon className="mx-auto mb-2 size-6" />
         <p className="text-center text-xs tracking-wide uppercase">
@@ -48,9 +44,9 @@ function ConverterForm() {
         with us.
       </p>
 
-      <div className="mt-2 flex gap-2">
-        <button className={grayButton}>Compare Fees</button>
-        <button className={greenButton}>Send Money</button>
+      <div className="mt-2 flex gap-2 text-center text-xs uppercase *:w-full *:py-2">
+        <SecondaryButton path="">Compare Fees</SecondaryButton>
+        <PrimaryButton path="">Send Money</PrimaryButton>
       </div>
     </form>
   );
