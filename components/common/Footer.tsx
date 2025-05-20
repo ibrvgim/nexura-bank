@@ -5,12 +5,13 @@ import Logo from "./Logo";
 
 function Footer() {
   const pathname = usePathname();
-  const isFooterDark = pathname.includes("business");
-  const listsStyle = `flex gap-8 *:cursor-pointer *:transition-all *:duration-300 ${isFooterDark ? "*:hover:text-green-400" : "*:hover:text-green-900"}`;
+  const isCurrentBusiness = pathname.includes("business");
+  const isCurrentEnterprise = pathname.includes("enterprise");
+  const listsStyle = `flex gap-8 *:cursor-pointer *:transition-all *:duration-300 ${isCurrentBusiness ? "*:hover:text-green-400" : isCurrentEnterprise ? "*:hover:text-gray-300" : " *:hover:text-green-900"}`;
 
   return (
     <footer
-      className={`px-20 py-24 ${isFooterDark ? "bg-green-900" : "bg-green-400"}`}
+      className={`px-20 py-24 ${isCurrentBusiness ? "bg-green-900" : isCurrentEnterprise ? "bg-gray-800" : "bg-green-400"}`}
     >
       <div className="inline-block">
         <Logo style="white" />

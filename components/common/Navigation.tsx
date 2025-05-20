@@ -7,13 +7,18 @@ import { PrimaryButton, SecondaryButton } from "./Buttons";
 
 function Navigation() {
   const pathname = usePathname();
-  const darkNavigation = pathname.includes("business");
+  const isCurrentBusiness = pathname.includes("business");
+  const isCurrentEnterprise = pathname.includes("enterprise");
 
   return (
     <nav
-      className={`flex w-full items-center px-20 py-6 text-[15px] ${darkNavigation ? "bg-green-900 text-white" : "bg-white"}`}
+      className={`flex w-full items-center px-20 py-6 text-[15px] ${isCurrentBusiness ? "bg-green-900 text-white" : "bg-white"}`}
     >
-      <Logo style={darkNavigation ? "white" : "green"} />
+      <Logo
+        style={
+          isCurrentBusiness ? "white" : isCurrentEnterprise ? "black" : "green"
+        }
+      />
 
       <ul className="ml-10 flex gap-1">
         <li>
@@ -24,7 +29,9 @@ function Navigation() {
           <NavLink path="/business">Business</NavLink>
         </li>
 
-        <li>
+        <li
+          className={`${isCurrentEnterprise ? "*:bg-gray-800 *:text-white" : ""}`}
+        >
           <NavLink path="/enterprise">Enterprise</NavLink>
         </li>
       </ul>
@@ -44,15 +51,19 @@ function Navigation() {
       </ul>
 
       <ul className="ml-10 flex items-center gap-3">
-        <li>
-          <SecondaryButton path="" isStyleLight={darkNavigation}>
-            Log in
-          </SecondaryButton>
-        </li>
+        {!isCurrentEnterprise && (
+          <li>
+            <SecondaryButton path="" isStyleLight={isCurrentBusiness}>
+              Log in
+            </SecondaryButton>
+          </li>
+        )}
 
-        <li>
-          <PrimaryButton path="" isStyleLight={darkNavigation}>
-            Create an Account
+        <li
+          className={`${isCurrentEnterprise ? "text-white *:border-gray-800 *:bg-gray-800 *:hover:border-gray-700 *:hover:bg-transparent *:hover:text-gray-800" : ""}`}
+        >
+          <PrimaryButton path="" isStyleLight={isCurrentBusiness}>
+            {isCurrentEnterprise ? "Get in Touch" : "Create an Account"}
           </PrimaryButton>
         </li>
       </ul>

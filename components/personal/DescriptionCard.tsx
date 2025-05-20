@@ -14,7 +14,7 @@ function DescriptionCard() {
           <p>— Fast and Secure</p>
         </div>
 
-        <p className="mt-8 w-[90%] text-[17px] leading-8 text-gray-500">
+        <p className="my-8 w-[90%] text-[17px] leading-8 text-gray-500">
           Create an account in minutes and use seamless transfers, payments, and
           savings. Our platform supports multiple currencies and enables fast,
           secure transactions across a wide range of countries — all in one
@@ -23,7 +23,7 @@ function DescriptionCard() {
 
         <Link
           href=""
-          className="mt-8 inline-block border-b-2 border-b-gray-500 pb-1 text-gray-500 transition-all hover:border-b-green-500 hover:text-green-500"
+          className="inline-block border-b-2 border-b-gray-500 pb-1 text-gray-500 transition-all hover:border-b-green-500 hover:text-green-500"
         >
           Transfer Money Now
         </Link>

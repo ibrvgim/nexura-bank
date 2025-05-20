@@ -8,7 +8,7 @@ import ServicesCard from "@/components/personal/ServicesCard";
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-[110rem] px-20 pt-16">
+    <main className="px-20 pt-16">
       <DescriptionCard />
       <Features />
       <CurrencyConverterCard />

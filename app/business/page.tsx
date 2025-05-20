@@ -8,17 +8,14 @@ import InfoCard from "@/components/business/InfoCard";
 
 function Business() {
   return (
-    <main className="mx-auto max-w-[110rem]">
+    <main className="px-20">
       <BusinessHeadingCard />
-
-      <div className="px-20">
-        <SavingsCard />
-        <PayEmployeeCard />
-        <WhyNexuraCard />
-        <BusinessTypesCard />
-        <FrequentlyAskedQuestions />
-        <InfoCard />
-      </div>
+      <SavingsCard />
+      <PayEmployeeCard />
+      <WhyNexuraCard />
+      <BusinessTypesCard />
+      <FrequentlyAskedQuestions />
+      <InfoCard />
     </main>
   );
 }

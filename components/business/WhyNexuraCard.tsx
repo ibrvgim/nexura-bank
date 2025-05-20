@@ -6,7 +6,7 @@ function WhyNexuraCard() {
     <div className="-mx-20 flex items-center justify-between gap-10 bg-green-400 px-20 py-10">
       <div className="flex-1">
         <Image
-          src="/images/various-layout.png"
+          src="/images/various-layout.webp"
           alt="various layout image"
           height={650}
           width={650}
