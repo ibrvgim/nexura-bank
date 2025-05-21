@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function WhyNexuraCard() {
   return (
-    <div className="-mx-20 flex items-center justify-between gap-10 bg-green-400 px-20 py-10">
+    <section className="-mx-20 flex items-center justify-between gap-10 bg-green-400 px-20 py-10">
       <div className="flex-1">
         <Image
           src="/images/various-layout.webp"
@@ -34,7 +34,7 @@ function WhyNexuraCard() {
           How to Register Business Account
         </Link>
       </div>
-    </div>
+    </section>
   );
 }
 

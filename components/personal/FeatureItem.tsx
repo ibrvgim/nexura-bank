@@ -2,25 +2,24 @@ import Image from "next/image";
 
 function FeatureItem({
   image,
-  imageSize,
   title,
   description,
 }: {
   image: string;
-  imageSize: number;
   title: string;
   description: string;
 }) {
   return (
     <div className="text-center">
-      <Image
-        src={`/illustrations/${image}`}
-        alt={title.toLowerCase()}
-        height={imageSize}
-        width={imageSize}
-        className="mx-auto mb-10"
-        draggable={false}
-      />
+      <div className="relative mb-10 h-30">
+        <Image
+          src={`/illustrations/${image}`}
+          alt={title.toLowerCase()}
+          fill
+          className="object-contain"
+          draggable={false}
+        />
+      </div>
 
       <div>
         <p className="mb-4 text-lg font-semibold tracking-wider text-gray-700 uppercase">

@@ -10,8 +10,8 @@ const companies = [
 
 function TrustedCompanies() {
   return (
-    <div className="py-30">
-      <p className="text-center text-4xl font-bold tracking-wide text-gray-700 uppercase">
+    <section className="py-30">
+      <p className="text-center text-4xl font-bold tracking-wide text-gray-800 uppercase">
         Join leading organisations that work with us
       </p>
 
@@ -20,7 +20,7 @@ function TrustedCompanies() {
           <CompanyItem key={index} logo={item} />
         ))}
       </ul>
-    </div>
+    </section>
   );
 }
 

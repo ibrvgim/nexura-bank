@@ -3,7 +3,7 @@ import { PrimaryButton } from "../common/Buttons";
 
 function Locations() {
   return (
-    <div className="-mx-20 flex items-center bg-gray-50 px-20 py-36">
+    <section className="-mx-20 flex items-center bg-gray-50 px-20 py-36">
       <div className="flex-1">
         <p className="text-6xl leading-16 font-extrabold tracking-wide text-gray-700 uppercase">
           Nexura works everywhere
@@ -30,7 +30,7 @@ function Locations() {
           className="mx-auto"
         />
       </div>
-    </div>
+    </section>
   );
 }
 

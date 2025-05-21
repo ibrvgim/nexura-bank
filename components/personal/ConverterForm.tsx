@@ -69,7 +69,7 @@ function Input({
       <input
         type={type}
         placeholder={placeholder}
-        className="w-full rounded-md px-3 py-3 text-xl font-medium tracking-wide outline-2 outline-gray-300 transition-all duration-500 placeholder:text-sm placeholder:font-light hover:outline-gray-600 focus:outline-[3px] focus:outline-gray-600"
+        className="w-full rounded-md px-3 py-3 text-xl font-medium tracking-wide outline-2 outline-gray-300 transition-all duration-500 placeholder:text-sm placeholder:font-light hover:outline-gray-600 focus:outline-3 focus:outline-gray-600"
       />
     </div>
   );

@@ -5,7 +5,7 @@ function ServicesCard() {
   const iconStyle = "mx-auto mb-7 size-20 text-green-200";
 
   return (
-    <div className="flex gap-5 py-30">
+    <section className="flex gap-5 py-30">
       <ServiceItem
         icon={<BriefcaseIcon className={iconStyle} />}
         title="Boost your business to new areas"
@@ -31,7 +31,7 @@ function ServicesCard() {
           Get in Touch
         </SecondaryButton>
       </ServiceItem>
-    </div>
+    </section>
   );
 }
 

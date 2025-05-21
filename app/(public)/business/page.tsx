@@ -8,7 +8,7 @@ import InfoCard from "@/components/business/InfoCard";
 
 function Business() {
   return (
-    <main className="px-20">
+    <>
       <BusinessHeadingCard />
       <SavingsCard />
       <PayEmployeeCard />
@@ -16,7 +16,7 @@ function Business() {
       <BusinessTypesCard />
       <FrequentlyAskedQuestions />
       <InfoCard />
-    </main>
+    </>
   );
 }
 

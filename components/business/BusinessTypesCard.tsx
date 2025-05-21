@@ -3,7 +3,7 @@ import { SecondaryButton } from "../common/Buttons";
 
 function BusinessTypesCard() {
   return (
-    <div className="my-30 flex items-center gap-10 rounded-2xl bg-green-900 px-24 py-20">
+    <section className="my-30 flex items-center gap-10 rounded-2xl bg-green-900 px-24 py-20">
       <div className="flex-1">
         <p className="mb-4 text-5xl leading-14 font-extrabold text-green-200 uppercase">
           Medium or large sized business?
@@ -27,7 +27,7 @@ function BusinessTypesCard() {
           draggable={false}
         />
       </div>
-    </div>
+    </section>
   );
 }
 

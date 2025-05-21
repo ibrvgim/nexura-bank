@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function DescriptionCard() {
   return (
-    <div className="flex items-center gap-5 border-b-2 border-b-gray-200 pb-30">
+    <section className="flex items-center gap-5 border-b-2 border-b-gray-200 py-20">
       <div className="tracking-wider">
         <MarketStatistics />
 
@@ -39,7 +39,7 @@ function DescriptionCard() {
         />
         &nbsp;
       </div>
-    </div>
+    </section>
   );
 }
 

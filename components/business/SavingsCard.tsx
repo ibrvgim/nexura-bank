@@ -3,13 +3,13 @@ import { PrimaryButton } from "../common/Buttons";
 
 function SavingsCard() {
   return (
-    <div className="-mx-20 flex items-center gap-10 bg-gray-100 px-20 py-36">
-      <div className="flex-1">
+    <section className="-mx-20 flex items-center gap-10 bg-gray-100 px-20 py-36">
+      <div className="relative h-80 flex-1">
         <Image
           src="/illustrations/credit-card.svg"
           alt="piggybox illustration"
-          height={550}
-          width={550}
+          fill
+          className="object-contain"
           draggable={false}
         />
       </div>
@@ -31,7 +31,7 @@ function SavingsCard() {
           <PrimaryButton path="">Get a Business Account</PrimaryButton>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

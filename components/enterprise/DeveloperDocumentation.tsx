@@ -3,18 +3,19 @@ import { SecondaryButton } from "../common/Buttons";
 
 function DeveloperDocumentation() {
   return (
-    <div className="flex items-center gap-10 py-14 *:flex-1">
+    <section className="flex items-center gap-10 py-14 *:flex-1">
       <div>
         <Image
           src="/images/code-image.webp"
           alt="api preview image"
           height={600}
           width={600}
+          draggable={false}
         />
       </div>
 
       <div>
-        <p className="mb-4 text-5xl font-extrabold text-gray-700 uppercase">
+        <p className="mb-4 text-5xl font-extrabold text-gray-800 uppercase">
           Deliver Performance with our API
         </p>
         <p className="mb-8">
@@ -27,7 +28,7 @@ function DeveloperDocumentation() {
           <SecondaryButton path="">Get the API</SecondaryButton>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

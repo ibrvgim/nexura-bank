@@ -79,7 +79,7 @@ function QuestionItem({
   }
 
   return (
-    <div className="border-b-1 border-b-green-700">
+    <section className="border-b-1 border-b-green-700">
       <button
         className="flex w-full cursor-pointer items-center justify-between py-5 text-lg font-medium tracking-wide"
         onClick={() => handleDropdown(id)}
@@ -95,7 +95,7 @@ function QuestionItem({
       {isActive && (
         <p className="w-3/4 pb-5 text-[17px] text-gray-600">{answer}</p>
       )}
-    </div>
+    </section>
   );
 }
 

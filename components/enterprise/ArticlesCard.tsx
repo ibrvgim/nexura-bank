@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function ArticlesCard() {
   return (
-    <div className="-mx-20 flex items-center gap-10 bg-gray-800 px-20 py-30 text-white *:flex-1">
+    <section className="-mx-20 flex items-center gap-10 bg-gray-800 px-20 py-30 text-white *:flex-1">
       <div>
         <p className="mb-3 text-5xl leading-14 font-bold">
           Drive growth with solutions that may fit your industry
@@ -30,7 +30,7 @@ function ArticlesCard() {
           draggable={false}
         />
       </div>
-    </div>
+    </section>
   );
 }
 

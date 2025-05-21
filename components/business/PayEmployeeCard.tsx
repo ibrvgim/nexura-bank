@@ -10,7 +10,7 @@ function PayEmployeeCard() {
   const iconValues = "-mb-3 inline-block size-5";
 
   return (
-    <div className="flex items-center justify-between gap-10 px-20 py-30">
+    <section className="flex items-center justify-between gap-10 px-20 py-30">
       <div className="w-1/2">
         <p className="mb-7 text-5xl leading-14 font-extrabold tracking-wide text-gray-700">
           Pay with one click and save tons of money
@@ -33,7 +33,7 @@ function PayEmployeeCard() {
       </div>
 
       <ConverterForm />
-    </div>
+    </section>
   );
 }
 

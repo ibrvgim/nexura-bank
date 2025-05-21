@@ -6,16 +6,18 @@ import Locations from "@/components/personal/Locations";
 import OrdersCard from "@/components/personal/OrdersCard";
 import ServicesCard from "@/components/personal/ServicesCard";
 
-export default function Home() {
+export default async function Home({ searchParams }) {
+  const { cardType } = await searchParams;
+
   return (
-    <main className="px-20 pt-16">
+    <>
       <DescriptionCard />
       <Features />
       <CurrencyConverterCard />
       <ServicesCard />
-      <OrdersCard />
+      <OrdersCard urlCardType={cardType || "standard"} />
       <Locations />
       <AppCard />
-    </main>
+    </>
   );
 }

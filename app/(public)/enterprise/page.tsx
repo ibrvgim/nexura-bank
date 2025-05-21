@@ -6,13 +6,13 @@ import TrustedCompanies from "@/components/enterprise/TrustedCompanies";
 
 function Enterprise() {
   return (
-    <main className="px-20 pt-16">
+    <>
       <EnterpriseHeadingCard />
       <EnterpriseFeatures />
       <TrustedCompanies />
       <ArticlesCard />
       <DeveloperDocumentation />
-    </main>
+    </>
   );
 }
 

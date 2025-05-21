@@ -10,7 +10,7 @@ function CurrencyConverterCard() {
   const iconValues = "-mb-3 inline-block size-5";
 
   return (
-    <div className="-mx-20 flex items-center justify-between gap-10 bg-green-400 px-20 py-30">
+    <section className="-mx-20 flex items-center justify-between gap-10 bg-green-400 px-20 py-30">
       <div className="w-1/2">
         <p className="mb-7 text-5xl leading-14 font-extrabold tracking-wide text-gray-800">
           Convert money to other currencies and send across the world{" "}
@@ -36,7 +36,7 @@ function CurrencyConverterCard() {
       </div>
 
       <ConverterForm />
-    </div>
+    </section>
   );
 }
 

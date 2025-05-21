@@ -34,7 +34,7 @@ const features = [
 
 function EnterpriseFeatures() {
   return (
-    <div className="-mx-20 mt-20 bg-gray-800 px-20 py-28 text-white">
+    <section className="-mx-20 bg-gray-800 px-20 py-28 text-white">
       <ul className="flex justify-between gap-16 text-center *:flex-1">
         {features.map((item, index) => (
           <FeatureItem
@@ -45,7 +45,7 @@ function EnterpriseFeatures() {
           />
         ))}
       </ul>
-    </div>
+    </section>
   );
 }
 

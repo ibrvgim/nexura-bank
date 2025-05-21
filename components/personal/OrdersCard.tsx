@@ -1,13 +1,46 @@
 import { ChevronRightIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
 import { PrimaryButton } from "../common/Buttons";
+import Link from "next/link";
 
-function OrdersCard() {
+const cards = [
+  {
+    type: "standard",
+    price: 7,
+    offerings: [
+      "No cashback.",
+      "Withdraw money with 8% commission.",
+      "Delivery within 7 days.",
+    ],
+  },
+
+  {
+    type: "premium",
+    price: 14,
+    offerings: [
+      "Get 1% cashback on every payment.",
+      "Withdraw money with 6% commission.",
+      "Delivery within 5 days.",
+    ],
+  },
+
+  {
+    type: "platinum",
+    price: 28,
+    offerings: [
+      "Get 3% cashback on every payment.",
+      "Withdraw money with 4% commission.",
+      "Delivery within 3 days.",
+    ],
+  },
+];
+
+function OrdersCard({ urlCardType }: { urlCardType: string }) {
   return (
-    <div className="-mx-20 bg-[url(/images/orders-background.webp)] bg-cover bg-center bg-no-repeat py-40">
+    <section className="-mx-20 bg-[url(/images/orders-background.webp)] bg-cover bg-center bg-no-repeat py-40">
       <div className="relative mx-20 flex items-center gap-20 rounded-2xl bg-gray-50 px-20 py-16">
         <Image
-          src={`/bank-cards/standard.png`}
+          src={`/bank-cards/${urlCardType}.png`}
           alt={`standard bank card image`}
           height={300}
           width={300}
@@ -15,15 +48,22 @@ function OrdersCard() {
           className="absolute -top-24 left-20"
         />
 
-        <ul className="flex w-full flex-1 flex-col gap-5 self-end">
-          <Button cardImage="standard.png" cardType="standard" price={7} />
-          <Button cardImage="premium.png" cardType="premium" price={14} />
-          <Button cardImage="platinum.png" cardType="platinum" price={28} />
+        <ul className="flex w-full flex-1 flex-col gap-5 self-end pt-15">
+          {cards.map((card, index) => (
+            <Button
+              key={index}
+              cardImage={`${card.type}.png`}
+              cardType={card.type}
+              price={card.price}
+              urlCardType={urlCardType}
+            />
+          ))}
         </ul>
 
         <div className="flex-1">
           <p className="mb-5 text-5xl leading-14 font-extrabold tracking-wider text-gray-700 uppercase">
-            Order a <span className="text-green-500">Standard</span> debit card
+            Order a <span className="text-green-500">{urlCardType}</span> debit
+            card
           </p>
           <p className="mb-5 text-lg font-light tracking-wide text-gray-700">
             Get a debit card to spend online, at the checkout, and to withdraw
@@ -31,9 +71,11 @@ function OrdersCard() {
           </p>
 
           <ul className="text-gray-500 *:mt-2 *:flex *:items-center *:gap-2">
-            <Offer>Get 1% cashback on every payment.</Offer>
-            <Offer>Withdraw money with 8% commission.</Offer>
-            <Offer>Delivery within 7 days.</Offer>
+            {cards
+              .find((card) => card.type === urlCardType)
+              ?.offerings.map((item, index) => (
+                <Offer key={index}>{item}</Offer>
+              ))}
           </ul>
 
           <div className="mt-10 text-sm uppercase *:px-10">
@@ -41,7 +83,7 @@ function OrdersCard() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -49,23 +91,27 @@ function Button({
   cardImage,
   cardType,
   price,
+  urlCardType,
 }: {
   cardImage: string;
   cardType: string;
   price: number;
+  urlCardType: string;
 }) {
-  const isActive = cardType === "standard";
+  const isActive = cardType === urlCardType;
 
   return (
     <li>
-      <button
+      <Link
+        href={`?cardType=${cardType}`}
+        scroll={false}
         className={`flex w-full cursor-pointer items-center gap-4 rounded-md py-3 pr-8 pl-5 outline-2 outline-gray-300 transition-all duration-300 ${isActive ? "bg-green-50 outline-[3px] outline-green-700 *:text-green-700" : "hover:bg-gray-100 hover:outline-gray-500 hover:*:text-gray-700"}`}
       >
         <Image
           src={`/bank-cards/${cardImage}`}
           alt={`${cardType} bank card image`}
-          height={70}
-          width={70}
+          height={80}
+          width={80}
           draggable={false}
         />
 
@@ -73,7 +119,7 @@ function Button({
           <p>{cardType} Debit Card</p>
           <p>€{price},00</p>
         </div>
-      </button>
+      </Link>
     </li>
   );
 }

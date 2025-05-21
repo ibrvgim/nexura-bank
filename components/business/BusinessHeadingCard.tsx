@@ -2,7 +2,7 @@ import { PrimaryButton, SecondaryButton } from "../common/Buttons";
 
 function BusinessHeadingCard() {
   return (
-    <div className="-mx-20 bg-green-900 pt-16 pb-20 text-gray-100">
+    <section className="-mx-20 bg-green-900 py-20 text-gray-100">
       <p className="mx-auto w-3/4 text-center text-7xl font-extrabold text-green-200 uppercase">
         Nexura business account for a huge team
       </p>
@@ -22,7 +22,7 @@ function BusinessHeadingCard() {
           Try Demo
         </SecondaryButton>
       </div>
-    </div>
+    </section>
   );
 }
 

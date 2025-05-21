@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function AppCard() {
   return (
-    <div className="mx-auto w-1/2 py-30 text-center">
+    <section className="mx-auto w-1/2 py-30 text-center">
       <div className="*:justify-center">
         <MarketStatistics />
       </div>
@@ -36,7 +36,7 @@ function AppCard() {
           size={150}
         />
       </div>
-    </div>
+    </section>
   );
 }
 
