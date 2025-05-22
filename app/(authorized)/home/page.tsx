@@ -1,5 +1,5 @@
 function AuthorizedHome() {
-  return <div></div>;
+  return <div>home</div>;
 }
 
 export default AuthorizedHome;
