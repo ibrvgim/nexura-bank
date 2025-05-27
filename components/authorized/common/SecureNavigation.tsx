@@ -5,11 +5,11 @@ import Link from "next/link";
 function SecureNavigation() {
   return (
     <nav className="col-span-full mb-16 flex items-center justify-between">
-      <Logo style="black" />
+      <Logo />
 
-      <Link href="" className="flex items-center gap-2">
-        <UserCircleIcon className="size-8" />
-        <p className="font-medium tracking-wide">Imran Gasimov</p>
+      <Link href="" className="flex items-center gap-2 text-gray-600">
+        <UserCircleIcon className="size-7" />
+        <p className="tracking-wide">Imran Gasimov</p>
         <ChevronDownIcon className="size-4" />
       </Link>
     </nav>

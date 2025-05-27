@@ -8,6 +8,7 @@ export interface DebitCardType {
 }
 
 interface OfferingType {
+  icon: React.ReactNode;
   title: string;
   description: string;
 }

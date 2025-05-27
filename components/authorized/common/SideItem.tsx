@@ -18,7 +18,7 @@ function SideItem({
   return (
     <Link
       href={path}
-      className={`flex w-full items-center gap-3 rounded-full px-6 py-3 text-[15px] tracking-wide transition-all duration-200 ${isActive ? "bg-stone-300 font-normal" : "text-gray-500 hover:bg-stone-100 hover:text-gray-900"}`}
+      className={`flex w-full items-center gap-3 rounded-full px-6 py-3 text-[15px] tracking-wide transition-all duration-200 ${isActive ? "bg-green-400 font-normal text-white" : "text-gray-500 hover:bg-stone-100 hover:text-gray-900"}`}
     >
       <div className="size-5">{icon}</div>
       {children}
