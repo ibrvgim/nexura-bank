@@ -4,7 +4,7 @@ function TransactionsTable() {
       <thead>
         <tr className="border-b-1 border-b-gray-300 *:text-start *:text-xs *:font-normal *:text-gray-500">
           <th scope="col" className="py-3">
-            Receiver&apos;s Name
+            Recipient / Sender
           </th>
           <th scope="col">Transaction ID</th>
           <th scope="col">Transaction Date</th>

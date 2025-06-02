@@ -6,7 +6,9 @@ import {
 function TransactionsSearchEngine() {
   return (
     <div className="flex items-center justify-between pb-5">
-      <p className="text-3xl font-semibold tracking-wide">Transactions</p>
+      <p className="text-3xl font-semibold tracking-wide text-gray-700">
+        Transactions
+      </p>
 
       <div className="flex items-center gap-5">
         <button className="flex cursor-pointer items-center rounded-full bg-green-400 px-4 py-1 text-sm tracking-wide text-white outline-1 outline-green-400 transition-colors duration-200 hover:bg-transparent hover:text-green-500">

@@ -33,7 +33,7 @@ function PaginationItem({
 }) {
   return (
     <button
-      className={`size-8.5 cursor-pointer rounded-sm border-1 border-gray-500 text-gray-500 ${isActive ? "border-green-400 bg-green-400 text-white" : "hover:bg-stone-100"} `}
+      className={`size-8.5 cursor-pointer rounded-sm border-1 border-gray-500 text-gray-500 transition-colors duration-200 ${isActive ? "border-green-400 bg-green-400 text-white" : "hover:bg-stone-100"} `}
     >
       {children}
     </button>
