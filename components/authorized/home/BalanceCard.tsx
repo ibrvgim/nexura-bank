@@ -8,7 +8,7 @@ function BalanceCard() {
         <p className="mt-1 text-4xl font-semibold">€4,836.00</p>
       </div>
 
-      <div className="flex flex-col gap-3 text-xs font-medium text-gray-500 *:flex *:h-full *:cursor-pointer *:items-center *:gap-2 *:rounded-lg *:border-2 *:border-gray-300 *:px-8 *:uppercase *:transition-all *:duration-300 *:hover:border-gray-700 *:hover:bg-gray-700 *:hover:text-white">
+      <div className="flex flex-col gap-2 text-xs font-medium text-gray-500 *:flex *:h-full *:cursor-pointer *:items-center *:gap-2 *:rounded-lg *:border-2 *:border-gray-300 *:px-8 *:uppercase *:transition-all *:duration-300 *:hover:border-gray-700 *:hover:bg-gray-700 *:hover:text-white">
         <button>
           <PaperAirplaneIcon className="size-4" />
           Send Money

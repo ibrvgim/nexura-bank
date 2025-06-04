@@ -11,12 +11,9 @@ async function TransferMoney({
   const isConverterEmpty = !Object.entries(converterData).length;
 
   const allCurrencies = (await getCurrencies()) || [];
-  const currenciesRate =
-    !isConverterEmpty && (await getCurrenciesRate(converterData.to));
-
-  const chosenCurrencyRate =
+  const currencyRate =
     !isConverterEmpty &&
-    Number(currenciesRate.rates[converterData?.to.toUpperCase()]);
+    (await getCurrenciesRate(converterData.from, converterData.to));
 
   return (
     <div className="my-15">
@@ -24,7 +21,7 @@ async function TransferMoney({
 
       <Converter
         allCurrencies={allCurrencies}
-        chosenCurrencyRate={chosenCurrencyRate || 0}
+        currencyRate={currencyRate || 0}
         converterData={converterData}
         isConverterEmpty={isConverterEmpty}
       />

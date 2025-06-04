@@ -10,16 +10,18 @@ import formatNumber from "@/utilities/formatNumber";
 
 function Converter({
   allCurrencies,
-  chosenCurrencyRate,
+  currencyRate,
   converterData,
   isConverterEmpty,
 }: {
   allCurrencies: CurrencyItem[];
-  chosenCurrencyRate: number;
+  currencyRate: number;
   converterData: ConverterData;
   isConverterEmpty: boolean;
 }) {
-  const [amount, setAmount] = useState(converterData.amount || "100");
+  const [amount, setAmount] = useState(
+    converterData.amount || formatNumber("1000"),
+  );
 
   const [selectValues, setSelectValues] = useState({
     fromValue: converterData.from || "usd",
@@ -88,7 +90,7 @@ function Converter({
               {findCurrency(converterData.from)?.currencyName} =
             </p>
             <p className="text-2xl font-semibold text-gray-700 capitalize">
-              {formatNumber(chosenCurrencyRate * Number(converterData.amount))}{" "}
+              {formatNumber(currencyRate * Number(converterData.amount))}{" "}
               {findCurrency(converterData.to)?.currencyCode}
             </p>
           </div>
@@ -99,7 +101,7 @@ function Converter({
             Transfer Now
           </Button>
           <Button
-            path={`?amount=${amount}&from=${selectValues.fromValue}&to=${selectValues.toValue}`}
+            path={`?amount=${amount.replace(".", "")}&from=${selectValues.fromValue.toLowerCase()}&to=${selectValues.toValue.toLowerCase()}`}
           >
             Convert
           </Button>

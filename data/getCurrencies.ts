@@ -1,6 +1,9 @@
 export default async function getCurrencies() {
   try {
-    const response = await fetch("https://restcountries.com/v3.1/all");
+    const response = await fetch(
+      "https://restcountries.com/v3.1/all?fields=currencies,flag",
+    );
+
     if (!response.ok) throw new Error("Could not get data.");
 
     const data = await response.json();

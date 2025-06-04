@@ -1,5 +1,5 @@
 import { CurrencyItem } from "@/types/types";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 interface SelectInputProps {
@@ -51,7 +51,11 @@ function SelectInput({
         <span className="text-gray-500 capitalize">
           {content.length > 15 ? `${content.slice(0, 15)}...` : content}
         </span>{" "}
-        <ChevronDownIcon className="ml-auto size-5" />
+        {toggleSelect ? (
+          <XMarkIcon className="ml-auto size-5 cursor-pointer" />
+        ) : (
+          <ChevronDownIcon className="ml-auto size-5 cursor-pointer" />
+        )}
       </button>
 
       {toggleSelect && (
