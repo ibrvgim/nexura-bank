@@ -34,7 +34,7 @@ function CardItem({ card }: { card: DebitCardType }) {
           ))}
         </ul>
 
-        <p className="my-5 text-sm font-light text-gray-700">
+        <p className="mt-10 mb-5 text-sm font-light text-gray-700">
           By ordering the{" "}
           <span className="font-normal capitalize">{card.type}</span> card, you
           accept our terms and conditions.

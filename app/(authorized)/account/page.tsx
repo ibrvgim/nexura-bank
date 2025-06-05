@@ -1,7 +1,8 @@
-import CreateBusinessAccountCard from "@/components/authorized/account/CreateBusinessAccountCard";
 import Logout from "@/components/authorized/account/Logout";
 import ManageAccount from "@/components/authorized/account/ManageAccount";
 import PersonalCard from "@/components/authorized/account/PersonalCard";
+import ActionLink from "@/components/authorized/common/ActionLink";
+import { BriefcaseIcon } from "@heroicons/react/24/outline";
 
 function Account() {
   return (
@@ -13,7 +14,13 @@ function Account() {
       <div className="mt-10 flex gap-10 *:flex-1">
         <div>
           <PersonalCard />
-          <CreateBusinessAccountCard />
+
+          <div className="mt-10">
+            <ActionLink
+              icon={<BriefcaseIcon />}
+              title="Create a Business Account"
+            />
+          </div>
 
           <p className="my-6 text-center text-stone-500">
             Nexura Customer Number:{" "}

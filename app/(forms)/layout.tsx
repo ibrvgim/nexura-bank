@@ -1,14 +1,14 @@
 import AuthNavigation from "@/components/authentication/AuthNavigation";
 
-export default function AuthenticationLayout({
+export default function FormsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <main className="px-48 py-9">
+    <div className="px-48 py-9">
       <AuthNavigation />
       {children}
-    </main>
+    </div>
   );
 }
