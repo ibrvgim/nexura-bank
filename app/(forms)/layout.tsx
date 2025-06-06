@@ -1,4 +1,6 @@
 import AuthNavigation from "@/components/authentication/AuthNavigation";
+import MiniLoading from "@/components/common/MiniLoading";
+import { Suspense } from "react";
 
 export default function FormsLayout({
   children,
@@ -6,9 +8,9 @@ export default function FormsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="px-48 py-9">
-      <AuthNavigation />
-      {children}
+    <div className="px-48 py-10">
+      <AuthNavigation path="/home" />
+      <Suspense fallback={<MiniLoading />}>{children}</Suspense>
     </div>
   );
 }

@@ -1,32 +1,24 @@
+"use client";
+
 import useClickOutside from "@/hooks/useClickOutside";
 import { CurrencyItem } from "@/types/types";
 import formatString from "@/utilities/formatString";
 import {
   ChevronDownIcon,
-  MagnifyingGlassIcon,
   XMarkIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
 
-interface SelectInputProps {
-  flag: string;
-  content: string;
-  label: string;
-  allCurrencies: CurrencyItem[];
-  selectValues: { fromValue: string; toValue: string };
-  setSelectValues: React.Dispatch<
-    React.SetStateAction<{ fromValue: string; toValue: string }>
-  >;
-}
-
-function SelectInput({
-  flag,
-  content,
-  label,
+function SelectCurrency({
   allCurrencies,
-  selectValues,
-  setSelectValues,
-}: SelectInputProps) {
+  selectedCurrency,
+  setSelectedCurrency,
+}: {
+  allCurrencies: CurrencyItem[];
+  selectedCurrency: string;
+  setSelectedCurrency: React.Dispatch<React.SetStateAction<string>>;
+}) {
   const [toggleSelect, setToggleSelect] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const htmlElement = useRef<HTMLDivElement>(null);
@@ -38,20 +30,22 @@ function SelectInput({
     if (toggleSelect && inputElement.current) inputElement.current.focus();
   }, [toggleSelect]);
 
+  const currentCurrency = allCurrencies.find(
+    (item) =>
+      formatString(item.currencyCode) === formatString(selectedCurrency),
+  );
+
   function cleanSearch() {
     if (searchValue) setSearchValue("");
   }
 
-  function handleToggleSelect() {
+  function handleSelectToggle() {
     setToggleSelect((prev) => !prev);
     cleanSearch();
   }
 
-  function handleValue(value: string) {
-    setSelectValues((prev) => ({
-      ...prev,
-      [formatString(label) === "from" ? "fromValue" : "toValue"]: value,
-    }));
+  function handleSelectedCurrency(value: string) {
+    setSelectedCurrency(value);
     setToggleSelect(false);
     cleanSearch();
   }
@@ -60,43 +54,28 @@ function SelectInput({
     (item) =>
       (formatString(item.currencyCode).includes(formatString(searchValue)) ||
         formatString(item.currencyName).includes(formatString(searchValue))) &&
-      formatString(item.currencyCode) !==
-        formatString(selectValues.fromValue) &&
-      formatString(item.currencyCode) !== formatString(selectValues.toValue),
+      formatString(item.currencyCode) !== formatString(selectedCurrency),
   );
 
   return (
-    <div ref={htmlElement} className="relative w-full">
-      <label className="mb-2 inline-block text-xs font-medium tracking-wider text-gray-700 uppercase">
-        {label}:
-      </label>
-
+    <div ref={htmlElement} className="group absolute top-0 right-0 h-full pl-5">
       <button
-        className="flex w-full items-center rounded-md bg-white px-7 py-4 text-lg font-medium tracking-wide outline-2 outline-gray-300 transition-all duration-300 hover:outline-gray-600"
-        onClick={handleToggleSelect}
-        title={content}
-        aria-haspopup="listbox"
-        aria-expanded={toggleSelect}
-        aria-controls="currency-options"
+        type="button"
+        className="h-full w-full cursor-pointer pr-5 text-3xl font-semibold tracking-wider uppercase"
+        onClick={handleSelectToggle}
       >
-        <span className="mr-3 text-2xl leading-0">{flag}</span>
-        <span className="text-gray-500 capitalize">
-          {content.length > 15 ? `${content.slice(0, 15)}...` : content}
-        </span>{" "}
-        {toggleSelect ? (
-          <XMarkIcon className="ml-auto size-5 cursor-pointer" />
-        ) : (
-          <ChevronDownIcon className="ml-auto size-5 cursor-pointer" />
-        )}
+        {currentCurrency?.flag} {currentCurrency?.currencyCode}
+        <span className="ml-3 inline-block *:size-5">
+          {toggleSelect ? <XMarkIcon /> : <ChevronDownIcon />}
+        </span>
       </button>
 
       {toggleSelect && (
-        <div className="absolute top-24 right-0 z-10 w-full rounded-md bg-white shadow-md outline-2 outline-gray-200">
+        <div className="absolute top-24 right-0 z-10 w-80 rounded-md bg-white shadow-md outline-2 outline-gray-200">
           <div className="relative px-3">
             <span className="absolute top-1/2 left-6 inline-block -translate-y-1/2 text-gray-700 *:size-4.5">
               <MagnifyingGlassIcon />
             </span>
-
             <input
               ref={inputElement}
               type="text"
@@ -134,7 +113,7 @@ function SelectInput({
                   key={item.currencyCode}
                   flag={item.flag}
                   code={item.currencyCode}
-                  onClick={handleValue}
+                  onClick={handleSelectedCurrency}
                 >
                   {item.currencyName}
                 </Option>
@@ -165,6 +144,7 @@ function Option({
   return (
     <li className="px-3">
       <button
+        type="button"
         className="flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-3 text-start text-sm capitalize hover:bg-gray-100"
         onClick={() => onClick(code)}
       >
@@ -175,4 +155,4 @@ function Option({
   );
 }
 
-export default SelectInput;
+export default SelectCurrency;

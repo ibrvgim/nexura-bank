@@ -6,7 +6,7 @@ export default function AuthenticationLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className="px-48 py-9">
+    <main className="px-48 py-10">
       <AuthNavigation />
       {children}
     </main>

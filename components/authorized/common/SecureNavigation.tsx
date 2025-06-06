@@ -5,7 +5,7 @@ import Link from "next/link";
 function SecureNavigation() {
   return (
     <nav className="col-span-full mb-16 flex items-center justify-between">
-      <Logo />
+      <Logo path="/home" />
 
       <Link
         href="/account"

@@ -12,7 +12,7 @@ function Navigation() {
 
   return (
     <nav
-      className={`flex w-full items-center px-20 py-6 text-[15px] ${isCurrentBusiness ? "bg-green-900 text-white" : "bg-white"}`}
+      className={`flex w-full items-center px-20 py-8 text-[15px] ${isCurrentBusiness ? "bg-green-900 text-white" : "bg-white"}`}
     >
       <Logo
         style={

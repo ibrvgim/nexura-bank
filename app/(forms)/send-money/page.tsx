@@ -3,7 +3,7 @@ import SendMoneyAmountForm from "@/components/forms/send-money/SendMoneyAmountFo
 
 function SendMoney() {
   return (
-    <div className="my-10">
+    <div className="mt-12 mb-24">
       <FormContainer>
         <SendMoneyAmountForm />
       </FormContainer>

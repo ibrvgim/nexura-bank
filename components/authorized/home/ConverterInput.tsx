@@ -16,7 +16,7 @@ function ConverterInput({
   return (
     <div>
       <label className="mb-2 inline-block text-xs font-medium tracking-wider text-gray-700 uppercase">
-        {label}
+        {label}:
       </label>
       <input
         type={type}

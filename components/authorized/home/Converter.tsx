@@ -7,6 +7,7 @@ import ConverterData, { CurrencyItem } from "@/types/types";
 import { useState } from "react";
 import Link from "next/link";
 import formatNumber from "@/utilities/formatNumber";
+import formatString from "@/utilities/formatString";
 
 function Converter({
   allCurrencies,
@@ -37,7 +38,7 @@ function Converter({
 
   function findCurrency(currencyCode: string) {
     return allCurrencies.find(
-      (item) => item.currencyCode.toLowerCase() === currencyCode.toLowerCase(),
+      (item) => formatString(item.currencyCode) === formatString(currencyCode),
     );
   }
 
@@ -45,7 +46,7 @@ function Converter({
   const toCurrency = findCurrency(selectValues.toValue);
 
   return (
-    <div className="rounded-2xl bg-gray-50 p-10">
+    <div className="rounded-2xl bg-stone-50 p-10">
       <div className="flex gap-2">
         <ConverterInput
           placeholder="Amount to Convert"
@@ -61,6 +62,7 @@ function Converter({
             content={`${fromCurrency?.currencyCode} - ${fromCurrency?.currencyName}`}
             label="From"
             allCurrencies={allCurrencies}
+            selectValues={selectValues}
             setSelectValues={setSelectValues}
           />
 
@@ -77,6 +79,7 @@ function Converter({
             content={`${toCurrency?.currencyCode} - ${toCurrency?.currencyName}`}
             label="To"
             allCurrencies={allCurrencies}
+            selectValues={selectValues}
             setSelectValues={setSelectValues}
           />
         </div>
@@ -101,7 +104,7 @@ function Converter({
             Transfer Now
           </Button>
           <Button
-            path={`?amount=${amount.replace(".", "")}&from=${selectValues.fromValue.toLowerCase()}&to=${selectValues.toValue.toLowerCase()}`}
+            path={`?amount=${amount.replace(".", "")}&from=${formatString(selectValues.fromValue)}&to=${formatString(selectValues.toValue)}`}
           >
             Convert
           </Button>
