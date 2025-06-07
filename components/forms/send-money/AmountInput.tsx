@@ -1,6 +1,5 @@
 "use client";
 
-import formatNumber from "@/utilities/formatNumber";
 import { HTMLInputTypeAttribute, useState } from "react";
 import SelectCurrency from "./SelectCurrency";
 import { CurrencyItem } from "@/types/types";
@@ -11,12 +10,16 @@ function AmountInput({
   type,
   placeholder,
   allCurrencies,
+  value,
+  onHandle,
 }: {
   label: string;
   name: string;
   type: HTMLInputTypeAttribute;
   placeholder?: string;
   allCurrencies: CurrencyItem[];
+  value: string;
+  onHandle: (value: string) => void;
 }) {
   const [selectedCurrency, setSelectedCurrency] = useState("eur");
 
@@ -34,8 +37,9 @@ function AmountInput({
           id={name}
           type={type}
           placeholder={placeholder}
-          defaultValue={formatNumber(2000)}
-          className="w-full rounded-lg py-4 pr-44 pl-6 text-5xl font-extrabold tracking-wide text-gray-700 outline-2 outline-gray-200 transition-all duration-300 group-hover:outline-gray-500 placeholder:text-2xl hover:outline-gray-500 focus:outline-3 focus:outline-gray-500"
+          className="w-full rounded-lg py-4 pr-44 pl-6 text-5xl font-extrabold tracking-wide text-gray-700 outline-2 outline-gray-200 transition-all duration-300 group-hover:outline-gray-500 placeholder:text-gray-600 hover:outline-gray-500 focus:outline-3 focus:outline-gray-500 focus:placeholder:opacity-0"
+          value={value}
+          onChange={(e) => onHandle(e.target.value)}
         />
 
         <SelectCurrency

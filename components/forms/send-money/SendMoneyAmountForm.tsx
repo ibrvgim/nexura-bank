@@ -1,4 +1,5 @@
-import getCurrencies from "@/data/getCurrencies";
+"use client";
+
 import AmountInput from "./AmountInput";
 import { CurrencyItem } from "@/types/types";
 import ActionCard from "./ActionCard";
@@ -7,11 +8,15 @@ import {
   ClockIcon,
   ReceiptPercentIcon,
 } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { useState } from "react";
+import FormButton from "../FormButton";
 
-async function SendMoneyAmountForm() {
-  const allCurrencies: CurrencyItem[] = (await getCurrencies()) || [];
-  const isActive = false;
+function SendMoneyAmountForm({
+  allCurrencies,
+}: {
+  allCurrencies: CurrencyItem[];
+}) {
+  const [amountToSend, setAmountToSend] = useState("");
 
   return (
     <>
@@ -19,10 +24,24 @@ async function SendMoneyAmountForm() {
         label="Amount To Send:"
         name="sendAmount"
         type="text"
-        placeholder="Amount to Send..."
+        placeholder="0"
         allCurrencies={allCurrencies}
+        value={amountToSend}
+        onHandle={setAmountToSend}
       />
 
+      {amountToSend && Number(amountToSend) >= 5 && <SendAmountConditions />}
+
+      <FormButton active={!!amountToSend && Number(amountToSend) >= 5}>
+        Continue
+      </FormButton>
+    </>
+  );
+}
+
+function SendAmountConditions() {
+  return (
+    <>
       <ul className="mt-12 mb-8 flex flex-col gap-8 border-b border-b-stone-300 pb-8">
         <li>
           <ActionCard
@@ -50,13 +69,6 @@ async function SendMoneyAmountForm() {
       <ActionCard icon={<ReceiptPercentIcon />} title="Total amount" path="">
         with Fees
       </ActionCard>
-
-      <Link
-        href=""
-        className={`mt-16 block rounded-full py-2 text-center font-medium tracking-wide outline-2 transition-all duration-200 ${isActive ? "bg-green-400 text-white outline-green-400 hover:bg-transparent hover:text-green-400" : "cursor-not-allowed bg-stone-300 text-stone-500 opacity-70 outline-stone-300"}`}
-      >
-        Continue
-      </Link>
     </>
   );
 }

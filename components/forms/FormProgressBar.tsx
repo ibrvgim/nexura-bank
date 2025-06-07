@@ -1,6 +1,6 @@
 import {
   BanknotesIcon,
-  UsersIcon,
+  UserIcon,
   CreditCardIcon,
 } from "@heroicons/react/24/outline";
 
@@ -15,7 +15,7 @@ function FormProgressBar() {
         &nbsp;
       </li>
 
-      <StepItem icon={<UsersIcon />} active={true} />
+      <StepItem icon={<UserIcon />} active={true} />
 
       <li className="-z-10 -mx-2 h-[5px] w-60 rounded-full bg-stone-200">
         &nbsp;
