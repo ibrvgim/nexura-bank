@@ -28,6 +28,7 @@ export interface ConverterData {
 export interface SendMoneyType {
   amountToSend: string;
   currency: string;
+  currencySymbol: string;
   payingWith: string;
   recipientFullname: string;
   recipientEmail: string;

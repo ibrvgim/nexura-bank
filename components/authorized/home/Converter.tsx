@@ -100,7 +100,10 @@ function Converter({
         )}
 
         <div className="ml-auto space-x-2">
-          <Button type="secondary" path="">
+          <Button
+            type="secondary"
+            path={`/send-money?amountToTransfer=${amount.replace(".", "")}&transferCurrency=${selectValues.fromValue}`}
+          >
             Transfer Now
           </Button>
           <Button

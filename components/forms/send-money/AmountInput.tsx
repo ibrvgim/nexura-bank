@@ -21,7 +21,7 @@ function AmountInput({
   placeholder?: string;
   allCurrencies: CurrencyItem[];
   selectedCurrency: string;
-  setSelectedCurrency: (value: string) => void;
+  setSelectedCurrency: (firstValue: string, secondValue: string) => void;
 
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

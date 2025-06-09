@@ -17,7 +17,7 @@ function SelectCurrency({
 }: {
   allCurrencies: CurrencyItem[];
   selectedCurrency: string;
-  setSelectedCurrency: (value: string) => void;
+  setSelectedCurrency: (firstValue: string, secondValue: string) => void;
 }) {
   const [toggleSelect, setToggleSelect] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -44,8 +44,8 @@ function SelectCurrency({
     cleanSearch();
   }
 
-  function handleSelectedCurrency(value: string) {
-    setSelectedCurrency(formatString(value));
+  function handleSelectedCurrency(firstValue: string, secondValue: string) {
+    setSelectedCurrency(formatString(firstValue), secondValue);
     setToggleSelect(false);
     cleanSearch();
   }
@@ -113,6 +113,7 @@ function SelectCurrency({
                   key={item.currencyCode}
                   flag={item.flag}
                   code={item.currencyCode}
+                  currencySymbol={item.currencySymbol}
                   onClick={handleSelectedCurrency}
                 >
                   {item.currencyName}
@@ -134,19 +135,21 @@ function Option({
   children,
   code,
   flag,
+  currencySymbol,
   onClick,
 }: {
   children: React.ReactNode;
   code: string;
   flag: string;
-  onClick: (value: string) => void;
+  currencySymbol: string;
+  onClick: (firstValue: string, secondValue: string) => void;
 }) {
   return (
     <li className="px-3">
       <button
         type="button"
         className="flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-3 text-start text-sm capitalize hover:bg-gray-100"
-        onClick={() => onClick(code)}
+        onClick={() => onClick(code, currencySymbol)}
       >
         <span className="text-lg leading-0">{flag}</span>
         {code} {children}

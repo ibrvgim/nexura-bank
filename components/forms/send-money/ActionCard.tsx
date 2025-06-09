@@ -1,3 +1,4 @@
+import formatNumber from "@/utilities/formatNumber";
 import Link from "next/link";
 
 function ActionCard({
@@ -6,6 +7,8 @@ function ActionCard({
   children,
   pathTitle,
   path,
+  amountToSend,
+  currencySymbol,
   style,
 }: {
   icon: React.ReactNode;
@@ -13,6 +16,8 @@ function ActionCard({
   children?: React.ReactNode;
   pathTitle?: string;
   path: string;
+  amountToSend?: string;
+  currencySymbol?: string;
   style?: string;
 }) {
   return (
@@ -35,7 +40,8 @@ function ActionCard({
         </Link>
       ) : (
         <p className="ml-auto text-2xl font-extrabold text-gray-700">
-          €1.995,00
+          {formatNumber(Number(amountToSend) - Number(amountToSend) * 0.01)}
+          {currencySymbol}
         </p>
       )}
     </div>

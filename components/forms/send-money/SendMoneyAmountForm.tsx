@@ -21,7 +21,7 @@ function SendMoneyAmountForm({
   setFormStep: (value: string) => void;
   formData: SendMoneyType;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCurrency: (value: string) => void;
+  handleCurrency: (firstValue: string, secondValue: string) => void;
 }) {
   const isDataValid =
     formData.amountToSend && Number(formData.amountToSend) >= 5;
@@ -83,7 +83,13 @@ function SendAmountConditions({ formData }: { formData: SendMoneyType }) {
         </li>
       </ul>
 
-      <ActionCard icon={<ReceiptPercentIcon />} title="Total amount" path="">
+      <ActionCard
+        icon={<ReceiptPercentIcon />}
+        title="Total amount"
+        path=""
+        amountToSend={formData.amountToSend}
+        currencySymbol={formData.currencySymbol}
+      >
         with Fees
       </ActionCard>
     </>

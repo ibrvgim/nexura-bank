@@ -7,18 +7,28 @@ import SendMoneyAmountForm from "@/components/forms/send-money/SendMoneyAmountFo
 import { CurrencyItem, SendMoneyType } from "@/types/types";
 import { useState } from "react";
 
-const initialState: SendMoneyType = {
-  amountToSend: "",
-  currency: "eur",
-  payingWith: "bank transfer",
-  recipientFullname: "",
-  recipientEmail: "",
-  accountType: "eu",
-  accountNumber: "",
-  accountSwift: "",
-};
+function FormContainer({
+  allCurrencies,
+  params,
+}: {
+  allCurrencies: CurrencyItem[];
+  params: {
+    amountToTransfer: string | undefined;
+    transferCurrency: string | undefined;
+  };
+}) {
+  const initialState: SendMoneyType = {
+    amountToSend: params.amountToTransfer || "",
+    currency: params.transferCurrency || "eur",
+    currencySymbol: "€",
+    payingWith: "bank transfer",
+    recipientFullname: "",
+    recipientEmail: "",
+    accountType: "eu",
+    accountNumber: "",
+    accountSwift: "",
+  };
 
-function FormContainer({ allCurrencies }: { allCurrencies: CurrencyItem[] }) {
   const [formStep, setFormStep] = useState("amount");
   const [formData, setFormData] = useState(initialState);
 
@@ -42,10 +52,11 @@ function FormContainer({ allCurrencies }: { allCurrencies: CurrencyItem[] }) {
     }));
   }
 
-  function handleCurrency(value: string) {
+  function handleCurrency(currencyCode: string, currencySymbol: string) {
     setFormData((prev) => ({
       ...prev,
-      currency: value,
+      currency: currencyCode,
+      currencySymbol,
     }));
   }
 
@@ -77,7 +88,9 @@ function FormContainer({ allCurrencies }: { allCurrencies: CurrencyItem[] }) {
           />
         )}
 
-        {formStep === "pay" && <PayForm setFormStep={setFormStep} />}
+        {formStep === "pay" && (
+          <PayForm setFormStep={setFormStep} formData={formData} />
+        )}
       </div>
     </>
   );

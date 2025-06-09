@@ -2,8 +2,27 @@ import formatNumber from "@/utilities/formatNumber";
 import PaymentDetailsCard from "./PaymentDetailsCard";
 import PaymentItem from "./PaymentItem";
 import FormButton from "../FormButton";
+import { SendMoneyType } from "@/types/types";
 
-function PayForm({ setFormStep }: { setFormStep: (value: string) => void }) {
+function PayForm({
+  formData,
+  setFormStep,
+}: {
+  formData: SendMoneyType;
+  setFormStep: (value: string) => void;
+}) {
+  const {
+    recipientFullname,
+    recipientEmail,
+    amountToSend,
+    payingWith,
+    currencySymbol,
+    accountSwift,
+    accountNumber,
+  } = formData;
+
+  const calcFee = Number(amountToSend) * 0.01;
+
   return (
     <>
       <PaymentDetailsCard
@@ -12,10 +31,10 @@ function PayForm({ setFormStep }: { setFormStep: (value: string) => void }) {
         isChangeable
         onClick={() => setFormStep("recipient")}
       >
-        <PaymentItem title="Full Name" value="Alex Johnson" />
-        <PaymentItem title="Email" value="alex.johnson@gmail.com" />
-        <PaymentItem title="SWIFT" value="TRWIBEB17" />
-        <PaymentItem title="IBAN" value="DE 12 3456 6789 0123 4567 89" last />
+        <PaymentItem title="Full Name" value={recipientFullname} />
+        {recipientEmail && <PaymentItem title="Email" value={recipientEmail} />}
+        {accountSwift && <PaymentItem title="SWIFT" value={accountSwift} />}
+        <PaymentItem title="IBAN / Account Number" value={accountNumber} last />
       </PaymentDetailsCard>
 
       <PaymentDetailsCard
@@ -26,17 +45,21 @@ function PayForm({ setFormStep }: { setFormStep: (value: string) => void }) {
       >
         <PaymentItem
           title="Transfer Amount"
-          value={`$${formatNumber(2000)},00`}
+          value={`${formatNumber(Number(amountToSend))}${currencySymbol}`}
         />
-        <PaymentItem title="Paying with" value="Bank Transfer" />
+        <PaymentItem
+          title="Paying with"
+          value={payingWith}
+          style="capitalize"
+        />
         <PaymentItem title="Arriving by" value="Monday" />
-        <PaymentItem title="Fees" value="$0.95" last />
+        <PaymentItem title="Fees" value={`${calcFee}${currencySymbol}`} last />
       </PaymentDetailsCard>
 
       <PaymentDetailsCard>
         <PaymentItem
           title="Total Amount"
-          value={`$${formatNumber("1999")},05`}
+          value={`${formatNumber(Number(amountToSend) - calcFee)}${currencySymbol}`}
           last
           isBold
         ></PaymentItem>
