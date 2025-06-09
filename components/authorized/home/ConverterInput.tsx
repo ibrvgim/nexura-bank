@@ -20,6 +20,8 @@ function ConverterInput({
       </label>
       <input
         type={type}
+        inputMode="numeric"
+        pattern="[0-9]*"
         placeholder={placeholder}
         className="w-full rounded-md bg-white px-3 py-4 text-xl font-medium tracking-wide outline-2 outline-gray-300 transition-all duration-500 placeholder:text-sm placeholder:font-light hover:outline-gray-600 focus:outline-3 focus:outline-gray-600"
         value={value}

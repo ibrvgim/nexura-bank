@@ -1,4 +1,3 @@
-// debit card type
 export interface DebitCardType {
   image: string;
   type: string;
@@ -20,8 +19,19 @@ export interface CurrencyItem {
   flag: string;
 }
 
-export default interface ConverterData {
+export interface ConverterData {
   from: string;
   to: string;
   amount: string;
+}
+
+export interface SendMoneyType {
+  amountToSend: string;
+  currency: string;
+  payingWith: string;
+  recipientFullname: string;
+  recipientEmail: string;
+  accountType: "eu" | "other";
+  accountNumber: string;
+  accountSwift: string;
 }

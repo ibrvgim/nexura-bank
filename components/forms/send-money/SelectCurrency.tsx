@@ -17,7 +17,7 @@ function SelectCurrency({
 }: {
   allCurrencies: CurrencyItem[];
   selectedCurrency: string;
-  setSelectedCurrency: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedCurrency: (value: string) => void;
 }) {
   const [toggleSelect, setToggleSelect] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -45,7 +45,7 @@ function SelectCurrency({
   }
 
   function handleSelectedCurrency(value: string) {
-    setSelectedCurrency(value);
+    setSelectedCurrency(formatString(value));
     setToggleSelect(false);
     cleanSearch();
   }

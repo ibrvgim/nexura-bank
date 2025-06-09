@@ -1,45 +1,117 @@
+import { SendMoneyType } from "@/types/types";
 import {
   BanknotesIcon,
   UserIcon,
   CreditCardIcon,
 } from "@heroicons/react/24/outline";
 
-function FormProgressBar() {
+function FormProgressBar({
+  formData,
+  formStep,
+  setFormStep,
+}: {
+  formData: SendMoneyType;
+  formStep: string;
+  setFormStep: (value: string) => void;
+}) {
   return (
     <ul className="flex items-center justify-center">
-      <StepItem icon={<BanknotesIcon />} active={true} />
+      <StepItem
+        icon={<BanknotesIcon />}
+        stepName="amount"
+        setFormStep={setFormStep}
+        formData={formData}
+        isActive={
+          formStep === "amount" ||
+          formStep === "recipient" ||
+          formStep === "pay"
+        }
+      />
 
-      <li
-        className={`-z-10 -mx-2 h-[5px] w-60 rounded-full ${true ? "bg-green-400" : "bg-stone-200"}`}
-      >
-        &nbsp;
-      </li>
+      <ProgressLine isActive={formStep === "recipient" || formStep === "pay"} />
 
-      <StepItem icon={<UserIcon />} active={true} />
+      <StepItem
+        icon={<UserIcon />}
+        stepName="recipient"
+        setFormStep={setFormStep}
+        formData={formData}
+        isActive={formStep === "recipient" || formStep === "pay"}
+      />
 
-      <li className="-z-10 -mx-2 h-[5px] w-60 rounded-full bg-stone-200">
-        &nbsp;
-      </li>
+      <ProgressLine isActive={formStep === "pay"} />
 
-      <StepItem icon={<CreditCardIcon />} active={false} />
+      <StepItem
+        icon={<CreditCardIcon />}
+        stepName="pay"
+        setFormStep={setFormStep}
+        formData={formData}
+        isActive={formStep === "pay"}
+      />
     </ul>
   );
 }
 
 function StepItem({
   icon,
-  active,
+  isActive,
+  stepName,
+  formData,
+  setFormStep,
 }: {
   icon: React.ReactNode;
-  active: boolean;
+  isActive: boolean;
+  stepName: string;
+  formData: SendMoneyType;
+  setFormStep: (value: string) => void;
 }) {
+  function handleFormStep() {
+    const {
+      amountToSend,
+      accountType,
+      accountNumber,
+      accountSwift,
+      recipientFullname,
+    } = formData;
+
+    const isAmountValid = amountToSend && Number(amountToSend) >= 5;
+    const isStepSkippable = stepName === "amount" || stepName === "recipient";
+
+    if (!isAmountValid) return;
+
+    const isEU = accountType === "eu";
+    const isOther = accountType === "other";
+
+    if (isEU && (!accountNumber || !recipientFullname) && !isStepSkippable)
+      return;
+
+    if (
+      isOther &&
+      (!accountNumber || !accountSwift || !recipientFullname) &&
+      !isStepSkippable
+    )
+      return;
+
+    setFormStep(stepName);
+  }
+
   return (
     <li>
       <button
-        className={`inline-block cursor-pointer rounded-full p-4 *:size-6 ${active ? "bg-green-400 text-white" : "bg-stone-200 text-stone-600"}`}
+        className={`inline-block cursor-pointer rounded-full p-4 *:size-6 ${isActive ? "bg-green-400 text-white" : "bg-stone-200 text-stone-600"}`}
+        onClick={handleFormStep}
       >
         {icon}
       </button>
+    </li>
+  );
+}
+
+function ProgressLine({ isActive = false }: { isActive?: boolean }) {
+  return (
+    <li
+      className={`-z-10 -mx-2 h-[5px] w-60 rounded-full ${isActive ? "bg-green-400" : "bg-stone-200"}`}
+    >
+      &nbsp;
     </li>
   );
 }

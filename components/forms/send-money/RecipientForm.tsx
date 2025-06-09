@@ -2,14 +2,42 @@ import formatString from "@/utilities/formatString";
 import FormButton from "../FormButton";
 import FormInput from "../FormInput";
 import FormTab from "../FormTab";
+import { SendMoneyType } from "@/types/types";
 
-function RecipientForm({ accountType }: { accountType: string }) {
+function RecipientForm({
+  setFormStep,
+  formData,
+  handleInputChange,
+  handleAccountType,
+}: {
+  setFormStep: (value: string) => void;
+  formData: SendMoneyType;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleAccountType: (value: "eu" | "other") => void;
+}) {
+  const isDataValid = () => {
+    if (!formData.recipientFullname || !formData.accountNumber) return false;
+
+    if (formData.accountType === "eu") {
+      return true;
+    } else if (formData.accountType === "other" && formData.accountSwift) {
+      return true;
+    } else return false;
+  };
+
+  function handleFormStep() {
+    if (isDataValid()) setFormStep("pay");
+  }
+
   return (
     <>
       <FormInput
         label="Recipient's Email:"
+        name="recipientEmail"
         type="email"
         placeholder="nexura@account.com"
+        value={formData.recipientEmail}
+        onChange={handleInputChange}
         last
       />
 
@@ -18,51 +46,103 @@ function RecipientForm({ accountType }: { accountType: string }) {
       </p>
 
       <div className="mb-8 flex text-center text-sm">
-        <FormTab path="eu" accountType={accountType}>
+        <FormTab
+          type="eu"
+          accountType={formData.accountType}
+          handleAccountType={handleAccountType}
+        >
           EU Account
         </FormTab>
 
-        <FormTab path="non-eu" accountType={accountType}>
+        <FormTab
+          type="other"
+          accountType={formData.accountType}
+          handleAccountType={handleAccountType}
+        >
           Other Account
         </FormTab>
       </div>
 
-      {formatString(accountType) === "eu" && <EUAccount />}
-      {formatString(accountType) === "non-eu" && <OtherAccount />}
+      {formatString(formData.accountType) === "eu" && (
+        <EUAccount formData={formData} handleInputChange={handleInputChange} />
+      )}
+      {formatString(formData.accountType) === "other" && (
+        <OtherAccount
+          formData={formData}
+          handleInputChange={handleInputChange}
+        />
+      )}
 
-      <FormButton>Continue</FormButton>
+      <FormButton onClick={handleFormStep} active={isDataValid()}>
+        Continue
+      </FormButton>
     </>
   );
 }
 
-function EUAccount() {
+function EUAccount({
+  formData,
+  handleInputChange,
+}: {
+  formData: SendMoneyType;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <>
       <FormInput
         label="Recipient's Full Name:"
+        name="recipientFullname"
         type="text"
         placeholder="Alex Johnson"
+        value={formData.recipientFullname}
+        onChange={handleInputChange}
       />
       <FormInput
         label="IBAN:"
+        name="accountNumber"
         type="text"
         placeholder="DE12 3456 7890 1234 5678 90"
+        value={formData.accountNumber}
+        onChange={handleInputChange}
         last
       />
     </>
   );
 }
 
-function OtherAccount() {
+function OtherAccount({
+  formData,
+  handleInputChange,
+}: {
+  formData: SendMoneyType;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <>
       <FormInput
         label="Recipient's Full Name:"
+        name="recipientFullname"
         type="text"
         placeholder="Alex Johnson"
+        value={formData.recipientFullname}
+        onChange={handleInputChange}
       />
-      <FormInput label="SWIFT / BIC:" type="text" placeholder="TRWIBEB17" />
-      <FormInput label="Account Number:" type="text" last />
+      <FormInput
+        label="SWIFT / BIC:"
+        name="accountSwift"
+        type="text"
+        placeholder="TRWIBEB17"
+        value={formData.accountSwift}
+        onChange={handleInputChange}
+      />
+      <FormInput
+        label="Account Number:"
+        name="accountNumber"
+        type="text"
+        value={formData.accountNumber}
+        onChange={handleInputChange}
+        last
+      />
     </>
   );
 }

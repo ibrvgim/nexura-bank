@@ -3,7 +3,7 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import SelectInput from "./SelectInput";
 import ConverterInput from "./ConverterInput";
-import ConverterData, { CurrencyItem } from "@/types/types";
+import { CurrencyItem, ConverterData } from "@/types/types";
 import { useState } from "react";
 import Link from "next/link";
 import formatNumber from "@/utilities/formatNumber";

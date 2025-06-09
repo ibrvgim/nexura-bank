@@ -6,12 +6,14 @@ function ActionCard({
   children,
   pathTitle,
   path,
+  style,
 }: {
   icon: React.ReactNode;
   title: string;
   children?: React.ReactNode;
   pathTitle?: string;
   path: string;
+  style?: string;
 }) {
   return (
     <div className="flex items-center gap-4 font-medium">
@@ -21,7 +23,7 @@ function ActionCard({
 
       <div>
         <p className="text-[15px] font-normal text-gray-500">{title}</p>
-        {children && <p className="tracking-wide">{children}</p>}
+        {children && <p className={`tracking-wide ${style}`}>{children}</p>}
       </div>
 
       {pathTitle ? (
