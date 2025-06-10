@@ -3,6 +3,10 @@ import FormButton from "../FormButton";
 import FormInput from "../FormInput";
 import FormTab from "../FormTab";
 import { SendMoneyType } from "@/types/types";
+import {
+  isEmailValid,
+  isInputLengthValid,
+} from "@/utilities/validateInputsValue";
 
 function RecipientForm({
   setFormStep,
@@ -18,11 +22,17 @@ function RecipientForm({
   const isDataValid = () => {
     if (!formData.recipientFullname || !formData.accountNumber) return false;
 
-    if (formData.accountType === "eu") {
-      return true;
-    } else if (formData.accountType === "other" && formData.accountSwift) {
-      return true;
-    } else return false;
+    if (!!isEmailValid(formData.recipientEmail).message) return false;
+    else if (!!isInputLengthValid(formData.recipientFullname, 5)?.message)
+      return false;
+    else if (!!isInputLengthValid(formData.accountNumber, 12)?.message)
+      return false;
+    else if (
+      formData.accountType === "other" &&
+      !!isInputLengthValid(formData.accountSwift, 8)?.message
+    )
+      return false;
+    else return true;
   };
 
   function handleFormStep() {
@@ -32,13 +42,15 @@ function RecipientForm({
   return (
     <>
       <FormInput
-        label="Recipient's Email:"
+        label="Recipient's Email"
         name="recipientEmail"
         type="email"
         placeholder="nexura@account.com"
         value={formData.recipientEmail}
+        error={isEmailValid(formData.recipientEmail)}
         onChange={handleInputChange}
         last
+        optional
       />
 
       <p className="mt-8 mb-4 text-sm font-medium tracking-wide text-gray-700">
@@ -90,18 +102,20 @@ function EUAccount({
   return (
     <>
       <FormInput
-        label="Recipient's Full Name:"
+        label="Recipient's Full Name"
         name="recipientFullname"
         type="text"
         placeholder="Alex Johnson"
+        error={isInputLengthValid(formData.recipientFullname, 5)}
         value={formData.recipientFullname}
         onChange={handleInputChange}
       />
       <FormInput
-        label="IBAN:"
+        label="IBAN"
         name="accountNumber"
         type="text"
         placeholder="DE12 3456 7890 1234 5678 90"
+        error={isInputLengthValid(formData.accountNumber, 12)}
         value={formData.accountNumber}
         onChange={handleInputChange}
         last
@@ -120,25 +134,28 @@ function OtherAccount({
   return (
     <>
       <FormInput
-        label="Recipient's Full Name:"
+        label="Recipient's Full Name"
         name="recipientFullname"
         type="text"
         placeholder="Alex Johnson"
+        error={isInputLengthValid(formData.recipientFullname, 5)}
         value={formData.recipientFullname}
         onChange={handleInputChange}
       />
       <FormInput
-        label="SWIFT / BIC:"
+        label="SWIFT / BIC"
         name="accountSwift"
         type="text"
         placeholder="TRWIBEB17"
+        error={isInputLengthValid(formData.accountSwift, 8)}
         value={formData.accountSwift}
         onChange={handleInputChange}
       />
       <FormInput
-        label="Account Number:"
+        label="Account Number"
         name="accountNumber"
         type="text"
+        error={isInputLengthValid(formData.accountNumber, 12)}
         value={formData.accountNumber}
         onChange={handleInputChange}
         last

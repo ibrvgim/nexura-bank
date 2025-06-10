@@ -9,25 +9,42 @@ import {
   ReceiptPercentIcon,
 } from "@heroicons/react/24/outline";
 import FormButton from "../FormButton";
+import { redirect } from "next/navigation";
 
 function SendMoneyAmountForm({
   allCurrencies,
   setFormStep,
   formData,
+  currentCurrencySymbol,
   handleInputChange,
   handleCurrency,
+  params,
 }: {
   allCurrencies: CurrencyItem[];
   setFormStep: (value: string) => void;
   formData: SendMoneyType;
+  currentCurrencySymbol: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCurrency: (firstValue: string, secondValue: string) => void;
+  params: {
+    amountToTransfer: string | undefined;
+    transferCurrency: string | undefined;
+  };
 }) {
   const isDataValid =
     formData.amountToSend && Number(formData.amountToSend) >= 5;
 
   function handleFormStep() {
     if (isDataValid) setFormStep("recipient");
+
+    if (!params.amountToTransfer || !params.transferCurrency) return;
+    else if (
+      formData.amountToSend !== params.amountToTransfer ||
+      formData.currency !== params.transferCurrency
+    )
+      redirect(
+        `/send-money/?amountToTransfer=${formData.amountToSend}&transferCurrency=${formData.currency}`,
+      );
   }
 
   return (
@@ -45,7 +62,10 @@ function SendMoneyAmountForm({
       />
 
       {formData.amountToSend && Number(formData.amountToSend) >= 5 && (
-        <SendAmountConditions formData={formData} />
+        <SendAmountConditions
+          formData={formData}
+          currentCurrencySymbol={currentCurrencySymbol}
+        />
       )}
 
       <FormButton active={isDataValid || false} onClick={handleFormStep}>
@@ -55,7 +75,13 @@ function SendMoneyAmountForm({
   );
 }
 
-function SendAmountConditions({ formData }: { formData: SendMoneyType }) {
+function SendAmountConditions({
+  formData,
+  currentCurrencySymbol,
+}: {
+  formData: SendMoneyType;
+  currentCurrencySymbol: string;
+}) {
   return (
     <>
       <ul className="mt-12 mb-8 flex flex-col gap-8 border-b border-b-stone-300 pb-8">
@@ -88,7 +114,7 @@ function SendAmountConditions({ formData }: { formData: SendMoneyType }) {
         title="Total amount"
         path=""
         amountToSend={formData.amountToSend}
-        currencySymbol={formData.currencySymbol}
+        currencySymbol={currentCurrencySymbol}
       >
         with Fees
       </ActionCard>

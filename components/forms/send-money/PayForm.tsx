@@ -7,16 +7,17 @@ import { SendMoneyType } from "@/types/types";
 function PayForm({
   formData,
   setFormStep,
+  currentCurrencySymbol,
 }: {
   formData: SendMoneyType;
   setFormStep: (value: string) => void;
+  currentCurrencySymbol: string;
 }) {
   const {
     recipientFullname,
     recipientEmail,
     amountToSend,
     payingWith,
-    currencySymbol,
     accountSwift,
     accountNumber,
   } = formData;
@@ -45,7 +46,7 @@ function PayForm({
       >
         <PaymentItem
           title="Transfer Amount"
-          value={`${formatNumber(Number(amountToSend))}${currencySymbol}`}
+          value={`${formatNumber(Number(amountToSend))}${currentCurrencySymbol}`}
         />
         <PaymentItem
           title="Paying with"
@@ -53,13 +54,17 @@ function PayForm({
           style="capitalize"
         />
         <PaymentItem title="Arriving by" value="Monday" />
-        <PaymentItem title="Fees" value={`${calcFee}${currencySymbol}`} last />
+        <PaymentItem
+          title="Fees"
+          value={`${calcFee}${currentCurrencySymbol}`}
+          last
+        />
       </PaymentDetailsCard>
 
       <PaymentDetailsCard>
         <PaymentItem
           title="Total Amount"
-          value={`${formatNumber(Number(amountToSend) - calcFee)}${currencySymbol}`}
+          value={`${formatNumber(Number(amountToSend) - calcFee)}${currentCurrencySymbol}`}
           last
           isBold
         ></PaymentItem>

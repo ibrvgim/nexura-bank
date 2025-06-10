@@ -1,3 +1,4 @@
+import FlagImageContainer from "@/components/common/FlagImageContainer";
 import useClickOutside from "@/hooks/useClickOutside";
 import { CurrencyItem } from "@/types/types";
 import formatString from "@/utilities/formatString";
@@ -79,7 +80,7 @@ function SelectInput({
         aria-expanded={toggleSelect}
         aria-controls="currency-options"
       >
-        <span className="mr-3 text-2xl leading-0">{flag}</span>
+        <FlagImageContainer url={flag} alt="flag icon" size={35} style="mr-3" />
         <span className="text-gray-500 capitalize">
           {content.length > 15 ? `${content.slice(0, 15)}...` : content}
         </span>{" "}
@@ -168,7 +169,7 @@ function Option({
         className="flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-3 text-start text-sm capitalize hover:bg-gray-100"
         onClick={() => onClick(code)}
       >
-        <span className="text-lg leading-0">{flag}</span>
+        <FlagImageContainer url={flag} alt={`${code} flag`} />
         {code} {children}
       </button>
     </li>

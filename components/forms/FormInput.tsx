@@ -6,21 +6,37 @@ function FormInput({
   type,
   placeholder,
   last = false,
+  error,
   value,
   onChange,
+  optional = false,
 }: {
   label: string;
   name: string;
   type: HTMLInputTypeAttribute;
   placeholder?: string;
   last?: boolean;
+  error?: { message?: string | undefined };
   value: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  optional?: boolean;
 }) {
+  const isRequired = error?.message === "required";
+
   return (
     <>
-      <label className="mb-2 inline-block text-sm font-medium tracking-wide text-gray-700">
-        {label}
+      <label className="mb-2 inline-block w-full text-sm font-medium tracking-wide text-gray-700">
+        {label}:{" "}
+        {!optional && (
+          <span className="text-red-500" title="Must be filled in">
+            *
+          </span>
+        )}
+        {error?.message && !isRequired && (
+          <span className="float-right text-sm text-red-500">
+            {error?.message}
+          </span>
+        )}
       </label>
       <input
         type={type}

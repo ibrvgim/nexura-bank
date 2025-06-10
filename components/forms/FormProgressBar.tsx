@@ -1,18 +1,28 @@
 import { SendMoneyType } from "@/types/types";
 import {
+  isEmailValid,
+  isInputLengthValid,
+} from "@/utilities/validateInputsValue";
+import {
   BanknotesIcon,
   UserIcon,
   CreditCardIcon,
 } from "@heroicons/react/24/outline";
+import { redirect } from "next/navigation";
 
 function FormProgressBar({
   formData,
   formStep,
   setFormStep,
+  params,
 }: {
   formData: SendMoneyType;
   formStep: string;
   setFormStep: (value: string) => void;
+  params: {
+    amountToTransfer: string | undefined;
+    transferCurrency: string | undefined;
+  };
 }) {
   return (
     <ul className="flex items-center justify-center">
@@ -36,6 +46,7 @@ function FormProgressBar({
         setFormStep={setFormStep}
         formData={formData}
         isActive={formStep === "recipient" || formStep === "pay"}
+        params={params}
       />
 
       <ProgressLine isActive={formStep === "pay"} />
@@ -46,6 +57,7 @@ function FormProgressBar({
         setFormStep={setFormStep}
         formData={formData}
         isActive={formStep === "pay"}
+        params={params}
       />
     </ul>
   );
@@ -57,12 +69,17 @@ function StepItem({
   stepName,
   formData,
   setFormStep,
+  params,
 }: {
   icon: React.ReactNode;
   isActive: boolean;
   stepName: string;
   formData: SendMoneyType;
   setFormStep: (value: string) => void;
+  params?: {
+    amountToTransfer: string | undefined;
+    transferCurrency: string | undefined;
+  };
 }) {
   function handleFormStep() {
     const {
@@ -91,7 +108,20 @@ function StepItem({
     )
       return;
 
+    if (
+      (!!isEmailValid(formData.recipientEmail).message ||
+        !!isInputLengthValid(formData.accountNumber, 12)?.message ||
+        !!isInputLengthValid(formData.recipientFullname, 5)?.message ||
+        (formData.accountType === "other" &&
+          !!isInputLengthValid(formData.accountSwift, 8)?.message)) &&
+      !isStepSkippable
+    )
+      return;
+
     setFormStep(stepName);
+
+    if (params && (params.amountToTransfer || params.transferCurrency))
+      redirect("/send-money");
   }
 
   return (

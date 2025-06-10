@@ -5,6 +5,7 @@ import PayForm from "@/components/forms/send-money/PayForm";
 import RecipientForm from "@/components/forms/send-money/RecipientForm";
 import SendMoneyAmountForm from "@/components/forms/send-money/SendMoneyAmountForm";
 import { CurrencyItem, SendMoneyType } from "@/types/types";
+import formatString from "@/utilities/formatString";
 import { useState } from "react";
 
 function FormContainer({
@@ -19,8 +20,7 @@ function FormContainer({
 }) {
   const initialState: SendMoneyType = {
     amountToSend: params.amountToTransfer || "",
-    currency: params.transferCurrency || "eur",
-    currencySymbol: "€",
+    currency: params.transferCurrency || "usd",
     payingWith: "bank transfer",
     recipientFullname: "",
     recipientEmail: "",
@@ -31,8 +31,6 @@ function FormContainer({
 
   const [formStep, setFormStep] = useState("amount");
   const [formData, setFormData] = useState(initialState);
-
-  console.log(formData);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -60,12 +58,18 @@ function FormContainer({
     }));
   }
 
+  const currentCurrencySymbol = allCurrencies.find(
+    (item) =>
+      formatString(item.currencyCode) === formatString(formData.currency),
+  )?.currencySymbol;
+
   return (
     <>
       <FormProgressBar
         setFormStep={setFormStep}
         formStep={formStep}
         formData={formData}
+        params={params}
       />
 
       <div className="mx-auto mt-20 w-1/2">
@@ -74,8 +78,10 @@ function FormContainer({
             allCurrencies={allCurrencies}
             setFormStep={setFormStep}
             formData={formData}
+            currentCurrencySymbol={currentCurrencySymbol || "$"}
             handleInputChange={handleInputChange}
             handleCurrency={handleCurrency}
+            params={params}
           />
         )}
 
@@ -89,7 +95,11 @@ function FormContainer({
         )}
 
         {formStep === "pay" && (
-          <PayForm setFormStep={setFormStep} formData={formData} />
+          <PayForm
+            setFormStep={setFormStep}
+            formData={formData}
+            currentCurrencySymbol={currentCurrencySymbol || "$"}
+          />
         )}
       </div>
     </>

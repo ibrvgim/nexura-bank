@@ -20,9 +20,7 @@ function Converter({
   converterData: ConverterData;
   isConverterEmpty: boolean;
 }) {
-  const [amount, setAmount] = useState(
-    converterData.amount || formatNumber("1000"),
-  );
+  const [amount, setAmount] = useState(converterData.amount || "1000");
 
   const [selectValues, setSelectValues] = useState({
     fromValue: converterData.from || "usd",
@@ -102,7 +100,7 @@ function Converter({
         <div className="ml-auto space-x-2">
           <Button
             type="secondary"
-            path={`/send-money?amountToTransfer=${amount.replace(".", "")}&transferCurrency=${selectValues.fromValue}`}
+            path={`/send-money/?amountToTransfer=${amount.replace(".", "")}&transferCurrency=${selectValues.fromValue}`}
           >
             Transfer Now
           </Button>

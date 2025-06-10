@@ -1,5 +1,6 @@
 "use client";
 
+import FlagImageContainer from "@/components/common/FlagImageContainer";
 import useClickOutside from "@/hooks/useClickOutside";
 import { CurrencyItem } from "@/types/types";
 import formatString from "@/utilities/formatString";
@@ -61,11 +62,16 @@ function SelectCurrency({
     <div ref={htmlElement} className="group absolute top-0 right-0 h-full pl-5">
       <button
         type="button"
-        className="h-full w-full cursor-pointer pr-5 text-3xl font-semibold tracking-wider uppercase"
+        className="flex h-full w-full cursor-pointer items-center gap-2 pr-5 text-3xl font-semibold tracking-wider uppercase"
         onClick={handleSelectToggle}
       >
-        {currentCurrency?.flag} {currentCurrency?.currencyCode}
-        <span className="ml-3 inline-block *:size-5">
+        <FlagImageContainer
+          url={currentCurrency?.flag || ""}
+          alt="flag icon"
+          size={40}
+        />
+        <span>{currentCurrency?.currencyCode}</span>
+        <span className="ml-1 inline-block *:size-5">
           {toggleSelect ? <XMarkIcon /> : <ChevronDownIcon />}
         </span>
       </button>
@@ -151,7 +157,8 @@ function Option({
         className="flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-3 text-start text-sm capitalize hover:bg-gray-100"
         onClick={() => onClick(code, currencySymbol)}
       >
-        <span className="text-lg leading-0">{flag}</span>
+        {/* <span className="text-lg leading-0">{flag}</span> */}
+        <FlagImageContainer url={flag} alt={`${code} flag`} />
         {code} {children}
       </button>
     </li>

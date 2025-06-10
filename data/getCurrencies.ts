@@ -1,7 +1,7 @@
 export default async function getCurrencies() {
   try {
     const response = await fetch(
-      "https://restcountries.com/v3.1/all?fields=currencies,flag",
+      "https://restcountries.com/v3.1/all?fields=currencies,cca2,flag",
     );
 
     if (!response.ok) throw new Error("Could not get data.");
@@ -23,7 +23,7 @@ export default async function getCurrencies() {
             currencyCode: code,
             currencyName: currencies[code].name,
             currencySymbol: currencies[code].symbol,
-            flag: item.flag,
+            flag: `https://flagcdn.com/w80/${item.cca2.toLowerCase()}.png`,
           });
         }
       }
@@ -33,12 +33,12 @@ export default async function getCurrencies() {
       if (item.currencyCode.toLowerCase() === "usd") {
         return {
           ...item,
-          flag: "🇺🇸",
+          flag: `https://flagcdn.com/w80/us.png`,
         };
       } else if (item.currencyCode.toLowerCase() === "eur") {
         return {
           ...item,
-          flag: "🇪🇺",
+          flag: `https://flagcdn.com/w80/eu.png`,
         };
       } else return item;
     });
