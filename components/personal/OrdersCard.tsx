@@ -78,8 +78,10 @@ function OrdersCard({ urlCardType }: { urlCardType: string }) {
               ))}
           </ul>
 
-          <div className="mt-10 text-sm uppercase *:px-10">
-            <PrimaryButton path="">Order Card Now</PrimaryButton>
+          <div className="mt-10 text-sm uppercase *:px-10 *:py-2">
+            <PrimaryButton path={`/order-card/?type=${urlCardType}`}>
+              Order Card Now
+            </PrimaryButton>
           </div>
         </div>
       </div>

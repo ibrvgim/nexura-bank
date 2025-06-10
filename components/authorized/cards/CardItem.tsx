@@ -34,15 +34,17 @@ function CardItem({ card }: { card: DebitCardType }) {
           ))}
         </ul>
 
-        <p className="mt-10 mb-5 text-sm font-light text-gray-700">
+        <p className="mt-10 mb-6 text-sm font-light text-gray-700">
           By ordering the{" "}
           <span className="font-normal capitalize">{card.type}</span> card, you
           accept our terms and conditions.
         </p>
 
-        <PrimaryButton path="">
-          Order the <span className="capitalize">{card.type}</span> Card
-        </PrimaryButton>
+        <div className="*:px-12 *:py-2">
+          <PrimaryButton path={`/order-card/?type=${card.type}`}>
+            Order the <span className="capitalize">{card.type}</span> Card
+          </PrimaryButton>
+        </div>
       </div>
     </div>
   );

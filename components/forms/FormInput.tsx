@@ -17,14 +17,14 @@ function FormInput({
   placeholder?: string;
   last?: boolean;
   error?: { message?: string | undefined };
-  value: string;
+  value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   optional?: boolean;
 }) {
   const isRequired = error?.message === "required";
 
   return (
-    <>
+    <div>
       <label className="mb-2 inline-block w-full text-sm font-medium tracking-wide text-gray-700">
         {label}:{" "}
         {!optional && (
@@ -46,7 +46,7 @@ function FormInput({
         value={value}
         onChange={onChange}
       />
-    </>
+    </div>
   );
 }
 

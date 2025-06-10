@@ -1,6 +1,6 @@
 "use client";
 
-import FormProgressBar from "./FormProgressBar";
+import FormProgressBar from "./SendMoneyProgressBar";
 import PayForm from "@/components/forms/send-money/PayForm";
 import RecipientForm from "@/components/forms/send-money/RecipientForm";
 import SendMoneyAmountForm from "@/components/forms/send-money/SendMoneyAmountForm";

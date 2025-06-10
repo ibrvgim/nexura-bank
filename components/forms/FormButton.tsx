@@ -5,7 +5,7 @@ function FormButton({
 }: {
   children: React.ReactNode;
   active?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }) {
   return (
     <button

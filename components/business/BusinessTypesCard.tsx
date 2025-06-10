@@ -12,9 +12,12 @@ function BusinessTypesCard() {
           Our team of experts can help your team scale and grow globally. Get in
           touch to hear how Nexura Business can work for you.
         </p>
-        <SecondaryButton path="" isStyleLight>
-          Get in Touch
-        </SecondaryButton>
+
+        <div className="*:px-14 *:py-2">
+          <SecondaryButton path="" isStyleLight>
+            Get in Touch
+          </SecondaryButton>
+        </div>
       </div>
 
       <div className="flex-1">

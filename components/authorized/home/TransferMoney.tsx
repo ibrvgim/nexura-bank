@@ -1,7 +1,7 @@
-import getCurrencies from "@/data/getCurrencies";
+import getCurrencies from "@/data/api/getCurrencies";
 import Converter from "./Converter";
-import getCurrenciesRate from "@/data/getCurrenciesRate";
-import ConverterData from "@/types/types";
+import getCurrenciesRate from "@/data/api/getCurrenciesRate";
+import { ConverterData } from "@/types/types";
 
 async function TransferMoney({
   converterData,

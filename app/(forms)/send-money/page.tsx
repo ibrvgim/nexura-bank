@@ -1,5 +1,5 @@
-import FormContainer from "@/components/forms/FormContainer";
-import getCurrencies from "@/data/getCurrencies";
+import FormContainer from "@/components/forms/send-money/SendMoneyContainer";
+import getCurrencies from "@/data/api/getCurrencies";
 import { CurrencyItem } from "@/types/types";
 
 async function SendMoney({

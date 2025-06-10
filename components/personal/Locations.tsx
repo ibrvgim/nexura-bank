@@ -15,7 +15,7 @@ function Locations() {
           <span className="text-green-600">Nexura</span>.
         </p>
 
-        <div className="*:px-12">
+        <div className="*:px-12 *:py-2">
           <PrimaryButton path="">Get a Nexura Account</PrimaryButton>
         </div>
       </div>
