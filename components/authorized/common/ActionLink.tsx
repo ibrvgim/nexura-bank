@@ -5,14 +5,16 @@ function ActionLink({
   icon,
   title,
   children,
+  path,
 }: {
   icon: React.ReactNode;
   title: string;
   children?: React.ReactNode;
+  path?: string;
 }) {
   return (
     <Link
-      href=""
+      href={path || ""}
       className="group flex items-center gap-4 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50 px-4 py-5 font-medium transition-all duration-200 hover:border-stone-400 hover:bg-stone-100"
     >
       <div className="relative inline-block rounded-full bg-stone-200 p-4 transition-all duration-200 group-hover:bg-stone-300">

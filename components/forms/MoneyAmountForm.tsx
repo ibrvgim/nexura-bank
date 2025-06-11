@@ -32,7 +32,7 @@ function MoneyAmountForm({
     formData.initialAmount && Number(formData.initialAmount) >= 5;
 
   useEffect(() => {
-    const numofDays = isSendMoneyForm ? 3 : 1;
+    const numofDays = isSendMoneyForm ? 2 : 1;
     handleFormData("arrivesBy", days[getFutureDay(numofDays)]);
   }, []);
 
@@ -69,6 +69,7 @@ function MoneyAmountForm({
           formData={formData}
           currentCurrencySymbol={currentCurrencySymbol}
           isSendMoneyForm={isSendMoneyForm}
+          handleFormData={handleFormData}
         />
       )}
 

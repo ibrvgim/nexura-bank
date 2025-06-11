@@ -1,5 +1,5 @@
-import { SendAddMoneyType } from "@/types/types";
-import ActionCard from "./send-money/ActionCard";
+import { SendAddMoneyFieldKeys, SendAddMoneyType } from "@/types/types";
+import ActionCard from "./ActionCard";
 import {
   BuildingLibraryIcon,
   ClockIcon,
@@ -10,6 +10,7 @@ function MoneyAmountConditions({
   formData,
   currentCurrencySymbol,
   isSendMoneyForm = true,
+  handleFormData,
 }: {
   formData:
     | Pick<
@@ -20,6 +21,7 @@ function MoneyAmountConditions({
 
   currentCurrencySymbol: string;
   isSendMoneyForm?: boolean;
+  handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
 }) {
   return (
     <>
@@ -29,8 +31,9 @@ function MoneyAmountConditions({
             icon={<BuildingLibraryIcon />}
             title="Paying with"
             pathTitle="Change"
-            path=""
             style="capitalize"
+            handleFormData={handleFormData}
+            isPaymentMethod
           >
             {formData.payingWith}
           </ActionCard>
@@ -41,9 +44,9 @@ function MoneyAmountConditions({
             icon={<ClockIcon />}
             title="Arrives"
             pathTitle={isSendMoneyForm ? "Schedule" : ""}
-            path={isSendMoneyForm ? "" : ""}
             isSendMoneyForm={isSendMoneyForm}
             tooltipTitle="Nexura offers instant transactions, but in some situations, there might be delays — up to the time shown."
+            handleFormData={handleFormData}
           >
             by {formData.arrivesBy}
           </ActionCard>
@@ -56,6 +59,7 @@ function MoneyAmountConditions({
         initialAmount={formData.initialAmount}
         currencySymbol={currentCurrencySymbol}
         tooltipTitle="Fee amounts vary based on the selected payment method and include a Nexura transaction fee."
+        handleFormData={handleFormData}
       >
         with Fees
       </ActionCard>

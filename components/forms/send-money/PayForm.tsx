@@ -55,7 +55,7 @@ function PayForm({
           value={payingWith}
           style="capitalize"
         />
-        <PaymentItem title="Arriving by" value="Monday" />
+        <PaymentItem title="Arriving by" value={formData.arrivesBy} />
         <PaymentItem
           title="Fees"
           value={`${calcFee}${currentCurrencySymbol}`}
