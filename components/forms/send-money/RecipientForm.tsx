@@ -2,7 +2,7 @@ import formatString from "@/utilities/formatString";
 import FormButton from "../FormButton";
 import FormInput from "../FormInput";
 import FormTab from "../FormTab";
-import { SendMoneyType } from "@/types/types";
+import { SendAddMoneyType } from "@/types/types";
 import {
   isEmailValid,
   isInputLengthValid,
@@ -15,7 +15,7 @@ function RecipientForm({
   handleAccountType,
 }: {
   setFormStep: (value: string) => void;
-  formData: SendMoneyType;
+  formData: SendAddMoneyType;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleAccountType: (value: "eu" | "other") => void;
 }) {
@@ -96,7 +96,7 @@ function EUAccount({
   formData,
   handleInputChange,
 }: {
-  formData: SendMoneyType;
+  formData: SendAddMoneyType;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
@@ -128,7 +128,7 @@ function OtherAccount({
   formData,
   handleInputChange,
 }: {
-  formData: SendMoneyType;
+  formData: SendAddMoneyType;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (

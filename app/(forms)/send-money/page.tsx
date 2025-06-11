@@ -1,4 +1,4 @@
-import FormContainer from "@/components/forms/send-money/SendMoneyContainer";
+import SendMoneyContainer from "@/components/forms/send-money/SendMoneyContainer";
 import getCurrencies from "@/data/api/getCurrencies";
 import { CurrencyItem } from "@/types/types";
 
@@ -15,7 +15,7 @@ async function SendMoney({
 
   return (
     <div className="mt-12 mb-24">
-      <FormContainer allCurrencies={allCurrencies} params={params} />
+      <SendMoneyContainer allCurrencies={allCurrencies} params={params} />
     </div>
   );
 }

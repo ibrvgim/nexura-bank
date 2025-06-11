@@ -16,7 +16,7 @@ function BalanceCard() {
           Send Money
         </Link>
 
-        <Link href="">
+        <Link href="/add-money">
           <PlusCircleIcon className="size-4" />
           Add Money
         </Link>

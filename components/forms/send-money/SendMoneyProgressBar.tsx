@@ -1,4 +1,4 @@
-import { SendMoneyType } from "@/types/types";
+import { SendAddMoneyType } from "@/types/types";
 import {
   isEmailValid,
   isInputLengthValid,
@@ -10,16 +10,16 @@ import {
 } from "@heroicons/react/24/outline";
 import { redirect } from "next/navigation";
 
-function FormProgressBar({
+function SendMoneyProgressBar({
   formData,
   formStep,
   setFormStep,
   params,
 }: {
-  formData: SendMoneyType;
+  formData: SendAddMoneyType;
   formStep: string;
   setFormStep: (value: string) => void;
-  params: {
+  params?: {
     amountToTransfer: string | undefined;
     transferCurrency: string | undefined;
   };
@@ -74,7 +74,7 @@ function StepItem({
   icon: React.ReactNode;
   isActive: boolean;
   stepName: string;
-  formData: SendMoneyType;
+  formData: SendAddMoneyType;
   setFormStep: (value: string) => void;
   params?: {
     amountToTransfer: string | undefined;
@@ -83,14 +83,15 @@ function StepItem({
 }) {
   function handleFormStep() {
     const {
-      amountToSend,
+      initialAmount,
       accountType,
       accountNumber,
       accountSwift,
       recipientFullname,
+      recipientEmail,
     } = formData;
 
-    const isAmountValid = amountToSend && Number(amountToSend) >= 5;
+    const isAmountValid = initialAmount && Number(initialAmount) >= 5;
     const isStepSkippable = stepName === "amount" || stepName === "recipient";
 
     if (!isAmountValid) return;
@@ -109,11 +110,11 @@ function StepItem({
       return;
 
     if (
-      (!!isEmailValid(formData.recipientEmail).message ||
-        !!isInputLengthValid(formData.accountNumber, 12)?.message ||
-        !!isInputLengthValid(formData.recipientFullname, 5)?.message ||
-        (formData.accountType === "other" &&
-          !!isInputLengthValid(formData.accountSwift, 8)?.message)) &&
+      (!!isEmailValid(recipientEmail).message ||
+        !!isInputLengthValid(accountNumber, 12)?.message ||
+        !!isInputLengthValid(recipientFullname, 5)?.message ||
+        (accountType === "other" &&
+          !!isInputLengthValid(accountSwift, 8)?.message)) &&
       !isStepSkippable
     )
       return;
@@ -146,4 +147,4 @@ function ProgressLine({ isActive = false }: { isActive?: boolean }) {
   );
 }
 
-export default FormProgressBar;
+export default SendMoneyProgressBar;

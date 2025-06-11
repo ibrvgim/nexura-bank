@@ -2,7 +2,7 @@
 
 import FlagImageContainer from "@/components/common/FlagImageContainer";
 import useClickOutside from "@/hooks/useClickOutside";
-import { CurrencyItem } from "@/types/types";
+import { CurrencyItem, SendAddMoneyFieldKeys } from "@/types/types";
 import formatString from "@/utilities/formatString";
 import {
   ChevronDownIcon,
@@ -18,7 +18,7 @@ function SelectCurrency({
 }: {
   allCurrencies: CurrencyItem[];
   selectedCurrency: string;
-  setSelectedCurrency: (firstValue: string, secondValue: string) => void;
+  setSelectedCurrency: (key: SendAddMoneyFieldKeys, value: string) => void;
 }) {
   const [toggleSelect, setToggleSelect] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -45,8 +45,8 @@ function SelectCurrency({
     cleanSearch();
   }
 
-  function handleSelectedCurrency(firstValue: string, secondValue: string) {
-    setSelectedCurrency(formatString(firstValue), secondValue);
+  function handleSelectedCurrency(value: string) {
+    setSelectedCurrency("currency", value);
     setToggleSelect(false);
     cleanSearch();
   }
@@ -119,7 +119,6 @@ function SelectCurrency({
                   key={item.currencyCode}
                   flag={item.flag}
                   code={item.currencyCode}
-                  currencySymbol={item.currencySymbol}
                   onClick={handleSelectedCurrency}
                 >
                   {item.currencyName}
@@ -141,23 +140,20 @@ function Option({
   children,
   code,
   flag,
-  currencySymbol,
   onClick,
 }: {
   children: React.ReactNode;
   code: string;
   flag: string;
-  currencySymbol: string;
-  onClick: (firstValue: string, secondValue: string) => void;
+  onClick: (value: string) => void;
 }) {
   return (
     <li className="px-3">
       <button
         type="button"
         className="flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-3 text-start text-sm capitalize hover:bg-gray-100"
-        onClick={() => onClick(code, currencySymbol)}
+        onClick={() => onClick(code)}
       >
-        {/* <span className="text-lg leading-0">{flag}</span> */}
         <FlagImageContainer url={flag} alt={`${code} flag`} />
         {code} {children}
       </button>

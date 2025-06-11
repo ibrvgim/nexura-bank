@@ -2,27 +2,27 @@ import formatNumber from "@/utilities/formatNumber";
 import PaymentDetailsCard from "./PaymentDetailsCard";
 import PaymentItem from "./PaymentItem";
 import FormButton from "../FormButton";
-import { SendMoneyType } from "@/types/types";
+import { SendAddMoneyType } from "@/types/types";
 
 function PayForm({
   formData,
   setFormStep,
   currentCurrencySymbol,
 }: {
-  formData: SendMoneyType;
+  formData: SendAddMoneyType;
   setFormStep: (value: string) => void;
   currentCurrencySymbol: string;
 }) {
   const {
     recipientFullname,
     recipientEmail,
-    amountToSend,
+    initialAmount,
     payingWith,
     accountSwift,
     accountNumber,
   } = formData;
 
-  const calcFee = Number(amountToSend) * 0.01;
+  const calcFee = Number(initialAmount) * 0.01;
 
   return (
     <>
@@ -46,7 +46,9 @@ function PayForm({
       >
         <PaymentItem
           title="Transfer Amount"
-          value={`${formatNumber(Number(amountToSend))}${currentCurrencySymbol}`}
+          value={`${formatNumber(
+            Number(initialAmount),
+          )}${currentCurrencySymbol}`}
         />
         <PaymentItem
           title="Paying with"
@@ -64,7 +66,9 @@ function PayForm({
       <PaymentDetailsCard>
         <PaymentItem
           title="Total Amount"
-          value={`${formatNumber(Number(amountToSend) - calcFee)}${currentCurrencySymbol}`}
+          value={`${formatNumber(
+            Number(initialAmount) - calcFee,
+          )}${currentCurrencySymbol}`}
           last
           isBold
         ></PaymentItem>

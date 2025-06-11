@@ -9,7 +9,7 @@ function OrderCardFormContainer({ type }: { type: string }) {
         Place an order for a{" "}
         <span className="text-green-400 capitalize">{type}</span> Debit Card
       </p>
-      <p className="mt-4 mb-10 text-gray-500">
+      <p className="mt-3 mb-8 text-gray-500">
         Please ensure sufficient money are available in your bank account before
         submitting an order.
       </p>

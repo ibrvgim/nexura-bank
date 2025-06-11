@@ -2,7 +2,19 @@
 
 import { HTMLInputTypeAttribute } from "react";
 import SelectCurrency from "./SelectCurrency";
-import { CurrencyItem } from "@/types/types";
+import { CurrencyItem, SendAddMoneyFieldKeys } from "@/types/types";
+
+interface InputType {
+  label: string;
+  name: string;
+  type: HTMLInputTypeAttribute;
+  placeholder?: string;
+  allCurrencies: CurrencyItem[];
+  selectedCurrency: string;
+  setSelectedCurrency: (key: SendAddMoneyFieldKeys, value: string) => void;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 function AmountInput({
   label,
@@ -14,25 +26,14 @@ function AmountInput({
   setSelectedCurrency,
   value,
   onChange,
-}: {
-  label: string;
-  name: string;
-  type: HTMLInputTypeAttribute;
-  placeholder?: string;
-  allCurrencies: CurrencyItem[];
-  selectedCurrency: string;
-  setSelectedCurrency: (firstValue: string, secondValue: string) => void;
-
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
+}: InputType) {
   return (
     <>
       <label
         className="mb-3 inline-block text-xs font-semibold tracking-wide text-gray-600 uppercase"
         htmlFor={name}
       >
-        {label}
+        {label}:
       </label>
 
       <div className="group relative">

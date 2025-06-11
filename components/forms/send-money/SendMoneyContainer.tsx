@@ -1,14 +1,14 @@
 "use client";
 
-import FormProgressBar from "./SendMoneyProgressBar";
 import PayForm from "@/components/forms/send-money/PayForm";
 import RecipientForm from "@/components/forms/send-money/RecipientForm";
-import SendMoneyAmountForm from "@/components/forms/send-money/SendMoneyAmountForm";
-import { CurrencyItem, SendMoneyType } from "@/types/types";
+import { CurrencyItem, SendAddMoneyType } from "@/types/types";
 import formatString from "@/utilities/formatString";
 import { useState } from "react";
+import MoneyAmountForm from "../MoneyAmountForm";
+import SendMoneyProgressBar from "./SendMoneyProgressBar";
 
-function FormContainer({
+function SendMoneyContainer({
   allCurrencies,
   params,
 }: {
@@ -18,10 +18,11 @@ function FormContainer({
     transferCurrency: string | undefined;
   };
 }) {
-  const initialState: SendMoneyType = {
-    amountToSend: params.amountToTransfer || "",
+  const initialState: SendAddMoneyType = {
+    initialAmount: params.amountToTransfer || "",
     currency: params.transferCurrency || "usd",
     payingWith: "bank transfer",
+    arrivesBy: "Tomorrow",
     recipientFullname: "",
     recipientEmail: "",
     accountType: "eu",
@@ -50,11 +51,10 @@ function FormContainer({
     }));
   }
 
-  function handleCurrency(currencyCode: string, currencySymbol: string) {
+  function handleFormData(key: string, value: string) {
     setFormData((prev) => ({
       ...prev,
-      currency: currencyCode,
-      currencySymbol,
+      [key]: value,
     }));
   }
 
@@ -65,7 +65,7 @@ function FormContainer({
 
   return (
     <>
-      <FormProgressBar
+      <SendMoneyProgressBar
         setFormStep={setFormStep}
         formStep={formStep}
         formData={formData}
@@ -74,13 +74,13 @@ function FormContainer({
 
       <div className="mx-auto mt-20 w-1/2">
         {formStep === "amount" && (
-          <SendMoneyAmountForm
+          <MoneyAmountForm
             allCurrencies={allCurrencies}
             setFormStep={setFormStep}
             formData={formData}
+            handleFormData={handleFormData}
             currentCurrencySymbol={currentCurrencySymbol || "$"}
             handleInputChange={handleInputChange}
-            handleCurrency={handleCurrency}
             params={params}
           />
         )}
@@ -106,4 +106,4 @@ function FormContainer({
   );
 }
 
-export default FormContainer;
+export default SendMoneyContainer;

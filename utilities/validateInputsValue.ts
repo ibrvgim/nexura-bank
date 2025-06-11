@@ -3,7 +3,7 @@ export function isEmailValid(value: string) {
   const isValid = /^\S+@\S+\.\S+$/.test(value);
 
   if (isValid) return {};
-  else return { message: "Enter valid email" };
+  else return { message: "Enter correct email" };
 }
 
 export function isInputLengthValid(value: string, minLength: number) {
