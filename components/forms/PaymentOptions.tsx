@@ -4,15 +4,18 @@ import {
   BuildingLibraryIcon,
   CreditCardIcon,
 } from "@heroicons/react/24/outline";
+import { CREDIT_CARD_FEE, DEBIT_CARD_FEE } from "@/constant/constants";
 
 function PaymentOptions({
   isSendMoney = true,
   handleFormData,
   handleClose,
+  currencySymbol,
 }: {
   isSendMoney?: boolean;
   handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
   handleClose: () => void;
+  currencySymbol: string;
 }) {
   function handlePaymentMethod(key: SendAddMoneyFieldKeys, value: string) {
     handleFormData(key, value);
@@ -49,7 +52,12 @@ function PaymentOptions({
           onClick={() => handlePaymentMethod("payingWith", "debit card")}
         >
           Use Visa, MasterCard or Maestro to {isSendMoney ? "send" : "add"}{" "}
-          money - <strong>1.70$</strong> fee.
+          money -{" "}
+          <strong>
+            {DEBIT_CARD_FEE.toFixed(2)}
+            {currencySymbol}
+          </strong>{" "}
+          fee.
         </ActionLink>
 
         <ActionLink
@@ -60,7 +68,12 @@ function PaymentOptions({
           onClick={() => handlePaymentMethod("payingWith", "credit card")}
         >
           Use Visa, MasterCard or Maestro to {isSendMoney ? "send" : "add"}{" "}
-          money - <strong>2.70$</strong> fee.
+          money -{" "}
+          <strong>
+            {CREDIT_CARD_FEE.toFixed(2)}
+            {currencySymbol}
+          </strong>{" "}
+          fee.
         </ActionLink>
       </ul>
     </div>

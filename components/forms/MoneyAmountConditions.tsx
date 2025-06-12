@@ -34,6 +34,7 @@ function MoneyAmountConditions({
             style="capitalize"
             handleFormData={handleFormData}
             isPaymentMethod
+            currencySymbol={currentCurrencySymbol}
           >
             {formData.payingWith}
           </ActionCard>
@@ -60,6 +61,7 @@ function MoneyAmountConditions({
         currencySymbol={currentCurrencySymbol}
         tooltipTitle="Fee amounts vary based on the selected payment method and include a Nexura transaction fee."
         handleFormData={handleFormData}
+        paymentMethod={formData.payingWith}
       >
         with Fees
       </ActionCard>

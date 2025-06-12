@@ -1,10 +1,11 @@
 import BasicTooltip from "@/components/common/Tooltip";
-import formatNumber from "@/utilities/formatNumber";
 import BasicModalWindow from "../common/BasicModalWindow";
 import { useState } from "react";
 import PaymentOptions from "./PaymentOptions";
 import { SendAddMoneyFieldKeys } from "@/types/types";
 import ScheduleDate from "./send-money/ScheduleDate";
+import { calculateAmountWithoutFees } from "@/utilities/calculateFees";
+import formatNumber from "@/utilities/formatNumber";
 
 interface ActionCardType {
   icon: React.ReactNode;
@@ -17,6 +18,7 @@ interface ActionCardType {
   isSendMoneyForm?: boolean;
   tooltipTitle?: string;
   handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
+  paymentMethod?: string;
   isPaymentMethod?: boolean;
 }
 
@@ -31,11 +33,19 @@ function ActionCard({
   isSendMoneyForm = true,
   tooltipTitle,
   handleFormData,
+  paymentMethod,
   isPaymentMethod = false,
 }: ActionCardType) {
   const [modalWindowOpen, setModalWindowOpen] = useState(false);
   const handleOpen = () => setModalWindowOpen(true);
   const handleClose = () => setModalWindowOpen(false);
+
+  const totalAmount = formatNumber(
+    (
+      calculateAmountWithoutFees(paymentMethod, initialAmount) ||
+      Number(initialAmount)
+    )?.toFixed(2),
+  );
 
   return (
     <div className="flex items-center gap-4 font-medium">
@@ -70,6 +80,7 @@ function ActionCard({
                   isSendMoney={isSendMoneyForm}
                   handleFormData={handleFormData}
                   handleClose={handleClose}
+                  currencySymbol={currencySymbol || "$"}
                 />
               ) : (
                 <ScheduleDate
@@ -80,9 +91,7 @@ function ActionCard({
             </BasicModalWindow>
           ) : (
             <p className="ml-auto text-2xl font-extrabold text-gray-700">
-              {formatNumber(
-                Number(initialAmount) - Number(initialAmount) * 0.01,
-              )}
+              {totalAmount}
               {currencySymbol}
             </p>
           )}

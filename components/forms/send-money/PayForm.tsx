@@ -3,6 +3,7 @@ import PaymentDetailsCard from "./PaymentDetailsCard";
 import PaymentItem from "./PaymentItem";
 import FormButton from "../FormButton";
 import { SendAddMoneyType } from "@/types/types";
+import { calculateAmountWithoutFees } from "@/utilities/calculateFees";
 
 function PayForm({
   formData,
@@ -22,7 +23,10 @@ function PayForm({
     accountNumber,
   } = formData;
 
-  const calcFee = Number(initialAmount) * 0.01;
+  const calculateFee =
+    Number(initialAmount) -
+    (calculateAmountWithoutFees(formData.payingWith, initialAmount) ||
+      Number(initialAmount));
 
   return (
     <>
@@ -58,7 +62,7 @@ function PayForm({
         <PaymentItem title="Arriving by" value={formData.arrivesBy} />
         <PaymentItem
           title="Fees"
-          value={`${calcFee}${currentCurrencySymbol}`}
+          value={`${calculateFee.toFixed(2)}${currentCurrencySymbol}`}
           last
         />
       </PaymentDetailsCard>
@@ -67,7 +71,7 @@ function PayForm({
         <PaymentItem
           title="Total Amount"
           value={`${formatNumber(
-            Number(initialAmount) - calcFee,
+            (Number(initialAmount) - calculateFee).toFixed(2),
           )}${currentCurrencySymbol}`}
           last
           isBold
