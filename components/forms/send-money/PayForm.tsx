@@ -59,7 +59,11 @@ function PayForm({
           value={payingWith}
           style="capitalize"
         />
-        <PaymentItem title="Arriving by" value={formData.arrivesBy} />
+        <PaymentItem
+          title="Arriving by"
+          value={formData.arrivesBy}
+          style="capitalize"
+        />
         <PaymentItem
           title="Fees"
           value={`${calculateFee.toFixed(2)}${currentCurrencySymbol}`}

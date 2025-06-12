@@ -2,7 +2,7 @@
 
 import FlagImageContainer from "@/components/common/FlagImageContainer";
 import useClickOutside from "@/hooks/useClickOutside";
-import { CurrencyItem, SendAddMoneyFieldKeys } from "@/types/types";
+import { CurrencyItem } from "@/types/types";
 import formatString from "@/utilities/formatString";
 import {
   ChevronDownIcon,
@@ -15,10 +15,12 @@ function SelectCurrency({
   allCurrencies,
   selectedCurrency,
   setSelectedCurrency,
+  smallStyle = false,
 }: {
   allCurrencies: CurrencyItem[];
   selectedCurrency: string;
-  setSelectedCurrency: (key: SendAddMoneyFieldKeys, value: string) => void;
+  setSelectedCurrency: (value: string) => void;
+  smallStyle?: boolean;
 }) {
   const [toggleSelect, setToggleSelect] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -46,7 +48,7 @@ function SelectCurrency({
   }
 
   function handleSelectedCurrency(value: string) {
-    setSelectedCurrency("currency", value);
+    setSelectedCurrency(value);
     setToggleSelect(false);
     cleanSearch();
   }
@@ -62,22 +64,26 @@ function SelectCurrency({
     <div ref={htmlElement} className="group absolute top-0 right-0 h-full pl-5">
       <button
         type="button"
-        className="flex h-full w-full cursor-pointer items-center gap-2 pr-5 text-3xl font-semibold tracking-wider uppercase"
+        className={`flex h-full w-full cursor-pointer items-center pr-5 font-semibold tracking-wider uppercase ${smallStyle ? "gap-1 text-xl" : "gap-2 text-3xl"}`}
         onClick={handleSelectToggle}
       >
         <FlagImageContainer
           url={currentCurrency?.flag || ""}
           alt="flag icon"
-          size={40}
+          size={smallStyle ? 30 : 40}
         />
-        <span>{currentCurrency?.currencyCode}</span>
+        <span className={smallStyle ? "pl-1" : ""}>
+          {currentCurrency?.currencyCode}
+        </span>
         <span className="ml-1 inline-block *:size-5">
           {toggleSelect ? <XMarkIcon /> : <ChevronDownIcon />}
         </span>
       </button>
 
       {toggleSelect && (
-        <div className="absolute top-24 right-0 z-10 w-80 rounded-md bg-white shadow-md outline-2 outline-gray-200">
+        <div
+          className={`absolute right-0 z-10 w-80 rounded-md bg-white shadow-md outline-2 outline-gray-200 ${smallStyle ? "top-17" : "top-24"}`}
+        >
           <div className="relative px-3">
             <span className="absolute top-1/2 left-6 inline-block -translate-y-1/2 text-gray-700 *:size-4.5">
               <MagnifyingGlassIcon />

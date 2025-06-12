@@ -3,7 +3,7 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import SelectInput from "./SelectInput";
 import ConverterInput from "./ConverterInput";
-import { CurrencyItem, ConverterData } from "@/types/types";
+import { CurrencyItem, ConverterDataType } from "@/types/types";
 import { useState } from "react";
 import Link from "next/link";
 import formatNumber from "@/utilities/formatNumber";
@@ -17,7 +17,7 @@ function Converter({
 }: {
   allCurrencies: CurrencyItem[];
   currencyRate: number;
-  converterData: ConverterData;
+  converterData: ConverterDataType;
   isConverterEmpty: boolean;
 }) {
   const [amount, setAmount] = useState(converterData.amount || "1000");

@@ -24,9 +24,6 @@ const cards = [
 function ChooseCardMenu() {
   return (
     <>
-      <p className="mb-8 text-4xl font-bold tracking-wide text-gray-700">
-        Choose Debit Card to Order
-      </p>
       <ul className="grid grid-cols-2 gap-5">
         {cards.map((item) => (
           <CardItem

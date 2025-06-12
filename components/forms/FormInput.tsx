@@ -1,4 +1,5 @@
 import { HTMLInputTypeAttribute } from "react";
+import BasicTooltip from "../common/Tooltip";
 
 function FormInput({
   label,
@@ -35,8 +36,8 @@ function FormInput({
       >
         {label}:{" "}
         {!optional && (
-          <span className="text-red-500" title="Must be filled in">
-            *
+          <span className="text-red-500">
+            <BasicTooltip title="Must be filled in">*</BasicTooltip>
           </span>
         )}
         {error?.message && !isRequired && (

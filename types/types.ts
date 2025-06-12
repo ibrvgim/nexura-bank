@@ -60,6 +60,7 @@ export interface MoneyAmountFormType {
   handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
   currentCurrencySymbol: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCurrency: (value: string) => void;
   params?: {
     amountToTransfer: string | undefined;
     transferCurrency: string | undefined;

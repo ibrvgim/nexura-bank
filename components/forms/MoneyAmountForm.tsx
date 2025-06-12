@@ -1,6 +1,6 @@
 "use client";
 
-import AmountInput from "./send-money/AmountInput";
+import AmountInput from "./AmountInput";
 import { MoneyAmountFormType } from "@/types/types";
 import FormButton from "./FormButton";
 import { redirect } from "next/navigation";
@@ -25,6 +25,7 @@ function MoneyAmountForm({
   handleFormData,
   currentCurrencySymbol,
   handleInputChange,
+  handleCurrency,
   params,
   isSendMoneyForm = true,
 }: MoneyAmountFormType) {
@@ -59,7 +60,7 @@ function MoneyAmountForm({
         placeholder="0"
         allCurrencies={allCurrencies}
         selectedCurrency={formData.currency}
-        setSelectedCurrency={handleFormData}
+        setSelectedCurrency={handleCurrency}
         value={formData.initialAmount}
         onChange={handleInputChange}
       />

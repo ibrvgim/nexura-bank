@@ -6,6 +6,7 @@ import { SendAddMoneyFieldKeys } from "@/types/types";
 import ScheduleDate from "./send-money/ScheduleDate";
 import { calculateAmountWithoutFees } from "@/utilities/calculateFees";
 import formatNumber from "@/utilities/formatNumber";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 
 interface ActionCardType {
   icon: React.ReactNode;
@@ -55,7 +56,12 @@ function ActionCard({
 
       <div>
         <p className="flex items-center gap-2 text-[15px] font-normal text-gray-500">
-          {title} {tooltipTitle && <BasicTooltip title={tooltipTitle} />}
+          {title}{" "}
+          {tooltipTitle && (
+            <BasicTooltip title={tooltipTitle}>
+              <QuestionMarkCircleIcon className="size-4" />
+            </BasicTooltip>
+          )}
         </p>
         {children && <p className={`tracking-wide ${style}`}>{children}</p>}
       </div>

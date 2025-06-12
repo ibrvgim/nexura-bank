@@ -5,8 +5,21 @@ import {
   CurrencyDollarIcon,
   CurrencyPoundIcon,
 } from "@heroicons/react/24/solid";
+import getCurrencies from "@/data/api/getCurrencies";
+import { CurrencyItem } from "@/types/types";
+import getCurrenciesRate from "@/data/api/getCurrenciesRate";
 
-function CurrencyConverterCard() {
+async function CurrencyConverterCard({
+  params,
+}: {
+  params: { convertFrom: string; convertTo: string };
+}) {
+  const allCurrencies: CurrencyItem[] = (await getCurrencies()) || [];
+  const exchangeRate = await getCurrenciesRate(
+    `${params.convertFrom || "usd"}`,
+    `${params.convertTo || "eur"}`,
+  );
+
   const iconValues = "-mb-3 inline-block size-5";
 
   return (
@@ -35,7 +48,11 @@ function CurrencyConverterCard() {
         </Link>
       </div>
 
-      <ConverterForm />
+      <ConverterForm
+        allCurrencies={allCurrencies}
+        exchangeRate={exchangeRate}
+        params={params}
+      />
     </section>
   );
 }

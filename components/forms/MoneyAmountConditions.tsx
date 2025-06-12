@@ -49,7 +49,7 @@ function MoneyAmountConditions({
             tooltipTitle="Nexura offers instant transactions, but in some situations, there might be delays — up to the time shown."
             handleFormData={handleFormData}
           >
-            by {formData.arrivesBy}
+            by <span className="capitalize">{formData.arrivesBy}</span>
           </ActionCard>
         </li>
       </ul>

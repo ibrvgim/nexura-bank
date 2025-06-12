@@ -6,24 +6,24 @@ import Locations from "@/components/personal/Locations";
 import OrdersCard from "@/components/personal/OrdersCard";
 import ServicesCard from "@/components/personal/ServicesCard";
 
-interface CardTypeData {
-  cardType: string;
-}
-
 export default async function Home({
   searchParams,
 }: {
-  searchParams: Promise<CardTypeData>;
+  searchParams: Promise<{
+    cardType: string;
+    convertFrom: string;
+    convertTo: string;
+  }>;
 }) {
-  const { cardType } = await searchParams;
+  const params = await searchParams;
 
   return (
     <>
       <DescriptionCard />
       <Features />
-      <CurrencyConverterCard />
+      <CurrencyConverterCard params={params} />
       <ServicesCard />
-      <OrdersCard urlCardType={cardType || "standard"} />
+      <OrdersCard urlCardType={params.cardType || "standard"} />
       <Locations />
       <AppCard />
     </>

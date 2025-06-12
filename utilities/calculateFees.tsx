@@ -1,7 +1,7 @@
 import {
+  BANK_TRANSFER_FEE,
   CREDIT_CARD_FEE,
   DEBIT_CARD_FEE,
-  NEXURA_FEE,
 } from "@/constant/constants";
 
 export function calculateFees(totalAmount: string | number, fees: number) {
@@ -16,9 +16,9 @@ export function calculateAmountWithoutFees(
   if (!paymentMethod || !totalAmount) return;
 
   if (paymentMethod === "bank transfer")
-    return calculateFees(totalAmount, NEXURA_FEE);
+    return calculateFees(totalAmount, BANK_TRANSFER_FEE);
   else if (paymentMethod === "debit card")
-    return calculateFees(totalAmount, NEXURA_FEE + DEBIT_CARD_FEE);
+    return calculateFees(totalAmount, BANK_TRANSFER_FEE + DEBIT_CARD_FEE);
   else if (paymentMethod === "credit card")
-    return calculateFees(totalAmount, NEXURA_FEE + CREDIT_CARD_FEE);
+    return calculateFees(totalAmount, BANK_TRANSFER_FEE + CREDIT_CARD_FEE);
 }

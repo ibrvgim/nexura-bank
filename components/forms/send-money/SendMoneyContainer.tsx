@@ -54,7 +54,14 @@ function SendMoneyContainer({
   function handleFormData(key: string, value: string) {
     setFormData((prev) => ({
       ...prev,
-      [key]: value,
+      [key]: value.toLowerCase(),
+    }));
+  }
+
+  function handleCurrency(value: string) {
+    setFormData((prev) => ({
+      ...prev,
+      currency: value.toLowerCase(),
     }));
   }
 
@@ -81,6 +88,7 @@ function SendMoneyContainer({
             handleFormData={handleFormData}
             currentCurrencySymbol={currentCurrencySymbol || "$"}
             handleInputChange={handleInputChange}
+            handleCurrency={handleCurrency}
             params={params}
           />
         )}
