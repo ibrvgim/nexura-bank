@@ -15,7 +15,7 @@ function AuthPattern({
   const isRegister = path.includes("login");
 
   return (
-    <div className="mx-auto mt-14 flex w-1/2 flex-col items-center">
+    <div className="text-center">
       <p className="text-3xl font-bold tracking-wide text-gray-700">{title}</p>
 
       <div className="mt-3 text-sm text-gray-500 *:inline-block">

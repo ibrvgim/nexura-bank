@@ -31,7 +31,7 @@ function FormInput({
   return (
     <div>
       <label
-        className="mb-2 inline-block w-full text-sm font-medium tracking-wide text-gray-700"
+        className="mb-2 inline-block w-full text-start text-sm font-medium tracking-wide text-gray-700"
         htmlFor={name}
       >
         {label}:{" "}

@@ -4,7 +4,7 @@ import FormInput from "@/components/forms/FormInput";
 
 function Login() {
   return (
-    <div>
+    <div className="mx-auto mt-12 w-1/2">
       <AuthPattern
         title="Welcome Back to Nexura"
         path="/register"

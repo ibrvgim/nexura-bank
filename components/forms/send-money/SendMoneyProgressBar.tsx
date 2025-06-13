@@ -110,11 +110,11 @@ function StepItem({
       return;
 
     if (
-      (!!isEmailValid(recipientEmail).message ||
-        !!isInputLengthValid(accountNumber, 12)?.message ||
-        !!isInputLengthValid(recipientFullname, 5)?.message ||
+      (!!isEmailValid(recipientEmail || "").message ||
+        !!isInputLengthValid(accountNumber || "", 12)?.message ||
+        !!isInputLengthValid(recipientFullname || "", 5)?.message ||
         (accountType === "other" &&
-          !!isInputLengthValid(accountSwift, 8)?.message)) &&
+          !!isInputLengthValid(accountSwift || "", 8)?.message)) &&
       !isStepSkippable
     )
       return;
