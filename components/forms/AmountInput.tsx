@@ -11,7 +11,7 @@ interface InputType {
   placeholder?: string;
   allCurrencies: CurrencyItem[];
   selectedCurrency: string;
-  setSelectedCurrency: (value: string) => void;
+  setSelectedCurrency?: (value: string) => void;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   smallStyle?: boolean;

@@ -22,14 +22,14 @@ function RecipientForm({
   const isDataValid = () => {
     if (!formData.recipientFullname || !formData.accountNumber) return false;
 
-    if (!!isEmailValid(formData.recipientEmail).message) return false;
+    if (!!isEmailValid(formData.recipientEmail || "").message) return false;
     else if (!!isInputLengthValid(formData.recipientFullname, 5)?.message)
       return false;
     else if (!!isInputLengthValid(formData.accountNumber, 12)?.message)
       return false;
     else if (
       formData.accountType === "other" &&
-      !!isInputLengthValid(formData.accountSwift, 8)?.message
+      !!isInputLengthValid(formData.accountSwift || "", 8)?.message
     )
       return false;
     else return true;
@@ -47,7 +47,7 @@ function RecipientForm({
         type="email"
         placeholder="nexura@account.com"
         value={formData.recipientEmail}
-        error={isEmailValid(formData.recipientEmail)}
+        error={isEmailValid(formData.recipientEmail || "")}
         onChange={handleInputChange}
         last
         optional
@@ -60,7 +60,7 @@ function RecipientForm({
       <div className="mb-8 flex text-center text-sm">
         <FormTab
           type="eu"
-          accountType={formData.accountType}
+          accountType={formData.accountType || ""}
           handleAccountType={handleAccountType}
         >
           EU Account
@@ -68,17 +68,17 @@ function RecipientForm({
 
         <FormTab
           type="other"
-          accountType={formData.accountType}
+          accountType={formData.accountType || ""}
           handleAccountType={handleAccountType}
         >
           Other Account
         </FormTab>
       </div>
 
-      {formatString(formData.accountType) === "eu" && (
+      {formatString(formData.accountType || "") === "eu" && (
         <EUAccount formData={formData} handleInputChange={handleInputChange} />
       )}
-      {formatString(formData.accountType) === "other" && (
+      {formatString(formData.accountType || "") === "other" && (
         <OtherAccount
           formData={formData}
           handleInputChange={handleInputChange}
@@ -106,7 +106,7 @@ function EUAccount({
         name="recipientFullname"
         type="text"
         placeholder="Alex Johnson"
-        error={isInputLengthValid(formData.recipientFullname, 5)}
+        error={isInputLengthValid(formData.recipientFullname || "", 5)}
         value={formData.recipientFullname}
         onChange={handleInputChange}
       />
@@ -115,7 +115,7 @@ function EUAccount({
         name="accountNumber"
         type="text"
         placeholder="DE12 3456 7890 1234 5678 90"
-        error={isInputLengthValid(formData.accountNumber, 12)}
+        error={isInputLengthValid(formData.accountNumber || "", 12)}
         value={formData.accountNumber}
         onChange={handleInputChange}
         last
@@ -138,7 +138,7 @@ function OtherAccount({
         name="recipientFullname"
         type="text"
         placeholder="Alex Johnson"
-        error={isInputLengthValid(formData.recipientFullname, 5)}
+        error={isInputLengthValid(formData.recipientFullname || "", 5)}
         value={formData.recipientFullname}
         onChange={handleInputChange}
       />
@@ -147,7 +147,7 @@ function OtherAccount({
         name="accountSwift"
         type="text"
         placeholder="TRWIBEB17"
-        error={isInputLengthValid(formData.accountSwift, 8)}
+        error={isInputLengthValid(formData.accountSwift || "", 8)}
         value={formData.accountSwift}
         onChange={handleInputChange}
       />
@@ -155,7 +155,7 @@ function OtherAccount({
         label="Account Number"
         name="accountNumber"
         type="text"
-        error={isInputLengthValid(formData.accountNumber, 12)}
+        error={isInputLengthValid(formData.accountNumber || "", 12)}
         value={formData.accountNumber}
         onChange={handleInputChange}
         last

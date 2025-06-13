@@ -5,8 +5,17 @@ import {
   CurrencyDollarIcon,
   CurrencyPoundIcon,
 } from "@heroicons/react/24/solid";
+import { CurrencyItem } from "@/types/types";
 
-function PayEmployeeCard() {
+async function PayEmployeeCard({
+  params,
+  allCurrencies,
+  exchangeRate,
+}: {
+  params: { convertFrom: string; convertTo: string };
+  allCurrencies: CurrencyItem[];
+  exchangeRate: number;
+}) {
   const iconValues = "-mb-3 inline-block size-5";
 
   return (
@@ -32,7 +41,11 @@ function PayEmployeeCard() {
         </div>
       </div>
 
-      <ConverterForm />
+      <ConverterForm
+        allCurrencies={allCurrencies}
+        exchangeRate={exchangeRate}
+        params={params}
+      />
     </section>
   );
 }

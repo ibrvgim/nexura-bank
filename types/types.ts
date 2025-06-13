@@ -30,11 +30,11 @@ export interface SendAddMoneyType {
   currency: string;
   payingWith: string;
   arrivesBy: string;
-  recipientFullname: string;
-  recipientEmail: string;
-  accountType: "eu" | "other";
-  accountNumber: string;
-  accountSwift: string;
+  recipientFullname?: string;
+  recipientEmail?: string;
+  accountType?: "eu" | "other";
+  accountNumber?: string;
+  accountSwift?: string;
 }
 
 export type SendAddMoneyFieldKeys =
@@ -60,10 +60,11 @@ export interface MoneyAmountFormType {
   handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
   currentCurrencySymbol: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCurrency: (value: string) => void;
+  handleCurrency?: (value: string) => void;
   params?: {
     amountToTransfer: string | undefined;
     transferCurrency: string | undefined;
   };
   isSendMoneyForm?: boolean;
+  nextForm?: string;
 }

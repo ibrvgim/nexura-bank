@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Logo from "../common/Logo";
+import Logo from "./Logo";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
 function AuthNavigation({ path }: { path?: string }) {

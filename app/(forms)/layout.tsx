@@ -1,4 +1,4 @@
-import AuthNavigation from "@/components/authentication/AuthNavigation";
+import AuthNavigation from "@/components/common/AuthNavigation";
 import MiniLoading from "@/components/common/MiniLoading";
 import { Suspense } from "react";
 

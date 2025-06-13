@@ -1,12 +1,12 @@
 "use client";
 
-import PayForm from "@/components/forms/send-money/PayForm";
 import RecipientForm from "@/components/forms/send-money/RecipientForm";
 import { CurrencyItem, SendAddMoneyType } from "@/types/types";
 import formatString from "@/utilities/formatString";
 import { useState } from "react";
 import MoneyAmountForm from "../MoneyAmountForm";
 import SendMoneyProgressBar from "./SendMoneyProgressBar";
+import PayForm from "../PayForm";
 
 function SendMoneyContainer({
   allCurrencies,

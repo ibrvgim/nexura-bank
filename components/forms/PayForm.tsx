@@ -1,18 +1,21 @@
 import formatNumber from "@/utilities/formatNumber";
-import PaymentDetailsCard from "./PaymentDetailsCard";
-import PaymentItem from "./PaymentItem";
-import FormButton from "../FormButton";
 import { SendAddMoneyType } from "@/types/types";
 import { calculateAmountWithoutFees } from "@/utilities/calculateFees";
+import PaymentDetailsCard from "./send-money/PaymentDetailsCard";
+import PaymentItem from "./send-money/PaymentItem";
+import FormButton from "./FormButton";
 
 function PayForm({
   formData,
   setFormStep,
   currentCurrencySymbol,
+  isSendMoney = true,
 }: {
   formData: SendAddMoneyType;
+
   setFormStep: (value: string) => void;
-  currentCurrencySymbol: string;
+  currentCurrencySymbol?: string;
+  isSendMoney?: boolean;
 }) {
   const {
     recipientFullname,
@@ -30,17 +33,25 @@ function PayForm({
 
   return (
     <>
-      <PaymentDetailsCard
-        title="Recipient Information"
-        bottomMargin="mb-8"
-        isChangeable
-        onClick={() => setFormStep("recipient")}
-      >
-        <PaymentItem title="Full Name" value={recipientFullname} />
-        {recipientEmail && <PaymentItem title="Email" value={recipientEmail} />}
-        {accountSwift && <PaymentItem title="SWIFT" value={accountSwift} />}
-        <PaymentItem title="IBAN / Account Number" value={accountNumber} last />
-      </PaymentDetailsCard>
+      {isSendMoney && (
+        <PaymentDetailsCard
+          title="Recipient Information"
+          bottomMargin="mb-8"
+          isChangeable
+          onClick={() => setFormStep("recipient")}
+        >
+          <PaymentItem title="Full Name" value={recipientFullname || ""} />
+          {recipientEmail && (
+            <PaymentItem title="Email" value={recipientEmail} />
+          )}
+          {accountSwift && <PaymentItem title="SWIFT" value={accountSwift} />}
+          <PaymentItem
+            title="IBAN / Account Number"
+            value={accountNumber || ""}
+            last
+          />
+        </PaymentDetailsCard>
+      )}
 
       <PaymentDetailsCard
         title="Payment Information"
@@ -49,10 +60,10 @@ function PayForm({
         onClick={() => setFormStep("amount")}
       >
         <PaymentItem
-          title="Transfer Amount"
+          title={isSendMoney ? "Transfer Amount" : "Amount to Add"}
           value={`${formatNumber(
             Number(initialAmount),
-          )}${currentCurrencySymbol}`}
+          )}${currentCurrencySymbol || "$"}`}
         />
         <PaymentItem
           title="Paying with"
@@ -66,7 +77,7 @@ function PayForm({
         />
         <PaymentItem
           title="Fees"
-          value={`${calculateFee.toFixed(2)}${currentCurrencySymbol}`}
+          value={`${calculateFee.toFixed(2)}${currentCurrencySymbol || "$"}`}
           last
         />
       </PaymentDetailsCard>

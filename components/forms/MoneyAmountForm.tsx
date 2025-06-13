@@ -28,6 +28,7 @@ function MoneyAmountForm({
   handleCurrency,
   params,
   isSendMoneyForm = true,
+  nextForm = "recipient",
 }: MoneyAmountFormType) {
   const isDataValid =
     formData.initialAmount && Number(formData.initialAmount) >= 5;
@@ -38,7 +39,7 @@ function MoneyAmountForm({
   }, []);
 
   function handleFormStep() {
-    if (isDataValid) setFormStep("recipient");
+    if (isDataValid) setFormStep(nextForm);
     if (!isSendMoneyForm) return;
 
     if (!params || !params.amountToTransfer || !params.transferCurrency) return;

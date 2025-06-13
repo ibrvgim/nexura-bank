@@ -22,10 +22,12 @@ function ConverterForm({
   const router = useRouter();
   const [formData, setFormData] = useState({
     sendAmount: "1000",
-    sendCurrency: params.convertFrom || "usd",
-    receiveCurrency: params.convertTo || "eur",
+    sendCurrency: params?.convertFrom || "usd",
+    receiveCurrency: params?.convertTo || "eur",
     payingWith: "bank transfer",
   });
+
+  if (!allCurrencies) return;
 
   const currentCurrencySymbol = allCurrencies.find(
     (item) =>
@@ -61,7 +63,7 @@ function ConverterForm({
   }
 
   return (
-    <div className="flex w-[35%] flex-col gap-5 rounded-2xl bg-gray-50 px-8 py-8 shadow-xl">
+    <div className="flex w-[35%] flex-col gap-5 rounded-2xl bg-white px-8 py-8 shadow-xl">
       <div className="text-gray-600">
         <LockClosedIcon className="mx-auto mb-2 size-6" />
         <p className="text-center text-xs tracking-wide uppercase">

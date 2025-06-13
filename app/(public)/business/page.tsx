@@ -5,13 +5,35 @@ import PayEmployeeCard from "@/components/business/PayEmployeeCard";
 import SavingsCard from "@/components/business/SavingsCard";
 import WhyNexuraCard from "@/components/business/WhyNexuraCard";
 import InfoCard from "@/components/business/InfoCard";
+import { CurrencyItem } from "@/types/types";
+import getCurrencies from "@/data/api/getCurrencies";
+import getCurrenciesRate from "@/data/api/getCurrenciesRate";
 
-function Business() {
+async function Business({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    cardType: string;
+    convertFrom: string;
+    convertTo: string;
+  }>;
+}) {
+  const params = await searchParams;
+  const allCurrencies: CurrencyItem[] = (await getCurrencies()) || [];
+  const exchangeRate = await getCurrenciesRate(
+    `${params.convertFrom || "usd"}`,
+    `${params.convertTo || "eur"}`,
+  );
+
   return (
     <>
       <BusinessHeadingCard />
       <SavingsCard />
-      <PayEmployeeCard />
+      <PayEmployeeCard
+        params={params}
+        allCurrencies={allCurrencies}
+        exchangeRate={exchangeRate}
+      />
       <WhyNexuraCard />
       <BusinessTypesCard />
       <FrequentlyAskedQuestions />

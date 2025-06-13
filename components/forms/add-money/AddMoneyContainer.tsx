@@ -8,16 +8,14 @@ import {
 import formatString from "@/utilities/formatString";
 import { useState } from "react";
 import MoneyAmountForm from "../MoneyAmountForm";
+import PayForm from "../PayForm";
 
 function AddMoneyContainer({
   allCurrencies,
 }: {
   allCurrencies: CurrencyItem[];
 }) {
-  const initialState: Pick<
-    SendAddMoneyType,
-    "initialAmount" | "currency" | "payingWith" | "arrivesBy"
-  > = {
+  const initialState: SendAddMoneyType = {
     initialAmount: "",
     currency: "usd",
     payingWith: "bank transfer",
@@ -25,7 +23,6 @@ function AddMoneyContainer({
   };
 
   const [formStep, setFormStep] = useState("amount");
-  console.log(formStep);
   const [formData, setFormData] = useState(initialState);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -50,15 +47,27 @@ function AddMoneyContainer({
 
   return (
     <div className="mx-auto w-1/2">
-      <MoneyAmountForm
-        allCurrencies={allCurrencies}
-        setFormStep={setFormStep}
-        formData={formData}
-        handleFormData={handleFormData}
-        currentCurrencySymbol={currentCurrencySymbol || "$"}
-        handleInputChange={handleInputChange}
-        isSendMoneyForm={false}
-      />
+      {formStep === "amount" && (
+        <MoneyAmountForm
+          allCurrencies={allCurrencies}
+          setFormStep={setFormStep}
+          formData={formData}
+          handleFormData={handleFormData}
+          currentCurrencySymbol={currentCurrencySymbol || "$"}
+          handleInputChange={handleInputChange}
+          isSendMoneyForm={false}
+          nextForm="pay"
+        />
+      )}
+
+      {formStep === "pay" && (
+        <PayForm
+          currentCurrencySymbol={currentCurrencySymbol}
+          formData={formData}
+          setFormStep={setFormStep}
+          isSendMoney={false}
+        />
+      )}
     </div>
   );
 }

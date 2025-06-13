@@ -6,13 +6,13 @@ function FormInput({
   name,
   type,
   placeholder,
-  last = false,
   error,
   value,
   onChange,
-  optional = false,
   minValue,
   maxValue,
+  optional = false,
+  last = false,
 }: {
   label: string;
   name: string;
@@ -51,7 +51,7 @@ function FormInput({
         type={type}
         name={name}
         placeholder={placeholder}
-        className={`w-full rounded-lg px-4 py-3 outline-2 outline-gray-300 transition-all duration-200 placeholder:text-sm placeholder:text-gray-400 hover:outline-gray-600 focus:outline-3 focus:outline-gray-600 ${!last ? "mb-6" : ""}`}
+        className={`w-full rounded-lg px-4 py-3 outline-2 outline-gray-300 transition-all duration-200 placeholder:text-sm placeholder:tracking-wide placeholder:text-gray-400 hover:outline-gray-600 focus:outline-3 focus:outline-gray-600 ${!last ? "mb-6" : ""}`}
         value={value}
         onChange={onChange}
         min={minValue}

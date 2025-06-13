@@ -19,7 +19,7 @@ function SelectCurrency({
 }: {
   allCurrencies: CurrencyItem[];
   selectedCurrency: string;
-  setSelectedCurrency: (value: string) => void;
+  setSelectedCurrency?: (value: string) => void;
   smallStyle?: boolean;
 }) {
   const [toggleSelect, setToggleSelect] = useState(false);
@@ -48,7 +48,7 @@ function SelectCurrency({
   }
 
   function handleSelectedCurrency(value: string) {
-    setSelectedCurrency(value);
+    if (setSelectedCurrency) setSelectedCurrency(value);
     setToggleSelect(false);
     cleanSearch();
   }

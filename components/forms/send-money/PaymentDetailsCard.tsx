@@ -20,6 +20,7 @@ function PaymentDetailsCard({
           {title}
         </p>
       )}
+
       {children}
 
       {isChangeable && (

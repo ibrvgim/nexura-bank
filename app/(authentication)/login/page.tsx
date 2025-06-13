@@ -1,19 +1,34 @@
-import AuthInput from "@/components/authentication/AuthInput";
 import AuthPattern from "@/components/authentication/AuthPattern";
+import FormButton from "@/components/forms/FormButton";
+import FormInput from "@/components/forms/FormInput";
 
 function Login() {
   return (
     <div>
-      <AuthPattern title="Welcome to Nexura" path="/register">
-        <div className="mb-5">
-          <AuthInput
-            label="Enter email address:"
-            type="email"
-            placeholder="nexura@account.com"
-          />
-        </div>
+      <AuthPattern
+        title="Welcome Back to Nexura"
+        path="/register"
+        submitButton={
+          <span className="*:mt-7">
+            <FormButton>Log in</FormButton>
+          </span>
+        }
+      >
+        <FormInput
+          label="Email address"
+          name="email"
+          type="email"
+          placeholder="nexura@account.com"
+          optional
+        />
 
-        <AuthInput label="Password:" type="password" />
+        <FormInput
+          label="Password"
+          name="password"
+          type="password"
+          optional
+          last
+        />
       </AuthPattern>
     </div>
   );

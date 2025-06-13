@@ -5,10 +5,12 @@ function AuthPattern({
   title,
   path,
   children,
+  submitButton,
 }: {
   title: string;
   path: string;
   children: React.ReactNode;
+  submitButton: React.ReactNode;
 }) {
   const isRegister = path.includes("login");
 
@@ -35,14 +37,13 @@ function AuthPattern({
         {!isRegister && (
           <Link
             href=""
-            className="float-right mt-3 inline-block border-b-2 text-sm text-gray-500 transition-colors hover:text-gray-800"
+            className="float-right mt-3 inline-block border-b-2 text-sm text-gray-400 transition-colors hover:text-gray-800"
           >
             Problem with logging in?
           </Link>
         )}
-        <button className="mt-7 w-full cursor-pointer rounded-full bg-green-400 py-3 font-medium tracking-wide text-white transition-all duration-300 hover:bg-green-500">
-          {isRegister ? "Continue" : "Log in"}
-        </button>
+
+        {submitButton}
       </form>
 
       <div className="flex w-full items-center gap-3 py-7">
