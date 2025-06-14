@@ -1,5 +1,3 @@
-"use client";
-
 import AmountInput from "./AmountInput";
 import { MoneyAmountFormType } from "@/types/types";
 import FormButton from "./FormButton";

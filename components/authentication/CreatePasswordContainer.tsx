@@ -9,7 +9,7 @@ function CreatePasswordContainer({
     <div>
       <div>
         <FormInput
-          label="Password"
+          label="Create Password"
           name="password"
           type="password"
           placeholder="Minimum 8 characters"

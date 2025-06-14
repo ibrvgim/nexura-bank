@@ -5,7 +5,6 @@ import PayEmployeeCard from "@/components/business/PayEmployeeCard";
 import SavingsCard from "@/components/business/SavingsCard";
 import WhyNexuraCard from "@/components/business/WhyNexuraCard";
 import InfoCard from "@/components/business/InfoCard";
-import { CurrencyItem } from "@/types/types";
 import getCurrencies from "@/data/api/getCurrencies";
 import getCurrenciesRate from "@/data/api/getCurrenciesRate";
 
@@ -18,8 +17,11 @@ async function Business({
     convertTo: string;
   }>;
 }) {
-  const params = await searchParams;
-  const allCurrencies: CurrencyItem[] = (await getCurrencies()) || [];
+  const [params, allCurrencies] = await Promise.all([
+    searchParams,
+    getCurrencies(),
+  ]);
+
   const exchangeRate = await getCurrenciesRate(
     `${params.convertFrom || "usd"}`,
     `${params.convertTo || "eur"}`,
@@ -31,7 +33,7 @@ async function Business({
       <SavingsCard />
       <PayEmployeeCard
         params={params}
-        allCurrencies={allCurrencies}
+        allCurrencies={allCurrencies || []}
         exchangeRate={exchangeRate}
       />
       <WhyNexuraCard />

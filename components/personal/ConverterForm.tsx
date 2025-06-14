@@ -14,10 +14,12 @@ function ConverterForm({
   allCurrencies,
   exchangeRate,
   params,
+  isBusinessPage = false,
 }: {
   allCurrencies: CurrencyItem[];
   exchangeRate: number;
   params: { convertFrom: string; convertTo: string };
+  isBusinessPage?: boolean;
 }) {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -26,6 +28,8 @@ function ConverterForm({
     receiveCurrency: params?.convertTo || "eur",
     payingWith: "bank transfer",
   });
+
+  const convertedValue = Number(formData.sendAmount) * exchangeRate;
 
   if (!allCurrencies) return;
 
@@ -43,9 +47,12 @@ function ConverterForm({
   }
 
   function pushDatatoUrl(fromValue: string, toValue: string) {
-    router.push(`/?convertFrom=${fromValue}&convertTo=${toValue}`, {
-      scroll: false,
-    });
+    router.push(
+      `${isBusinessPage ? "/business" : ""}/?convertFrom=${fromValue}&convertTo=${toValue}`,
+      {
+        scroll: false,
+      },
+    );
   }
 
   function handleSendCurrency(value: string) {
@@ -94,7 +101,7 @@ function ConverterForm({
         setSelectedCurrency={handleReceiveCurrency}
         smallStyle
         readOnly
-        defaultValue={(Number(formData.sendAmount) * exchangeRate).toFixed(2)}
+        value={convertedValue.toFixed(2)}
       />
 
       {formData.sendAmount && (

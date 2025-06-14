@@ -50,7 +50,7 @@ function AmountInput({
           inputMode="numeric"
           pattern="[0-9]*"
           placeholder={placeholder}
-          className={`w-full rounded-lg pr-48 pl-6 font-extrabold tracking-wide text-gray-700 outline-2 outline-gray-200 transition-all duration-300 group-hover:outline-gray-500 placeholder:text-gray-600 hover:outline-gray-500 focus:outline-3 focus:outline-gray-500 focus:placeholder:opacity-0 ${smallStyle ? "py-3 text-3xl" : "py-4 text-5xl"}`}
+          className={`w-full rounded-lg pr-36 pl-6 font-extrabold tracking-wide text-gray-700 outline-2 outline-gray-200 transition-all duration-300 group-hover:outline-gray-500 placeholder:text-gray-600 hover:outline-gray-500 focus:outline-3 focus:outline-gray-500 focus:placeholder:opacity-0 ${smallStyle ? "py-3 text-3xl" : "py-4 text-5xl"}`}
           value={value}
           onChange={onChange}
           readOnly={readOnly}

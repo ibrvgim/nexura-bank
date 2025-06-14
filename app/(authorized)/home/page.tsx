@@ -2,6 +2,8 @@ import BalanceCard from "@/components/authorized/home/BalanceCard";
 import ProtectionInformation from "@/components/authorized/home/ProtectionInformation";
 import TransactionsOverview from "@/components/authorized/home/TransactionsOverview";
 import TransferMoney from "@/components/authorized/home/TransferMoney";
+import getCurrencies from "@/data/api/getCurrencies";
+import getCurrenciesRate from "@/data/api/getCurrenciesRate";
 import { ConverterDataType } from "@/types/types";
 
 async function AuthorizedHome({
@@ -9,7 +11,15 @@ async function AuthorizedHome({
 }: {
   searchParams: Promise<ConverterDataType>;
 }) {
-  const converterData = await searchParams;
+  const [converterData, allCurrencies] = await Promise.all([
+    searchParams,
+    getCurrencies(),
+  ]);
+
+  const currencyRate = await getCurrenciesRate(
+    converterData.from || "usd",
+    converterData.to || "eur",
+  );
 
   return (
     <>
@@ -19,7 +29,11 @@ async function AuthorizedHome({
 
       <BalanceCard />
       <TransactionsOverview />
-      <TransferMoney converterData={converterData} />
+      <TransferMoney
+        converterData={converterData}
+        allCurrencies={allCurrencies || []}
+        currencyRate={currencyRate}
+      />
       <ProtectionInformation />
     </>
   );

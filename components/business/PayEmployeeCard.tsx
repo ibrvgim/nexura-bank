@@ -45,6 +45,7 @@ async function PayEmployeeCard({
         allCurrencies={allCurrencies}
         exchangeRate={exchangeRate}
         params={params}
+        isBusinessPage
       />
     </section>
   );
