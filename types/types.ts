@@ -68,3 +68,12 @@ export interface MoneyAmountFormType {
   isSendMoneyForm?: boolean;
   nextForm?: string;
 }
+
+export interface RegistrationDataType {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+}

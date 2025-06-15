@@ -93,7 +93,7 @@ function PayForm({
         ></PaymentItem>
       </PaymentDetailsCard>
 
-      <FormButton>Confirm & Pay</FormButton>
+      <FormButton title="Confirm & Pay" />
     </>
   );
 }

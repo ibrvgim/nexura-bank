@@ -24,9 +24,9 @@ function OrderCardFormContainer({ type }: { type: string }) {
           By ordering the <span className="font-normal capitalize">{type}</span>{" "}
           card, you accept our terms and conditions.
         </p>
-        <FormButton>
-          Order <span className="capitalize">{type}</span> Debit Card
-        </FormButton>
+        <FormButton
+          title={`Order ${type[0]?.toUpperCase() + type?.slice(1)} Debit Card`}
+        ></FormButton>
       </div>
     </>
   );

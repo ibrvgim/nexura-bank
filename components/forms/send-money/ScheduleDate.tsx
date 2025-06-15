@@ -47,7 +47,7 @@ function ScheduleDate({
       />
 
       <span className="*:mt-4">
-        <FormButton onClick={handleScheduledDate}>Schedule Date</FormButton>
+        <FormButton title="Schedule Date" onClick={handleScheduledDate} />
       </span>
     </div>
   );

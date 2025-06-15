@@ -15,7 +15,9 @@ function AuthProgressBar({
     <ul className="mb-16 flex items-center justify-center">
       <StepItem
         icon={<AtSymbolIcon />}
-        onClick={() => handleNextStep("firstStep")}
+        stepName="firstStep"
+        currentStep={registrationStep}
+        onClick={handleNextStep}
         isActive={!!registrationStep}
       />
 
@@ -27,7 +29,9 @@ function AuthProgressBar({
 
       <StepItem
         icon={<LockClosedIcon />}
-        onClick={() => handleNextStep("secondStep")}
+        stepName="secondStep"
+        currentStep={registrationStep}
+        onClick={handleNextStep}
         isActive={
           registrationStep === "secondStep" || registrationStep === "thirdStep"
         }
@@ -37,7 +41,9 @@ function AuthProgressBar({
 
       <StepItem
         icon={<IdentificationIcon />}
-        onClick={() => handleNextStep("thirdStep")}
+        stepName="thirdStep"
+        currentStep={registrationStep}
+        onClick={handleNextStep}
         isActive={registrationStep === "thirdStep"}
       />
     </ul>
@@ -47,17 +53,27 @@ function AuthProgressBar({
 function StepItem({
   icon,
   isActive = false,
+  stepName,
+  currentStep,
   onClick,
 }: {
   icon: React.ReactNode;
   isActive?: boolean;
-  onClick?: () => void;
+  stepName: "firstStep" | "secondStep" | "thirdStep";
+  currentStep: "firstStep" | "secondStep" | "thirdStep";
+  onClick: (value: "firstStep" | "secondStep" | "thirdStep") => void;
 }) {
+  function handleProgressBar() {
+    if (stepName === "thirdStep") return;
+    else if (currentStep === "firstStep") return;
+    else onClick(stepName);
+  }
+
   return (
     <li>
       <button
         className={`inline-block cursor-pointer rounded-full p-4 *:size-6 ${isActive ? "bg-green-400 text-white" : "bg-stone-200 text-stone-600"}`}
-        onClick={onClick}
+        onClick={handleProgressBar}
       >
         {icon}
       </button>

@@ -73,9 +73,11 @@ function MoneyAmountForm({
         />
       )}
 
-      <FormButton active={isDataValid || false} onClick={handleFormStep}>
-        Continue
-      </FormButton>
+      <FormButton
+        title="Continue"
+        active={isDataValid || false}
+        onClick={handleFormStep}
+      />
     </>
   );
 }

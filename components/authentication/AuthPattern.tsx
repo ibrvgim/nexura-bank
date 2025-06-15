@@ -31,7 +31,7 @@ function AuthPattern({
         </Link>
       </div>
 
-      <form className="mt-10 w-full">
+      <div className="mt-10 w-full">
         {children}
 
         {!isRegister && (
@@ -44,7 +44,7 @@ function AuthPattern({
         )}
 
         {submitButton}
-      </form>
+      </div>
 
       <div className="flex w-full items-center gap-3 py-7">
         <div className="h-[1px] flex-1 rounded-full bg-gray-500">&nbsp;</div>

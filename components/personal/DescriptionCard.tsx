@@ -22,7 +22,7 @@ function DescriptionCard() {
         </p>
 
         <Link
-          href=""
+          href="/send-money"
           className="inline-block border-b-2 border-b-gray-500 pb-1 text-gray-500 transition-all hover:border-b-green-500 hover:text-green-500"
         >
           Transfer Money Now

@@ -1,20 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import FormButton from "../forms/FormButton";
 import FormInput from "../forms/FormInput";
 import AuthPattern from "./AuthPattern";
 import CreatePasswordContainer from "./CreatePasswordContainer";
 import RegisterPersonalDetails from "./RegisterPersonalDetails";
 import AuthProgressBar from "./AuthProgressBar";
+import {
+  isEmailValid,
+  isInputLengthValid,
+  isPhoneNumberValid,
+} from "@/utilities/validateInputsValue";
 
 function AuthContainer() {
   const [registrationStep, setRegistrationStep] = useState<
     "firstStep" | "secondStep" | "thirdStep"
   >("firstStep");
 
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+  });
+
+  const isValidEmail =
+    !!formData?.email && !isEmailValid(formData?.email)?.message;
+  const isPasswordValid =
+    !isInputLengthValid(formData.password, 8)?.message &&
+    formData?.password === formData?.confirmPassword;
+
+  const isPersonalDetailsValid =
+    !isInputLengthValid(formData?.firstName, 2)?.message &&
+    !isInputLengthValid(formData?.lastName, 2)?.message &&
+    !isPhoneNumberValid(formData?.phoneNumber)?.message;
+
   function handleNextStep(value: "firstStep" | "secondStep" | "thirdStep") {
     setRegistrationStep(value);
+  }
+
+  function handleFormData(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
   return (
@@ -30,9 +60,11 @@ function AuthContainer() {
           path="/login"
           submitButton={
             <span className="*:mt-5">
-              <FormButton onClick={() => handleNextStep("secondStep")}>
-                Continue
-              </FormButton>
+              <FormButton
+                title="Continue"
+                onClick={() => isValidEmail && handleNextStep("secondStep")}
+                active={isValidEmail}
+              />
             </span>
           }
         >
@@ -41,6 +73,9 @@ function AuthContainer() {
             name="email"
             type="email"
             placeholder="nexura@account.com"
+            value={formData.email}
+            onChange={handleFormData}
+            error={isEmailValid(formData?.email)}
             optional
           />
         </AuthPattern>
@@ -49,16 +84,22 @@ function AuthContainer() {
       {registrationStep === "secondStep" && (
         <CreatePasswordContainer
           submitButton={
-            <FormButton onClick={() => handleNextStep("thirdStep")}>
-              Continue
-            </FormButton>
+            <FormButton
+              title="Continue"
+              onClick={() => isPasswordValid && handleNextStep("thirdStep")}
+              active={isPasswordValid}
+            />
           }
+          formData={formData}
+          onChange={handleFormData}
         />
       )}
 
       {registrationStep === "thirdStep" && (
         <RegisterPersonalDetails
-          submitButton={<FormButton>Create an Account</FormButton>}
+          formData={formData}
+          onChange={handleFormData}
+          isPersonalDetailsValid={isPersonalDetailsValid}
         />
       )}
     </div>

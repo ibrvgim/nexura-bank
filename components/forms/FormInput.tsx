@@ -7,6 +7,7 @@ function FormInput({
   type,
   placeholder,
   error,
+  directErros,
   value,
   onChange,
   minValue,
@@ -20,6 +21,7 @@ function FormInput({
   placeholder?: string;
   last?: boolean;
   error?: { message?: string | undefined };
+  directErros?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   optional?: boolean;
@@ -40,9 +42,9 @@ function FormInput({
             <BasicTooltip title="Must be filled in">*</BasicTooltip>
           </span>
         )}
-        {error?.message && !isRequired && (
+        {(error?.message || directErros) && !isRequired && (
           <span className="float-right text-sm text-red-500">
-            {error?.message}
+            {error?.message || directErros}
           </span>
         )}
       </label>

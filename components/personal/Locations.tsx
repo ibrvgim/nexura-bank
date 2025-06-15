@@ -16,7 +16,7 @@ function Locations() {
         </p>
 
         <div className="*:px-12 *:py-2">
-          <PrimaryButton path="">Get a Nexura Account</PrimaryButton>
+          <PrimaryButton path="/register">Get a Nexura Account</PrimaryButton>
         </div>
       </div>
 

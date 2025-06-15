@@ -85,9 +85,11 @@ function RecipientForm({
         />
       )}
 
-      <FormButton onClick={handleFormStep} active={isDataValid()}>
-        Continue
-      </FormButton>
+      <FormButton
+        title="Continue"
+        onClick={handleFormStep}
+        active={isDataValid()}
+      />
     </>
   );
 }

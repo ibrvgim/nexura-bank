@@ -81,16 +81,16 @@ function StepItem({
     transferCurrency: string | undefined;
   };
 }) {
-  function handleFormStep() {
-    const {
-      initialAmount,
-      accountType,
-      accountNumber,
-      accountSwift,
-      recipientFullname,
-      recipientEmail,
-    } = formData;
+  const {
+    initialAmount,
+    accountType,
+    accountNumber,
+    accountSwift,
+    recipientFullname,
+    recipientEmail,
+  } = formData;
 
+  function handleFormStep() {
     const isAmountValid = initialAmount && Number(initialAmount) >= 5;
     const isStepSkippable = stepName === "amount" || stepName === "recipient";
 
@@ -110,7 +110,7 @@ function StepItem({
       return;
 
     if (
-      (!!isEmailValid(recipientEmail || "").message ||
+      (!!isEmailValid(recipientEmail || "")?.message ||
         !!isInputLengthValid(accountNumber || "", 12)?.message ||
         !!isInputLengthValid(recipientFullname || "", 5)?.message ||
         (accountType === "other" &&
