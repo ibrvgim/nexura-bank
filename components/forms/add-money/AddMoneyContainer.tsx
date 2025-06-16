@@ -6,9 +6,10 @@ import {
   SendAddMoneyType,
 } from "@/types/types";
 import formatString from "@/utilities/formatString";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MoneyAmountForm from "../MoneyAmountForm";
 import PayForm from "../PayForm";
+import { getFutureDate } from "@/utilities/formatDate";
 
 function AddMoneyContainer({
   allCurrencies,
@@ -19,11 +20,15 @@ function AddMoneyContainer({
     initialAmount: "",
     currency: "usd",
     payingWith: "bank transfer",
-    arrivesBy: "Tomorrow",
+    arrivesBy: "",
   };
 
   const [formStep, setFormStep] = useState("amount");
   const [formData, setFormData] = useState(initialState);
+
+  useEffect(() => {
+    handleFormData("arrivesBy", getFutureDate());
+  }, []);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -40,6 +45,10 @@ function AddMoneyContainer({
     }));
   }
 
+  function handleCurrency(value: string) {
+    setFormData((prev) => ({ ...prev, currency: value }));
+  }
+
   const currentCurrencySymbol = allCurrencies.find(
     (item) =>
       formatString(item.currencyCode) === formatString(formData.currency),
@@ -53,6 +62,7 @@ function AddMoneyContainer({
           setFormStep={setFormStep}
           formData={formData}
           handleFormData={handleFormData}
+          handleCurrency={handleCurrency}
           currentCurrencySymbol={currentCurrencySymbol || "$"}
           handleInputChange={handleInputChange}
           isSendMoneyForm={false}

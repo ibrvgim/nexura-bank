@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 interface ErrorsType {
   [key: string]: string;
 }
@@ -32,11 +34,13 @@ export async function handleLogin(_: unknown, formData: FormData) {
   });
   await repsonse;
 
-  return {};
+  redirect("/home");
 }
 
 // REGISTRATION ACTION
 export async function handleRegistration(_: unknown, formData: FormData) {
+  console.log(formData);
+
   const repsonse = new Promise((resolve) => {
     setTimeout(() => resolve("success"), 5000);
   });

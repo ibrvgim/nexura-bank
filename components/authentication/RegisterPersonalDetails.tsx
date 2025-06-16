@@ -17,10 +17,8 @@ function RegisterPersonalDetails({
   isPersonalDetailsValid: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-  const [errors, formAction, isPending] = useActionState(
-    handleRegistration,
-    {},
-  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, formAction, isPending] = useActionState(handleRegistration, {});
 
   return (
     <form action={formAction}>

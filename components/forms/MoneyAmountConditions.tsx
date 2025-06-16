@@ -5,6 +5,7 @@ import {
   ClockIcon,
   ReceiptPercentIcon,
 } from "@heroicons/react/24/outline";
+import { formatIntlDate } from "@/utilities/formatDate";
 
 function MoneyAmountConditions({
   formData,
@@ -12,12 +13,7 @@ function MoneyAmountConditions({
   isSendMoneyForm = true,
   handleFormData,
 }: {
-  formData:
-    | Pick<
-        SendAddMoneyType,
-        "initialAmount" | "currency" | "payingWith" | "arrivesBy"
-      >
-    | SendAddMoneyType;
+  formData: SendAddMoneyType;
 
   currentCurrencySymbol: string;
   isSendMoneyForm?: boolean;
@@ -45,11 +41,15 @@ function MoneyAmountConditions({
             icon={<ClockIcon />}
             title="Arrives"
             pathTitle={isSendMoneyForm ? "Schedule" : ""}
+            formData={formData}
             isSendMoneyForm={isSendMoneyForm}
             tooltipTitle="Nexura offers instant transactions, but in some situations, there might be delays — up to the time shown."
             handleFormData={handleFormData}
           >
-            by <span className="capitalize">{formData.arrivesBy}</span>
+            by{" "}
+            <span className="capitalize">
+              {formatIntlDate(formData.arrivesBy)}
+            </span>
           </ActionCard>
         </li>
       </ul>

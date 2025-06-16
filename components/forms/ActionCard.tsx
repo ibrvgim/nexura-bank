@@ -2,7 +2,7 @@ import BasicTooltip from "@/components/common/Tooltip";
 import BasicModalWindow from "../common/BasicModalWindow";
 import { useState } from "react";
 import PaymentOptions from "./PaymentOptions";
-import { SendAddMoneyFieldKeys } from "@/types/types";
+import { SendAddMoneyFieldKeys, SendAddMoneyType } from "@/types/types";
 import ScheduleDate from "./send-money/ScheduleDate";
 import { calculateAmountWithoutFees } from "@/utilities/calculateFees";
 import formatNumber from "@/utilities/formatNumber";
@@ -12,6 +12,12 @@ interface ActionCardType {
   icon: React.ReactNode;
   title: string;
   children?: React.ReactNode;
+  formData?:
+    | SendAddMoneyType
+    | Pick<
+        SendAddMoneyType,
+        "initialAmount" | "currency" | "payingWith" | "arrivesBy"
+      >;
   pathTitle?: string;
   initialAmount?: string;
   currencySymbol?: string;
@@ -27,6 +33,7 @@ function ActionCard({
   icon,
   title,
   children,
+  formData,
   pathTitle,
   initialAmount,
   currencySymbol,
@@ -92,6 +99,7 @@ function ActionCard({
                 <ScheduleDate
                   handleClose={handleClose}
                   handleFormData={handleFormData}
+                  selectedDate={formData?.arrivesBy || ""}
                 />
               )}
             </BasicModalWindow>

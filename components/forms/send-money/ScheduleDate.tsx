@@ -1,28 +1,29 @@
 import { useState } from "react";
 import FormInput from "../FormInput";
 import FormButton from "../FormButton";
-import { formatIntlDate } from "@/utilities/formatDate";
 import { SendAddMoneyFieldKeys } from "@/types/types";
-
-function futureDate() {
-  const currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() + 3);
-  return `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, "0")}-${currentDate.getDate()}`;
-}
+import { getDaysBetweenDates, getFutureDate } from "@/utilities/formatDate";
 
 function ScheduleDate({
   handleClose,
   handleFormData,
+  selectedDate,
 }: {
   handleClose: () => void;
   handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
+  selectedDate: string;
 }) {
-  const [date, setDate] = useState(futureDate);
+  const [date, setDate] = useState(selectedDate);
+  const [error, setError] = useState("");
 
   function handleScheduledDate() {
-    const scheduledDate = formatIntlDate(date || futureDate());
-    handleFormData("arrivesBy", scheduledDate);
-    handleClose();
+    if (!date) return;
+    const checklValidity = getDaysBetweenDates(new Date(), date);
+
+    if (checklValidity >= 2) {
+      handleFormData("arrivesBy", date);
+      handleClose();
+    } else setError("Schedule the correct date");
   }
 
   return (
@@ -43,7 +44,8 @@ function ScheduleDate({
         optional
         value={date}
         onChange={(e) => setDate(e.target.value)}
-        minValue={futureDate()}
+        minValue={getFutureDate()}
+        directErros={error}
       />
 
       <span className="*:mt-4">

@@ -3,10 +3,11 @@
 import RecipientForm from "@/components/forms/send-money/RecipientForm";
 import { CurrencyItem, SendAddMoneyType } from "@/types/types";
 import formatString from "@/utilities/formatString";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MoneyAmountForm from "../MoneyAmountForm";
 import SendMoneyProgressBar from "./SendMoneyProgressBar";
 import PayForm from "../PayForm";
+import { getFutureDate } from "@/utilities/formatDate";
 
 function SendMoneyContainer({
   allCurrencies,
@@ -22,7 +23,7 @@ function SendMoneyContainer({
     initialAmount: params.amountToTransfer || "",
     currency: params.transferCurrency || "usd",
     payingWith: "bank transfer",
-    arrivesBy: "Tomorrow",
+    arrivesBy: "",
     recipientFullname: "",
     recipientEmail: "",
     accountType: "eu",
@@ -32,6 +33,10 @@ function SendMoneyContainer({
 
   const [formStep, setFormStep] = useState("amount");
   const [formData, setFormData] = useState(initialState);
+
+  useEffect(() => {
+    handleFormData("arrivesBy", getFutureDate());
+  }, []);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;

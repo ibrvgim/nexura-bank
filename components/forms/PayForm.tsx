@@ -4,6 +4,9 @@ import { calculateAmountWithoutFees } from "@/utilities/calculateFees";
 import PaymentDetailsCard from "./send-money/PaymentDetailsCard";
 import PaymentItem from "./send-money/PaymentItem";
 import FormButton from "./FormButton";
+import { useActionState } from "react";
+import { handleSendAddMoney } from "@/actions/moneySendAddAction";
+import { capitalizeString } from "@/utilities/formatString";
 
 function PayForm({
   formData,
@@ -12,11 +15,13 @@ function PayForm({
   isSendMoney = true,
 }: {
   formData: SendAddMoneyType;
-
   setFormStep: (value: string) => void;
   currentCurrencySymbol?: string;
   isSendMoney?: boolean;
 }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, formAction, isPending] = useActionState(handleSendAddMoney, {});
+
   const {
     recipientFullname,
     recipientEmail,
@@ -32,7 +37,7 @@ function PayForm({
       Number(initialAmount));
 
   return (
-    <>
+    <form action={formAction}>
       {isSendMoney && (
         <PaymentDetailsCard
           title="Recipient Information"
@@ -40,14 +45,29 @@ function PayForm({
           isChangeable
           onClick={() => setFormStep("recipient")}
         >
-          <PaymentItem title="Full Name" value={recipientFullname || ""} />
+          <PaymentItem
+            title="Full Name"
+            value={capitalizeString(recipientFullname || "")}
+            inputName="recipientFullName"
+          />
           {recipientEmail && (
-            <PaymentItem title="Email" value={recipientEmail} />
+            <PaymentItem
+              title="Email"
+              value={recipientEmail.toLowerCase()}
+              inputName="recipientEmail"
+            />
           )}
-          {accountSwift && <PaymentItem title="SWIFT" value={accountSwift} />}
+          {accountSwift && (
+            <PaymentItem
+              title="SWIFT"
+              value={accountSwift.toUpperCase()}
+              inputName="recipientAccountSwift"
+            />
+          )}
           <PaymentItem
             title="IBAN / Account Number"
-            value={accountNumber || ""}
+            value={accountNumber?.toUpperCase() || ""}
+            inputName="recipientAccountNumber"
             last
           />
         </PaymentDetailsCard>
@@ -64,16 +84,20 @@ function PayForm({
           value={`${formatNumber(
             Number(initialAmount),
           )}${currentCurrencySymbol || "$"}`}
+          inputName="amount"
         />
         <PaymentItem
           title="Paying with"
           value={payingWith}
           style="capitalize"
+          inputName="paymentMethod"
         />
         <PaymentItem
           title="Arriving by"
           value={formData.arrivesBy}
           style="capitalize"
+          inputName="arrivesBy"
+          isDate
         />
         <PaymentItem
           title="Fees"
@@ -93,8 +117,8 @@ function PayForm({
         ></PaymentItem>
       </PaymentDetailsCard>
 
-      <FormButton title="Confirm & Pay" />
-    </>
+      <FormButton type="submit" title="Confirm & Pay" isPending={isPending} />
+    </form>
   );
 }
 

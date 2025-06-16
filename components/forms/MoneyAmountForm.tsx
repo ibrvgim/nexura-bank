@@ -2,19 +2,7 @@ import AmountInput from "./AmountInput";
 import { MoneyAmountFormType } from "@/types/types";
 import FormButton from "./FormButton";
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
 import MoneyAmountConditions from "./MoneyAmountConditions";
-import { getFutureDay } from "@/utilities/formatDate";
-
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
 
 function MoneyAmountForm({
   allCurrencies,
@@ -30,11 +18,6 @@ function MoneyAmountForm({
 }: MoneyAmountFormType) {
   const isDataValid =
     formData.initialAmount && Number(formData.initialAmount) >= 5;
-
-  useEffect(() => {
-    const numofDays = isSendMoneyForm ? 2 : 1;
-    handleFormData("arrivesBy", days[getFutureDay(numofDays)]);
-  }, []);
 
   function handleFormStep() {
     if (isDataValid) setFormStep(nextForm);
