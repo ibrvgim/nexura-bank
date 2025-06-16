@@ -46,7 +46,7 @@ function Navigation() {
         </li>
 
         <li>
-          <NavLink path="">Contact</NavLink>
+          <NavLink path="/contact">Contact</NavLink>
         </li>
       </ul>
 

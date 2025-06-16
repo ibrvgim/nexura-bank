@@ -72,7 +72,7 @@ function ConverterForm({
   return (
     <div className="flex w-[35%] flex-col gap-5 rounded-2xl bg-white px-8 py-8 shadow-xl">
       <div className="text-gray-600">
-        <LockClosedIcon className="mx-auto mb-2 size-6" />
+        <LockClosedIcon className="mx-auto mb-3 size-6" />
         <p className="text-center text-xs tracking-wide uppercase">
           Send money with secure encryption
         </p>
