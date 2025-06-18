@@ -36,7 +36,7 @@ export function formatIntlDate(value: string) {
     const dayIndex = new Date(value).getDay();
     return days[dayIndex];
   } else
-    return new Intl.DateTimeFormat("en-US", {
+    return new Intl.DateTimeFormat("en-DE", {
       year: "numeric",
       month: "long",
       day: "2-digit",

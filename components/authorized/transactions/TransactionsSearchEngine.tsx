@@ -3,7 +3,13 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 
-function TransactionsSearchEngine() {
+function TransactionsSearchEngine({
+  searchValue,
+  handleSearch,
+}: {
+  searchValue: string;
+  handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
   return (
     <div className="flex items-center justify-between pb-5">
       <p className="text-3xl font-semibold tracking-wide text-gray-700">
@@ -23,6 +29,8 @@ function TransactionsSearchEngine() {
             type="text"
             placeholder="Search Transaction"
             className="w-80 rounded-full py-1 pr-3 pl-9 text-sm outline-1 outline-gray-500 transition-all duration-200 placeholder:text-gray-400 hover:outline-gray-900 focus:outline-2 focus:outline-gray-900"
+            value={searchValue}
+            onChange={handleSearch}
           />
         </div>
       </div>

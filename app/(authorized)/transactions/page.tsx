@@ -1,12 +1,14 @@
-import TransactionsSearchEngine from "@/components/authorized/transactions/TransactionsSearchEngine";
-import TransactionsTable from "@/components/authorized/transactions/TransactionsTable";
+import TransactionsContainer from "@/components/authorized/transactions/TransactionsContainer";
 import Pagination from "@/components/common/Pagination";
 
-function Transactions() {
+async function Transactions() {
+  const response = await fetch("http://localhost:3000/data/transactions.json");
+  const data = await response.json();
+  const allTransactions = data.transactions;
+
   return (
     <>
-      <TransactionsSearchEngine />
-      <TransactionsTable />
+      <TransactionsContainer allTransactions={allTransactions} />
 
       <div className="mt-10">
         <Pagination />

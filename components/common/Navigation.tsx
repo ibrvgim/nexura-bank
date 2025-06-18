@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import NavLink from "./NavLink";
 import { PrimaryButton, SecondaryButton } from "./Buttons";
+import DropdownNavLink from "./DropdownNavLink";
 
 function Navigation() {
   const pathname = usePathname();
@@ -38,11 +39,7 @@ function Navigation() {
 
       <ul className="ml-auto flex items-center gap-1">
         <li>
-          <NavLink path="">Features</NavLink>
-        </li>
-
-        <li>
-          <NavLink path="">Price</NavLink>
+          <DropdownNavLink>Features</DropdownNavLink>
         </li>
 
         <li>

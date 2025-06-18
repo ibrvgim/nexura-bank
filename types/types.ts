@@ -77,3 +77,11 @@ export interface RegistrationDataType {
   lastName: string;
   phoneNumber: string;
 }
+
+export interface TransactionType {
+  id: string;
+  recipient: string;
+  transactionDate: string;
+  amount: string;
+  action: "withdrawn" | "deposited";
+}

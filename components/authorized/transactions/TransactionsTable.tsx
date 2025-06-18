@@ -1,4 +1,11 @@
-function TransactionsTable() {
+import { TransactionType } from "@/types/types";
+import { formatIntlDate } from "@/utilities/formatDate";
+
+function TransactionsTable({
+  transactions,
+}: {
+  transactions: TransactionType[];
+}) {
   return (
     <table className="mt-7 w-full border-collapse">
       <thead>
@@ -13,32 +20,26 @@ function TransactionsTable() {
       </thead>
 
       <tbody className="*:text-start">
-        <tr className="border-b-1 border-b-gray-300 pb-4 *:text-start *:text-sm">
-          <th scope="row" className="py-5 font-medium text-gray-700">
-            Urban Services
-          </th>
-          <td className="font-light text-gray-500">47657378359264974</td>
-          <td className="font-light text-gray-500">23 May 2025</td>
-          <td className="text-green-500">+€48,00</td>
-        </tr>
-
-        <tr className="border-b-1 border-b-gray-300 pb-4 *:text-start *:text-sm">
-          <th scope="row" className="py-5 font-medium text-gray-700">
-            Pixel Playground
-          </th>
-          <td className="font-light text-gray-500">59374993788747883</td>
-          <td className="font-light text-gray-500">07 March 2025</td>
-          <td className="text-red-500">-€18,00</td>
-        </tr>
-
-        <tr className="pb-4 *:text-start *:text-sm">
-          <th scope="row" className="py-5 font-medium text-gray-700">
-            Savory Bites Bistro
-          </th>
-          <td className="font-light text-gray-500">84747478359247747</td>
-          <td className="font-light text-gray-500">17 January 2025</td>
-          <td className="text-red-500">-€48,00</td>
-        </tr>
+        {transactions.map((transaction) => (
+          <tr
+            key={transaction.id}
+            className="border-b-1 border-b-gray-300 pb-4 *:text-start *:text-sm"
+          >
+            <th scope="row" className="py-5 font-medium text-gray-700">
+              {transaction.recipient}
+            </th>
+            <td className="font-light text-gray-500">{transaction.id}</td>
+            <td className="font-light text-gray-500">
+              {formatIntlDate(transaction.transactionDate)}
+            </td>
+            <td
+              className={`${transaction.action === "deposited" ? "text-green-500" : "text-red-500"} `}
+            >
+              {transaction.action === "deposited" ? "+" : "-"}
+              {transaction.amount}
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
