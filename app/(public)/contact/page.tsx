@@ -4,9 +4,9 @@ import Link from "next/link";
 function Contact() {
   return (
     <section className="my-20">
-      <div className="pb-12 text-center text-6xl leading-16 font-extrabold text-gray-800 uppercase">
+      <div className="pb-12 text-center text-6xl leading-20 font-extrabold text-gray-800 uppercase">
         <p>Do you need help with something?</p>
-        <p>Connect with Our Team</p>
+        <p>Get in touch with us</p>
       </div>
 
       <div className="flex items-center gap-10 *:flex-1">
