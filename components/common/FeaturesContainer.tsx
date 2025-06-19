@@ -5,17 +5,17 @@ import Link from "next/link";
 const paths = [
   {
     title: "Send Money",
-    path: "/send-money",
+    path: "send-money",
   },
 
   {
     title: "Add Money",
-    path: "/add-money",
+    path: "add-money",
   },
 
   {
     title: "Debit Cards",
-    path: "/cards",
+    path: "cards",
   },
 ];
 
@@ -46,8 +46,7 @@ function FeaturesContainer({
       {paths.map((item: { title: string; path: string }) => (
         <li key={item.path} role="button" onClick={closeDropdown}>
           <Link
-            href={item.path}
-            target="_blank"
+            href={`/${item.path}`}
             className="group ml-8 flex items-center font-light"
           >
             {item.title}{" "}

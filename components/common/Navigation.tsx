@@ -6,7 +6,7 @@ import NavLink from "./NavLink";
 import { PrimaryButton, SecondaryButton } from "./Buttons";
 import DropdownNavLink from "./DropdownNavLink";
 
-function Navigation() {
+function Navigation({ isUserLoggedIn }: { isUserLoggedIn: boolean }) {
   const pathname = usePathname();
   const isCurrentBusiness = pathname.includes("business");
   const isCurrentEnterprise = pathname.includes("enterprise");
@@ -48,7 +48,7 @@ function Navigation() {
       </ul>
 
       <ul className="ml-10 flex items-center gap-3">
-        {!isCurrentEnterprise && (
+        {!isCurrentEnterprise && !isUserLoggedIn && (
           <li>
             <SecondaryButton path="/login" isStyleLight={isCurrentBusiness}>
               Log in
@@ -56,16 +56,26 @@ function Navigation() {
           </li>
         )}
 
-        <li
-          className={`${isCurrentEnterprise ? "text-white *:border-gray-800 *:bg-gray-800 *:hover:border-gray-700 *:hover:bg-transparent *:hover:text-gray-800" : ""}`}
-        >
-          <PrimaryButton
-            path={isCurrentEnterprise ? "" : "/register"}
-            isStyleLight={isCurrentBusiness}
+        {(!isUserLoggedIn || isCurrentEnterprise) && (
+          <li
+            className={`${isCurrentEnterprise ? "text-white *:border-gray-800 *:bg-gray-800 *:hover:border-gray-700 *:hover:bg-transparent *:hover:text-gray-800" : ""}`}
           >
-            {isCurrentEnterprise ? "Get in Touch" : "Create an Account"}
-          </PrimaryButton>
-        </li>
+            <PrimaryButton
+              path={isCurrentEnterprise ? "" : "/register"}
+              isStyleLight={isCurrentBusiness}
+            >
+              {isCurrentEnterprise ? "Get in Touch" : "Create an Account"}
+            </PrimaryButton>
+          </li>
+        )}
+
+        {isUserLoggedIn && !isCurrentEnterprise && (
+          <li className="*:px-10">
+            <SecondaryButton path="/home" isStyleLight={isCurrentBusiness}>
+              My Account
+            </SecondaryButton>
+          </li>
+        )}
       </ul>
     </nav>
   );

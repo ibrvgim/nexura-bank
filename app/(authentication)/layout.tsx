@@ -1,10 +1,19 @@
 import AuthNavigation from "@/components/common/AuthNavigation";
+import { createClient } from "@/data/supabase/server";
+import { redirect } from "next/navigation";
 
-export default function AuthenticationLayout({
+export default async function AuthenticationLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) redirect("/home");
+
   return (
     <main className="px-48 py-10">
       <AuthNavigation />

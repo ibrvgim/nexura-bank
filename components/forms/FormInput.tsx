@@ -14,6 +14,7 @@ function FormInput({
   maxValue,
   optional = false,
   last = false,
+  readonly = false,
 }: {
   label: string;
   name: string;
@@ -27,6 +28,7 @@ function FormInput({
   optional?: boolean;
   minValue?: string | number;
   maxValue?: string | number;
+  readonly?: boolean;
 }) {
   const isRequired = error?.message === "required";
 
@@ -58,6 +60,7 @@ function FormInput({
         onChange={onChange}
         min={minValue}
         max={maxValue}
+        readOnly={readonly}
       />
     </div>
   );

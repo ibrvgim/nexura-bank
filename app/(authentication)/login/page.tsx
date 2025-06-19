@@ -10,7 +10,10 @@ function Login() {
   const [errors, formAction, isPending] = useActionState(handleLogin, {});
 
   return (
-    <form action={formAction} className="mx-auto mt-12 w-1/2">
+    <form
+      action={formAction}
+      className={`mx-auto mt-12 w-1/2 ${!!errors?.credentials ? "mb-20" : ""}`}
+    >
       <AuthPattern
         title="Welcome Back to Nexura"
         path="/register"
@@ -20,22 +23,32 @@ function Login() {
           </span>
         }
       >
+        {errors?.credentials && (
+          <p className="mb-8 w-full rounded-md bg-red-100 px-8 py-3 text-sm text-red-700">
+            {errors.credentials}
+          </p>
+        )}
+
         <FormInput
           label="Email address"
           name="email"
           type="email"
+          value="nexura@account.com"
           placeholder="nexura@account.com"
           directErros={errors?.email}
           optional
+          readonly
         />
 
         <FormInput
           label="Password"
           name="password"
           type="password"
+          value="nexura12345"
           directErros={errors?.password}
           optional
           last
+          readonly
         />
       </AuthPattern>
     </form>

@@ -26,7 +26,7 @@ function TransactionsSearchEngine({
           <MagnifyingGlassIcon className="absolute top-[23%] left-3 size-4 text-gray-600" />
 
           <input
-            type="text"
+            type="search"
             placeholder="Search Transaction"
             className="w-80 rounded-full py-1 pr-3 pl-9 text-sm outline-1 outline-gray-500 transition-all duration-200 placeholder:text-gray-400 hover:outline-gray-900 focus:outline-2 focus:outline-gray-900"
             value={searchValue}

@@ -17,11 +17,19 @@ function RegisterPersonalDetails({
   isPersonalDetailsValid: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, formAction, isPending] = useActionState(handleRegistration, {});
+  const [errors, formAction, isPending] = useActionState(
+    handleRegistration,
+    {},
+  );
 
   return (
     <form action={formAction}>
+      {errors?.message && (
+        <p className="mb-8 w-full rounded-md bg-red-100 px-8 py-3 text-center text-sm text-red-700">
+          {errors.message}
+        </p>
+      )}
+
       <FormInput
         label="First Name"
         name="firstName"
@@ -66,6 +74,7 @@ function RegisterPersonalDetails({
         readOnly
         hidden
       />
+
       <FormButton
         title="Create an Account"
         type="submit"
