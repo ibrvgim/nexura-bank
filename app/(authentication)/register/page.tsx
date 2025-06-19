@@ -1,4 +1,9 @@
 import AuthContainer from "@/components/authentication/AuthContainer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Register",
+};
 
 function Register() {
   return (

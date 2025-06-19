@@ -5,6 +5,11 @@ import TransferMoney from "@/components/authorized/home/TransferMoney";
 import getCurrencies from "@/data/api/getCurrencies";
 import getCurrenciesRate from "@/data/api/getCurrenciesRate";
 import { ConverterDataType } from "@/types/types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home",
+};
 
 async function AuthorizedHome({
   searchParams,

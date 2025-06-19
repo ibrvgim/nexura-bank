@@ -3,6 +3,11 @@ import ManageAccount from "@/components/authorized/account/ManageAccount";
 import PersonalCard from "@/components/authorized/account/PersonalCard";
 import ActionLink from "@/components/authorized/common/ActionLink";
 import { BriefcaseIcon } from "@heroicons/react/24/outline";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Settings",
+};
 
 function Account() {
   return (

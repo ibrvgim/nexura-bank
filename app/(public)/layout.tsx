@@ -1,6 +1,14 @@
 import Footer from "@/components/common/Footer";
 import Navigation from "@/components/common/Navigation";
 import { createClient } from "@/data/supabase/server";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Online Banking",
+    default: "Nexura | Secure Online Banking",
+  },
+};
 
 export default async function PublicLayout({
   children,

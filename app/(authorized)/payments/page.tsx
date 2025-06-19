@@ -1,6 +1,11 @@
 import ActionsContainer from "@/components/authorized/payments/ActionsContainer";
+import { Metadata } from "next";
 
-function page() {
+export const metadata: Metadata = {
+  title: "Payments",
+};
+
+function Payments() {
   return (
     <>
       <p className="text-3xl font-semibold tracking-wide text-gray-700">
@@ -12,4 +17,4 @@ function page() {
   );
 }
 
-export default page;
+export default Payments;

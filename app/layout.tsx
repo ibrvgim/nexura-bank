@@ -9,7 +9,8 @@ const font = Rubik({
 
 export const metadata: Metadata = {
   title: "Nexura | Secure Online Banking",
-  description: "",
+  description:
+    "Nexura - online banking. Create an account in minutes and use seamless transfers, payments, and savings. Our platform supports multiple currencies and enables fast, secure transactions across a wide range of countries — all in one intuitive interface.",
 };
 
 export default function RootLayout({

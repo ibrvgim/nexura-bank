@@ -3,6 +3,11 @@ import DeveloperDocumentation from "@/components/enterprise/DeveloperDocumentati
 import EnterpriseFeatures from "@/components/enterprise/EnterpriseFeatures";
 import EnterpriseHeadingCard from "@/components/enterprise/EnterpriseHeadingCard";
 import TrustedCompanies from "@/components/enterprise/TrustedCompanies";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Nexura Enterprise",
+};
 
 function Enterprise() {
   return (

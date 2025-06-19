@@ -1,5 +1,10 @@
 import TransactionsContainer from "@/components/authorized/transactions/TransactionsContainer";
 import Pagination from "@/components/common/Pagination";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Transactions",
+};
 
 async function Transactions() {
   const response = await fetch("http://localhost:3000/data/transactions.json");

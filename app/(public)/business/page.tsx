@@ -7,6 +7,11 @@ import WhyNexuraCard from "@/components/business/WhyNexuraCard";
 import InfoCard from "@/components/business/InfoCard";
 import getCurrencies from "@/data/api/getCurrencies";
 import getCurrenciesRate from "@/data/api/getCurrenciesRate";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Nexura Business",
+};
 
 async function Business({
   searchParams,
