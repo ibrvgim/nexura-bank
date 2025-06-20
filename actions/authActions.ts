@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/data/supabase/server";
+import { getID } from "@/utilities/getID";
 
 interface ErrorsType {
   [key: string]: string;
@@ -20,6 +21,8 @@ export async function handleRegistration(_: unknown, formData: FormData) {
         firstName: formData.get("firstName") as string,
         lastName: formData.get("lastName") as string,
         phoneNumber: formData.get("phoneNumber") as string,
+        nexuraBusinessAccount: !!formData.get("nexuraBusiness") as boolean,
+        customerNumber: getID(),
       },
     },
   };
@@ -29,11 +32,9 @@ export async function handleRegistration(_: unknown, formData: FormData) {
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    if (error) {
-      errors["message"] =
-        "Something went wrong during registration. Please try again later.";
-      return errors;
-    }
+    errors["message"] =
+      "Something went wrong during registration. Please try again later.";
+    return errors;
   }
 
   revalidatePath("/", "layout");

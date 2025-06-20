@@ -28,10 +28,6 @@ async function AuthorizedHome({
 
   return (
     <>
-      <p className="text-3xl font-semibold tracking-wide text-gray-700">
-        Welcome to Nexura, Imran!
-      </p>
-
       <BalanceCard />
       <TransactionsOverview />
       <TransferMoney

@@ -33,22 +33,18 @@ function Login() {
           label="Email address"
           name="email"
           type="email"
-          value="nexura@account.com"
           placeholder="nexura@account.com"
           directErros={errors?.email}
           optional
-          readonly
         />
 
         <FormInput
           label="Password"
           name="password"
           type="password"
-          value="nexura12345"
           directErros={errors?.password}
           optional
           last
-          readonly
         />
       </AuthPattern>
     </form>

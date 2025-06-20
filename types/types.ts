@@ -85,3 +85,12 @@ export interface TransactionType {
   amount: string;
   action: "withdrawn" | "deposited";
 }
+
+export interface UserDataType {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  customerNumber: number | string;
+  nexuraBusinessAccount: boolean;
+}
