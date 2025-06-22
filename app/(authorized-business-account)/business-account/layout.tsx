@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function AuthorizedLayout({
+export default async function AuthorizedBusinessLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -26,12 +26,14 @@ export default async function AuthorizedLayout({
 
   if (!user) redirect("/login");
 
-  const { firstName, lastName } = user?.user_metadata as UserDataType;
+  const { nexuraBusinessAccount } = user?.user_metadata as UserDataType;
+
+  if (!nexuraBusinessAccount) redirect("/home");
 
   return (
     <div className="grid grid-cols-[20rem_1fr] gap-x-10 px-30 pt-16 pb-30">
-      <SecureNavigation fullName={`${firstName} ${lastName}`} />
-      <SideBar />
+      <SecureNavigation accountHolder="Nexura Bank" isBusinessAccount />
+      <SideBar isBUsinessAccount />
 
       <Suspense fallback={<MiniLoading />}>
         <main>{children}</main>

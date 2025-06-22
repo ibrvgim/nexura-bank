@@ -7,7 +7,7 @@ function CopyToClipboard({ children }: { children: React.ReactNode }) {
   const spanElement = useRef<HTMLSpanElement | null>(null);
   const [isCopied, setIsCopied] = useState(false);
   const iconStyle =
-    "ml-2 inline-block size-4 opacity-0 group-hover:opacity-100 mb-1";
+    "ml-1 inline-block size-3.5 opacity-0 group-hover:opacity-100 mb-1";
 
   function copyToClipboard() {
     if (!spanElement.current) return;
@@ -25,7 +25,7 @@ function CopyToClipboard({ children }: { children: React.ReactNode }) {
     <span
       role="button"
       ref={spanElement}
-      className="group inline-block cursor-pointer transition-all hover:text-green-500"
+      className="group inline-block cursor-pointer text-sm transition-all hover:text-green-500"
       onClick={copyToClipboard}
     >
       {children}

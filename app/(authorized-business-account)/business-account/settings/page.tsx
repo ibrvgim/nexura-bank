@@ -5,7 +5,7 @@ import ActionLink from "@/components/authorized/common/ActionLink";
 import CopyToClipboard from "@/components/common/CopyToClipboard";
 import { createClient } from "@/data/supabase/server";
 import { UserDataType } from "@/types/types";
-import { BriefcaseIcon } from "@heroicons/react/24/outline";
+import { createInitials } from "@/utilities/formatString";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -29,16 +29,20 @@ async function Account() {
 
       <div className="mt-10 flex gap-10 *:flex-1">
         <div>
-          <PersonalCard fullName={`${firstName} ${lastName}`} />
+          <PersonalCard accountHolder={"Nexura Bank"} isAccountBusiness />
 
           <div className="mt-10">
             <ActionLink
-              icon={<BriefcaseIcon />}
-              title="Create a Business Account"
-            />
+              icon={createInitials(`${firstName} ${lastName}`)}
+              title={`${firstName} ${lastName}`}
+              path="/home"
+              isPrimary
+            >
+              Personal Account
+            </ActionLink>
           </div>
 
-          <p className="my-6 text-center text-stone-500">
+          <p className="my-6 text-center text-[15px] text-stone-500">
             Nexura Customer Number:{" "}
             <CopyToClipboard>{customerNumber}</CopyToClipboard>
           </p>

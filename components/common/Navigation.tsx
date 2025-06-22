@@ -71,7 +71,10 @@ function Navigation({ isUserLoggedIn }: { isUserLoggedIn: boolean }) {
 
         {isUserLoggedIn && !isCurrentEnterprise && (
           <li className="*:px-10">
-            <SecondaryButton path="/home" isStyleLight={isCurrentBusiness}>
+            <SecondaryButton
+              path={isCurrentBusiness ? "/business-account/home" : "/home"}
+              isStyleLight={isCurrentBusiness}
+            >
               My Account
             </SecondaryButton>
           </li>
