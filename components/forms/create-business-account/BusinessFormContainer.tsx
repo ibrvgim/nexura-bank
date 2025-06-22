@@ -4,8 +4,9 @@ import { useActionState } from "react";
 import FormButton from "../FormButton";
 import FormInput from "../FormInput";
 import { handleBusinessAccount } from "@/actions/businessAccountActions";
+import SelectInput from "../SelectInput";
 
-function BusinessFormContainer() {
+function BusinessFormContainer({ allCountries }: { allCountries: string[] }) {
   const [errors, formAction] = useActionState(handleBusinessAccount, {});
 
   console.log(errors);
@@ -23,7 +24,15 @@ function BusinessFormContainer() {
         placeholder="ex. Nexura Bank"
         last
       />
-      <FormInput label="Country" name="businessCountry" type="text" last />
+      <SelectInput
+        label="Country"
+        name="businessCountry"
+        placeholder="Select Country"
+        data={allCountries}
+        allowSorting
+        isContainerInput
+        last
+      />
       <FormInput label="Address" name="businessAdress" type="text" last />
       <FormInput label="City" name="businessCity" type="text" last />
       <FormInput label="Postal Code" name="businessPostal" type="text" last />
@@ -32,16 +41,33 @@ function BusinessFormContainer() {
         Additional Information about Business
       </p>
 
-      <FormInput
-        label="Business Sector"
+      <SelectInput
+        label="Business Area"
         name="businessSector"
-        type="text"
+        placeholder="Select Business Area"
+        data={[
+          "Arts & Design",
+          "Construction",
+          "Education & Courses",
+          "Engineering",
+          "Finance",
+          "Medicine",
+          "Marketing",
+          "Manufacturing",
+          "Media & Communication",
+          "Retail",
+          "Information Technology",
+          "Transportation",
+          "Telecommunications",
+          "Other",
+        ]}
+        isContainerInput
         last
       />
-      <FormInput
+      <SelectInput
         label="Employees Number"
         name="employeesNumber"
-        type="text"
+        data={["1 - 10", "10 - 50", "50 - 100", "100+"]}
         last
       />
       <FormInput
