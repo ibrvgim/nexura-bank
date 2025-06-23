@@ -10,6 +10,8 @@ function SelectInput({
   label,
   name,
   placeholder,
+  error,
+  directError,
   data,
   last = false,
   allowSorting = false,
@@ -19,12 +21,16 @@ function SelectInput({
   label: string;
   name: string;
   placeholder?: string;
+  error?: { message?: string | undefined };
+  directError?: string;
   data: string[];
   last?: boolean;
   allowSorting?: boolean;
   isContainerInput?: boolean;
   optional?: boolean;
 }) {
+  const isRequired = error?.message === "required";
+
   const [openList, setOpenList] = useState(false);
   const [value, setValue] = useState(() => {
     if (!placeholder) return data[0];
@@ -59,6 +65,11 @@ function SelectInput({
         {!optional && (
           <span className="text-red-500">
             <BasicTooltip title="Must be filled in">*</BasicTooltip>
+          </span>
+        )}
+        {(error?.message || directError) && (
+          <span className="float-right text-sm text-red-500">
+            {isRequired ? "Must be filled in" : error?.message || directError}
           </span>
         )}
       </label>

@@ -1,7 +1,10 @@
+import BasicModalWindow from "@/components/common/BasicModalWindow";
 import {
   AdjustmentsHorizontalIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import FiltersContainer from "./FiltersContainer";
 
 function TransactionsSearchEngine({
   searchValue,
@@ -10,6 +13,11 @@ function TransactionsSearchEngine({
   searchValue: string;
   handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
+  const [openFilters, setOpenFIlters] = useState(false);
+
+  const handleOpenFilters = () => setOpenFIlters(true);
+  const handleCloseFilters = () => setOpenFIlters(false);
+
   return (
     <div className="flex items-center justify-between pb-5">
       <p className="text-3xl font-semibold tracking-wide text-gray-700">
@@ -17,10 +25,22 @@ function TransactionsSearchEngine({
       </p>
 
       <div className="flex items-center gap-5">
-        <button className="flex cursor-pointer items-center rounded-full bg-green-400 px-4 py-1 text-sm tracking-wide text-white outline-1 outline-green-400 transition-colors duration-200 hover:bg-transparent hover:text-green-500">
-          <AdjustmentsHorizontalIcon className="mr-2 inline-block size-4" />
-          Filters
-        </button>
+        <BasicModalWindow
+          open={openFilters}
+          handleClose={handleCloseFilters}
+          button={
+            <button
+              className="flex cursor-pointer items-center rounded-full bg-green-400 px-4 py-1 text-sm tracking-wide text-white outline-1 outline-green-400 transition-colors duration-200 hover:bg-transparent hover:text-green-500"
+              onClick={handleOpenFilters}
+            >
+              <AdjustmentsHorizontalIcon className="mr-2 inline-block size-4" />
+              Filters
+            </button>
+          }
+          windowOnSide
+        >
+          <FiltersContainer />
+        </BasicModalWindow>
 
         <div className="relative">
           <MagnifyingGlassIcon className="absolute top-[23%] left-3 size-4 text-gray-600" />
