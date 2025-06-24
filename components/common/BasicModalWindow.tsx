@@ -54,7 +54,7 @@ export default function BasicModalWindow({
             className="cursor-pointer transition-all duration-200 hover:opacity-50"
             onClick={handleClose}
           >
-            <XMarkIcon className="absolute top-6 right-5 size-8" />
+            <XMarkIcon className="absolute top-6 right-5 size-7" />
           </button>
 
           {children}
