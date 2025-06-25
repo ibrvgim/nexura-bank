@@ -22,7 +22,7 @@ const sideWindowStyle = {
   position: "absolute",
   top: 0,
   right: 0,
-  height: "100%",
+  height: "100dvh",
   width: "40%",
   bgcolor: "#fff",
 };
