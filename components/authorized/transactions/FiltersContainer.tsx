@@ -1,6 +1,7 @@
 import FormInput from "@/components/forms/FormInput";
-import { useState } from "react";
-import { XCircleIcon } from "@heroicons/react/24/outline";
+import { useActionState, useState } from "react";
+import { transactionsFilterAction } from "@/actions/transactionsFilterAction";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface FilterValuesType {
   date: string | Date;
@@ -8,15 +9,48 @@ interface FilterValuesType {
   attachment: "all" | "withAttachment" | "noAttachment";
 }
 
-function FiltersContainer() {
-  const [filterValues, setFilterValues] = useState<FilterValuesType>({
-    date: "all",
-    action: "all",
-    attachment: "all",
-  });
+function FiltersContainer({
+  handleCloseFilters,
+}: {
+  handleCloseFilters: () => void;
+}) {
+  const params = useSearchParams();
+  const date = params.get("date");
+  const action = params.get("action") as "all" | "withdrawn" | "pawn";
+  const attachment = params.get("attachment") as
+    | "all"
+    | "withAttachment"
+    | "noAttachment";
+
+  const initialState: FilterValuesType = {
+    date: date || "all",
+    action: action || "all",
+    attachment: attachment || "all",
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, formAction] = useActionState(transactionsFilterAction, null);
+  const [filterValues, setFilterValues] = useState(initialState);
 
   function handleFilter(key: string, value: string) {
-    setFilterValues((prev) => ({ ...prev, [key]: value }));
+    if (key === "date" && filterValues[key] === value)
+      setFilterValues((prev) => ({ ...prev, [key]: "all" }));
+    else setFilterValues((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function resetValues() {
+    const isNotDefaultValues =
+      (date && date !== "all") ||
+      (action && action !== "all") ||
+      (attachment && attachment !== "all");
+
+    setFilterValues({
+      date: "all",
+      action: "all",
+      attachment: "all",
+    });
+
+    if (isNotDefaultValues) handleCloseFilters();
   }
 
   const isFilterOnDefaultValues =
@@ -25,11 +59,16 @@ function FiltersContainer() {
     filterValues.attachment === "all";
 
   return (
-    <form className="relative mx-12 my-16 h-full">
+    <form className="relative mx-12 my-16 h-full" action={formAction}>
+      {Object.entries(filterValues).map((item) => (
+        <input key={item[0]} name={item[0]} value={item[1]} readOnly hidden />
+      ))}
+
       <FilterCategoryPattern
         categoryTitle="Filter by Date"
-        clearCategoryOnClick={() => handleFilter("date", "all")}
-        isDefaultFilterValue={filterValues.date === "all"}
+        description={
+          filterValues.date !== "all" ? "Click again to remove filter." : ""
+        }
       >
         <FilterOption
           name="date"
@@ -116,7 +155,10 @@ function FiltersContainer() {
         </FilterOption>
       </FilterCategoryPattern>
 
-      <ButtonsContainer isClearButtonActive={isFilterOnDefaultValues} />
+      <ButtonsContainer
+        isClearButtonActive={isFilterOnDefaultValues}
+        resetValues={resetValues}
+      />
     </form>
   );
 }
@@ -124,22 +166,15 @@ function FiltersContainer() {
 function FilterCategoryPattern({
   children,
   categoryTitle,
-  clearCategoryOnClick,
-  isDefaultFilterValue,
+  description,
 }: {
   children: React.ReactNode;
   categoryTitle: string;
-  clearCategoryOnClick?: () => void;
-  isDefaultFilterValue?: boolean;
+  description?: string;
 }) {
   return (
     <>
-      <FilterTitle
-        onClick={clearCategoryOnClick}
-        isDefaultFilterValue={isDefaultFilterValue}
-      >
-        {categoryTitle}
-      </FilterTitle>
+      <FilterTitle description={description}>{categoryTitle}</FilterTitle>
       <div className="flex flex-wrap gap-x-2 gap-y-3">{children}</div>
     </>
   );
@@ -147,25 +182,18 @@ function FilterCategoryPattern({
 
 function FilterTitle({
   children,
-  onClick,
-  isDefaultFilterValue = true,
+  description,
 }: {
   children: React.ReactNode;
-  onClick?: () => void;
-  isDefaultFilterValue?: boolean;
+  description?: string;
 }) {
   return (
-    <span className="mt-12 mb-6 flex items-center justify-between gap-1">
-      <p className="font-medium text-green-500">{children}:</p>
-
-      {!isDefaultFilterValue && (
-        <button
-          type="button"
-          className="cursor-pointer text-gray-400 transition-all duration-200 hover:text-red-400"
-          onClick={onClick}
-        >
-          <XCircleIcon className="size-5" />
-        </button>
+    <span className="mt-12 mb-6 block">
+      <p className="mb-1 font-medium text-green-500">{children}:</p>
+      {description && (
+        <p className="block text-xs font-light tracking-wider text-gray-500">
+          {description}
+        </p>
       )}
     </span>
   );
@@ -197,14 +225,23 @@ function FilterOption({
 
 function ButtonsContainer({
   isClearButtonActive,
+  resetValues,
 }: {
   isClearButtonActive: boolean;
+  resetValues: () => void;
 }) {
+  const router = useRouter();
+
   return (
     <span className="absolute bottom-30 flex w-full items-end gap-2 text-sm font-medium *:flex-1">
       <button
+        type="button"
         className="block cursor-pointer rounded-full border border-gray-500 py-1 text-center text-gray-500 transition-all duration-200 hover:border-green-500 hover:text-green-500 disabled:cursor-not-allowed disabled:border-gray-400 disabled:text-gray-400"
         disabled={isClearButtonActive}
+        onClick={() => {
+          resetValues();
+          router.push("/transactions");
+        }}
       >
         Clear all
       </button>

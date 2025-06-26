@@ -4,10 +4,14 @@ import { handleLogin } from "@/actions/authActions";
 import AuthPattern from "@/components/authentication/AuthPattern";
 import FormButton from "@/components/forms/FormButton";
 import FormInput from "@/components/forms/FormInput";
+import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
 
 function Login() {
   const [errors, formAction, isPending] = useActionState(handleLogin, {});
+  const searchParams = useSearchParams();
+
+  const actionType = searchParams.get("action") as string | null;
 
   return (
     <form
@@ -47,6 +51,8 @@ function Login() {
           last
         />
       </AuthPattern>
+
+      <input name="action" value={actionType || ""} readOnly hidden />
     </form>
   );
 }

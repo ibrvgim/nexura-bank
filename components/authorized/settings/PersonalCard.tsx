@@ -8,7 +8,7 @@ function PersonalCard({
   isAccountBusiness?: boolean;
 }) {
   return (
-    <div className="justify-center rounded-2xl bg-stone-200 py-16 text-center">
+    <div className="justify-center rounded-2xl bg-stone-200 px-4 py-16 text-center">
       <Avatar />
 
       <p className="text-4xl font-extrabold uppercase">{accountHolder}</p>

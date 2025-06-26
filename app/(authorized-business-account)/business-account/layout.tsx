@@ -1,8 +1,9 @@
 import SecureNavigation from "@/components/authorized/common/SecureNavigation";
 import SideBar from "@/components/authorized/common/SideBar";
 import MiniLoading from "@/components/common/MiniLoading";
+import { readBusinessAccount } from "@/data/read-supabase-data/readSupabaseData";
 import { createClient } from "@/data/supabase/server";
-import { UserDataType } from "@/types/types";
+import { BusinessAccountType, UserDataType } from "@/types/types";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -30,9 +31,15 @@ export default async function AuthorizedBusinessLayout({
 
   if (!nexuraBusinessAccount) redirect("/home");
 
+  const businessAccountData: BusinessAccountType = await readBusinessAccount(
+    user?.id,
+  );
+
+  const { businessName } = businessAccountData;
+
   return (
     <div className="grid grid-cols-[20rem_1fr] gap-x-10 px-30 pt-16 pb-30">
-      <SecureNavigation accountHolder="Nexura Bank" isBusinessAccount />
+      <SecureNavigation accountHolder={businessName} isBusinessAccount />
       <SideBar isBUsinessAccount />
 
       <Suspense fallback={<MiniLoading />}>

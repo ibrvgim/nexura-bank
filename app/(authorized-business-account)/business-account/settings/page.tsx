@@ -1,12 +1,14 @@
-import Logout from "@/components/authorized/account/Logout";
-import ManageAccount from "@/components/authorized/account/ManageAccount";
-import PersonalCard from "@/components/authorized/account/PersonalCard";
+import Logout from "@/components/authorized/settings/Logout";
+import ManageAccount from "@/components/authorized/settings/ManageAccount";
+import PersonalCard from "@/components/authorized/settings/PersonalCard";
 import ActionLink from "@/components/authorized/common/ActionLink";
 import CopyToClipboard from "@/components/common/CopyToClipboard";
+import { readBusinessAccount } from "@/data/read-supabase-data/readSupabaseData";
 import { createClient } from "@/data/supabase/server";
-import { UserDataType } from "@/types/types";
+import { BusinessAccountType, UserDataType } from "@/types/types";
 import { createInitials } from "@/utilities/formatString";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -18,8 +20,16 @@ async function Account() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  if (!user) redirect("/login");
+
   const { firstName, lastName, customerNumber } =
     user?.user_metadata as UserDataType;
+
+  const businessAccountData: BusinessAccountType = await readBusinessAccount(
+    user?.id,
+  );
+
+  console.log(user);
 
   return (
     <>
@@ -29,7 +39,10 @@ async function Account() {
 
       <div className="mt-10 flex gap-10 *:flex-1">
         <div>
-          <PersonalCard accountHolder={"Nexura Bank"} isAccountBusiness />
+          <PersonalCard
+            accountHolder={businessAccountData?.businessName}
+            isAccountBusiness
+          />
 
           <div className="mt-10">
             <ActionLink
@@ -50,7 +63,7 @@ async function Account() {
           <Logout />
         </div>
 
-        <ManageAccount />
+        <ManageAccount userID={user?.id} />
       </div>
     </>
   );

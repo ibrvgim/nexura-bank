@@ -12,7 +12,7 @@ interface ErrorsType {
 // REGISTRATION ACTION
 export async function handleRegistration(_: unknown, formData: FormData) {
   const supabase = await createClient();
-
+  const actionType = formData.get("action") as string | null;
   const data = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
@@ -33,12 +33,14 @@ export async function handleRegistration(_: unknown, formData: FormData) {
 
   if (error) {
     errors["message"] =
+      error?.message ||
       "Something went wrong during registration. Please try again later.";
     return errors;
   }
 
   revalidatePath("/", "layout");
-  redirect("/home");
+  if (actionType === "businessAccount") redirect("/create-business-account");
+  else redirect("/home");
 }
 
 // LOGIN ACTION
@@ -47,6 +49,7 @@ export async function handleLogin(_: unknown, formData: FormData) {
 
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  const actionType = formData.get("action") as string;
 
   const errors: ErrorsType = {};
 
@@ -68,7 +71,7 @@ export async function handleLogin(_: unknown, formData: FormData) {
   const isErrorsExist = Object.entries(errors).length > 0;
   if (isErrorsExist) return errors;
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -80,7 +83,13 @@ export async function handleLogin(_: unknown, formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect("/home");
+
+  if (
+    actionType === "businessAccount" &&
+    data.user.user_metadata?.nexuraBusinessAccount
+  ) {
+    redirect("/business-account/home");
+  } else redirect("/home");
 }
 
 // LOGOUT ACTION

@@ -94,3 +94,17 @@ export interface UserDataType {
   customerNumber: number | string;
   nexuraBusinessAccount: boolean;
 }
+
+export interface BusinessAccountType {
+  user_id: string;
+  created_at: string | Date;
+  businessName: string;
+  businessCountry: string;
+  businessAddress: string;
+  businessCity: string;
+  businessPostal: string;
+  businessSector: string;
+  employeesNumber: string;
+  businessWebsite: string;
+  team: string[];
+}

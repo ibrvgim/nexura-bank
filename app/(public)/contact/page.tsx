@@ -26,7 +26,7 @@ function Contact() {
           </p>
 
           <Link
-            href=""
+            href="/chat"
             className="inline-block rounded-full border-2 border-gray-700 px-8 py-1 font-medium transition-all duration-300 hover:bg-gray-800 hover:text-white"
           >
             Start Chat Now

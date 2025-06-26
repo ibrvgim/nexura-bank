@@ -1,5 +1,7 @@
-// "use server";
+"use server";
 
+import { createClient } from "@/data/supabase/server";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 interface ErrorType {
@@ -8,24 +10,24 @@ interface ErrorType {
 
 const errors: ErrorType = {};
 
-function checkStringValidity(value: string, key: string, minLength?: number) {
+function checkStringValidity(
+  value: string,
+  key: string,
+  minLength: number = 0,
+) {
   if (!value.trim()) {
     errors[key] = "Must be filled in";
     return false;
-  }
-
-  if (!minLength) return {};
-  else if (value.trim().length < minLength) {
+  } else if (value.trim().length < minLength) {
     errors[key] = `Minimum ${minLength} characters`;
     return false;
   } else {
-    errors[key] = "";
     return true;
   }
 }
 
 function checkUrlValidity(value: string | null, key: string) {
-  if (!value?.trim()) return;
+  if (!value?.trim()) return true;
   const isValid =
     /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/.test(
       value.trim(),
@@ -35,12 +37,17 @@ function checkUrlValidity(value: string | null, key: string) {
     errors[key] = "Include valid link";
     return false;
   } else {
-    errors[key] = "";
     return true;
   }
 }
 
-export async function handleBusinessAccount(_: unknown, formData: FormData) {
+export async function createBusinessAccount(_: unknown, formData: FormData) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const businessName = formData.get("businessName") as string;
   const businessCountry = formData.get("businessCountry") as string;
   const businessAddress = formData.get("businessAddress") as string;
@@ -88,5 +95,60 @@ export async function handleBusinessAccount(_: unknown, formData: FormData) {
   )
     return errors;
 
+  await supabase.auth.updateUser({
+    data: {
+      nexuraBusinessAccount: true,
+    },
+  });
+
+  const { error } = await supabase
+    .from("business_accounts")
+    .insert([
+      {
+        user_id: user?.id,
+        businessName: businessName,
+        businessCountry: businessCountry,
+        businessAddress: businessAddress,
+        businessCity: businessCity,
+        businessPostal: businessPostal,
+        businessSector: businessSector,
+        employeesNumber: employeesNumber,
+        businessWebsite: businessWebsite || "",
+      },
+    ])
+    .select();
+
+  if (error) {
+    errors.message =
+      "Something went wrong while creating your business account. Please try again later.";
+    return errors;
+  }
+
   redirect("/business-account/home");
+}
+
+export async function deleteBusinessAccount(_: unknown, formData: FormData) {
+  try {
+    const supabase = await createClient();
+    const userID = formData.get("userID") as string;
+
+    console.log(userID);
+
+    const { error } = await supabase
+      .from("business_accounts")
+      .delete()
+      .eq("user_id", userID);
+
+    if (error) throw new Error(error?.message);
+
+    await supabase.auth.updateUser({
+      data: {
+        nexuraBusinessAccount: false,
+      },
+    });
+
+    revalidatePath("/", "layout");
+  } catch (error) {
+    console.error(error);
+  }
 }

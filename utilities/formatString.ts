@@ -1,4 +1,5 @@
 export default function formatString(value: string) {
+  if (!value) return "";
   return value.toLowerCase().trim();
 }
 

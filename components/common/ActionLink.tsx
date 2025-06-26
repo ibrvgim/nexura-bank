@@ -8,6 +8,7 @@ function ActionLink({
   path,
   isTitleBold = false,
   onClick,
+  type,
 }: {
   title: string;
   children: React.ReactNode;
@@ -15,6 +16,7 @@ function ActionLink({
   path?: string;
   isTitleBold?: boolean;
   onClick?: () => void;
+  type?: "button" | "submit";
 }) {
   const content = (
     <>
@@ -35,8 +37,8 @@ function ActionLink({
 
   return (
     <li>
-      {onClick ? (
-        <ActionContainerButton onClick={onClick}>
+      {onClick || type ? (
+        <ActionContainerButton onClick={onClick} type={type || "button"}>
           {content}
         </ActionContainerButton>
       ) : (
@@ -66,14 +68,17 @@ function ActionContainerLink({
 function ActionContainerButton({
   children,
   onClick,
+  type,
 }: {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
+  type: "button" | "submit";
 }) {
   return (
     <button
       className="group flex w-full cursor-pointer items-center gap-4 rounded-2xl px-4 py-3 text-start transition-all duration-200 hover:bg-stone-100"
       onClick={onClick}
+      type={type}
     >
       {children}
     </button>

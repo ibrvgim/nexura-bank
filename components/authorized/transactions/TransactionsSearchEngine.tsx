@@ -39,7 +39,7 @@ function TransactionsSearchEngine({
           }
           windowOnSide
         >
-          <FiltersContainer />
+          <FiltersContainer handleCloseFilters={handleCloseFilters} />
         </BasicModalWindow>
 
         <div className="relative">

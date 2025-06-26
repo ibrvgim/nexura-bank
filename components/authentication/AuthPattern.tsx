@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 function AuthPattern({
   title,
@@ -13,6 +14,8 @@ function AuthPattern({
   submitButton: React.ReactNode;
 }) {
   const isRegister = path.includes("login");
+  const searchParams = useSearchParams();
+  const actionType = searchParams.get("action") as string | null;
 
   return (
     <div className="text-center">
@@ -23,7 +26,11 @@ function AuthPattern({
           {isRegister ? "Already have an account?" : "Do not have an account?"}
         </p>
         <Link
-          href={path}
+          href={
+            actionType === "businessAccount"
+              ? `${path}/?action=${actionType}`
+              : path
+          }
           replace
           className="ml-1 font-medium transition-all hover:text-green-500"
         >

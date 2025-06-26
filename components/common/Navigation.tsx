@@ -50,7 +50,10 @@ function Navigation({ isUserLoggedIn }: { isUserLoggedIn: boolean }) {
       <ul className="ml-10 flex items-center gap-3">
         {!isCurrentEnterprise && !isUserLoggedIn && (
           <li>
-            <SecondaryButton path="/login" isStyleLight={isCurrentBusiness}>
+            <SecondaryButton
+              path={`/login/${isCurrentBusiness ? "?action=businessAccount" : ""}`}
+              isStyleLight={isCurrentBusiness}
+            >
               Log in
             </SecondaryButton>
           </li>
@@ -61,7 +64,13 @@ function Navigation({ isUserLoggedIn }: { isUserLoggedIn: boolean }) {
             className={`${isCurrentEnterprise ? "text-white *:border-gray-800 *:bg-gray-800 *:hover:border-gray-700 *:hover:bg-transparent *:hover:text-gray-800" : ""}`}
           >
             <PrimaryButton
-              path={isCurrentEnterprise ? "" : "/register"}
+              path={
+                isCurrentEnterprise
+                  ? ""
+                  : isCurrentBusiness
+                    ? `/register/?action=businessAccount`
+                    : "/register"
+              }
               isStyleLight={isCurrentBusiness}
             >
               {isCurrentEnterprise ? "Get in Touch" : "Create an Account"}

@@ -3,19 +3,20 @@
 import { useActionState } from "react";
 import FormButton from "../FormButton";
 import FormInput from "../FormInput";
-import { handleBusinessAccount } from "@/actions/businessAccountActions";
+
 import SelectInput from "../SelectInput";
+import { createBusinessAccount } from "@/actions/businessAccountActions";
 
 function BusinessFormContainer({ allCountries }: { allCountries: string[] }) {
   const [errors, formAction, isPending] = useActionState(
-    handleBusinessAccount,
+    createBusinessAccount,
     {},
   );
 
   return (
     <form action={formAction} className="my-20 grid grid-cols-2 gap-5">
-      <p className="col-span-2 mb-4 text-3xl font-semibold text-gray-700">
-        Main Information about Business
+      <p className="col-span-2 mb-6 text-4xl font-semibold text-gray-700">
+        Create a Business Account
       </p>
 
       <FormInput
@@ -58,7 +59,7 @@ function BusinessFormContainer({ allCountries }: { allCountries: string[] }) {
         last
       />
 
-      <p className="col-span-2 mt-12 mb-4 text-3xl font-semibold text-gray-700">
+      <p className="col-span-2 mt-12 mb-2 text-xl font-semibold text-gray-700">
         Additional Information about Business
       </p>
 

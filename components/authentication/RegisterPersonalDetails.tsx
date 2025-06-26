@@ -7,6 +7,7 @@ import {
 import { useActionState } from "react";
 import { handleRegistration } from "@/actions/authActions";
 import FormButton from "../forms/FormButton";
+import { useSearchParams } from "next/navigation";
 
 function RegisterPersonalDetails({
   formData,
@@ -21,6 +22,8 @@ function RegisterPersonalDetails({
     handleRegistration,
     {},
   );
+  const searchParams = useSearchParams();
+  const actionType = searchParams.get("action") as string | null;
 
   return (
     <form action={formAction}>
@@ -74,6 +77,7 @@ function RegisterPersonalDetails({
         readOnly
         hidden
       />
+      <input name="action" value={actionType || ""} readOnly hidden />
 
       <FormButton
         title="Create an Account"
