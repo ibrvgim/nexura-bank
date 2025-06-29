@@ -17,7 +17,7 @@ function MoneyAmountConditions({
 
   currentCurrencySymbol: string;
   isSendMoneyForm?: boolean;
-  handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
+  handleFormData: (key: SendAddMoneyFieldKeys, value: string | boolean) => void;
 }) {
   return (
     <>

@@ -1,10 +1,14 @@
-import { TransactionType } from "@/types/types";
+import { TransactionDataType } from "@/types/types";
 import { formatIntlDate } from "@/utilities/formatDate";
+import { capitalizeString } from "@/utilities/formatString";
+import { UserMetadata } from "@supabase/supabase-js";
 
 function TransactionsTable({
+  userData,
   transactions,
 }: {
-  transactions: TransactionType[];
+  userData: UserMetadata | undefined;
+  transactions: TransactionDataType[];
 }) {
   return (
     <table className="mt-7 w-full border-collapse">
@@ -26,17 +30,19 @@ function TransactionsTable({
             className="border-b-1 border-b-gray-300 pb-4 *:text-start *:text-sm"
           >
             <th scope="row" className="py-5 font-medium text-gray-700">
-              {transaction.recipient}
+              {transaction.recipientFullName ||
+                `${userData?.firstName} ${userData?.lastName} via ${capitalizeString(transaction.paymentMethod)}`}
             </th>
             <td className="font-light text-gray-500">{transaction.id}</td>
             <td className="font-light text-gray-500">
               {formatIntlDate(transaction.transactionDate)}
             </td>
             <td
-              className={`${transaction.action === "deposited" ? "text-green-500" : "text-red-500"} `}
+              className={`${transaction.actionType === "pawn" ? "text-green-500" : "text-red-500"} `}
             >
-              {transaction.action === "deposited" ? "+" : "-"}
-              {transaction.amount}
+              {transaction.actionType === "pawn" ? "+" : "-"}
+              {transaction.amount.toString().slice(-1)}
+              {parseInt(transaction.amount.toString())}
             </td>
           </tr>
         ))}

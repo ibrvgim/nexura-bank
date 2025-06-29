@@ -1,15 +1,18 @@
 "use client";
 
-import { TransactionType } from "@/types/types";
 import TransactionsSearchEngine from "./TransactionsSearchEngine";
 import TransactionsTable from "./TransactionsTable";
 import { useState } from "react";
 import formatString from "@/utilities/formatString";
+import { TransactionDataType } from "@/types/types";
+import { UserMetadata } from "@supabase/supabase-js";
 
 function TransactionsContainer({
+  userData,
   allTransactions,
 }: {
-  allTransactions: TransactionType[];
+  userData: UserMetadata | undefined;
+  allTransactions: TransactionDataType[];
 }) {
   const [searchValue, setSearchValue] = useState("");
 
@@ -19,7 +22,9 @@ function TransactionsContainer({
 
   const transactionsBySearchResults = allTransactions.filter((transaction) =>
     searchValue
-      ? formatString(transaction.recipient).includes(formatString(searchValue))
+      ? formatString(transaction.recipientFullName).includes(
+          formatString(searchValue),
+        )
       : transaction,
   );
 
@@ -29,7 +34,14 @@ function TransactionsContainer({
         searchValue={searchValue}
         handleSearch={handleSearch}
       />
-      <TransactionsTable transactions={transactionsBySearchResults} />
+      {allTransactions.length > 0 ? (
+        <TransactionsTable
+          transactions={transactionsBySearchResults}
+          userData={userData}
+        />
+      ) : (
+        <p>No transactions</p>
+      )}
     </>
   );
 }

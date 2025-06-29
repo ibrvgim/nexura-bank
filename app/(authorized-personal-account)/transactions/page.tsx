@@ -1,5 +1,6 @@
 import TransactionsContainer from "@/components/authorized/transactions/TransactionsContainer";
 import Pagination from "@/components/common/Pagination";
+import { createClient } from "@/data/supabase/server";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,13 +8,26 @@ export const metadata: Metadata = {
 };
 
 async function Transactions() {
-  const response = await fetch("http://localhost:3000/data/transactions.json");
-  const data = await response.json();
-  const allTransactions = data.transactions;
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: allTransactions } = await supabase
+    .from("transactions_personal")
+    .select("*");
+
+  const currentUserTransactions = allTransactions?.find(
+    (item) => item.user_id === user?.id,
+  ).transactions;
 
   return (
     <>
-      <TransactionsContainer allTransactions={allTransactions} />
+      <TransactionsContainer
+        allTransactions={currentUserTransactions}
+        userData={user?.user_metadata}
+      />
 
       <div className="mt-10">
         <Pagination />

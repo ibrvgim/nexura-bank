@@ -1,7 +1,7 @@
 export function getFutureDate(n: number = 2) {
   const currentDate = new Date();
   currentDate.setDate(currentDate.getDate() + n);
-  return `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, "0")}-${currentDate.getDate()}`;
+  return `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, "0")}-${currentDate.getDate().toString().padStart(2, "0")}`;
 }
 
 export function getDaysBetweenDates(

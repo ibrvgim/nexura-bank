@@ -13,7 +13,7 @@ interface ErrorsType {
 export async function handleRegistration(_: unknown, formData: FormData) {
   const supabase = await createClient();
   const actionType = formData.get("action") as string | null;
-  const data = {
+  const userData = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
     options: {
@@ -29,7 +29,7 @@ export async function handleRegistration(_: unknown, formData: FormData) {
 
   const errors: ErrorsType = {};
 
-  const { error } = await supabase.auth.signUp(data);
+  const { data, error } = await supabase.auth.signUp(userData);
 
   if (error) {
     errors["message"] =
@@ -37,6 +37,11 @@ export async function handleRegistration(_: unknown, formData: FormData) {
       "Something went wrong during registration. Please try again later.";
     return errors;
   }
+
+  await supabase
+    .from("transactions_personal")
+    .insert([{ user_id: data?.user?.id }])
+    .select();
 
   revalidatePath("/", "layout");
   if (actionType === "businessAccount") redirect("/create-business-account");

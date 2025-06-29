@@ -30,6 +30,7 @@ export interface SendAddMoneyType {
   currency: string;
   payingWith: string;
   arrivesBy: string;
+  isScheduled?: boolean;
   recipientFullname?: string;
   recipientEmail?: string;
   accountType?: "eu" | "other";
@@ -42,6 +43,7 @@ export type SendAddMoneyFieldKeys =
   | "currency"
   | "payingWith"
   | "arrivesBy"
+  | "isScheduled"
   | "recipientFullname"
   | "recipientEmail"
   | "accountType"
@@ -57,7 +59,7 @@ export interface MoneyAmountFormType {
         SendAddMoneyType,
         "initialAmount" | "currency" | "payingWith" | "arrivesBy"
       >;
-  handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
+  handleFormData: (key: SendAddMoneyFieldKeys, value: string | boolean) => void;
   currentCurrencySymbol: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleCurrency?: (value: string) => void;
@@ -76,14 +78,6 @@ export interface RegistrationDataType {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-}
-
-export interface TransactionType {
-  id: string;
-  recipient: string;
-  transactionDate: string;
-  amount: string;
-  action: "withdrawn" | "deposited";
 }
 
 export interface UserDataType {
@@ -107,4 +101,14 @@ export interface BusinessAccountType {
   employeesNumber: string;
   businessWebsite: string;
   team: string[];
+}
+
+export interface TransactionDataType {
+  id: string;
+  transactionDate: string;
+  recipientFullName: string;
+  amount: string | number;
+  paymentMethod: string;
+  actionType: "withdrawn" | "pawn";
+  isScheduled: boolean;
 }

@@ -24,6 +24,7 @@ function SendMoneyContainer({
     currency: params.transferCurrency || "usd",
     payingWith: "bank transfer",
     arrivesBy: "",
+    isScheduled: false,
     recipientFullname: "",
     recipientEmail: "",
     accountType: "eu",
@@ -53,10 +54,10 @@ function SendMoneyContainer({
     }));
   }
 
-  function handleFormData(key: string, value: string) {
+  function handleFormData(key: string, value: string | boolean) {
     setFormData((prev) => ({
       ...prev,
-      [key]: value.toLowerCase(),
+      [key]: typeof value === "string" ? value.toLowerCase() : value,
     }));
   }
 

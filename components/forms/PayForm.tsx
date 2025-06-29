@@ -19,14 +19,19 @@ function PayForm({
   currentCurrencySymbol?: string;
   isSendMoney?: boolean;
 }) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, formAction, isPending] = useActionState(handleSendAddMoney, {});
+  const [error, formAction, isPending] = useActionState(
+    handleSendAddMoney,
+    null,
+  );
+
+  console.log(error);
 
   const {
     recipientFullname,
     recipientEmail,
     initialAmount,
     payingWith,
+    isScheduled,
     accountSwift,
     accountNumber,
   } = formData;
@@ -116,6 +121,19 @@ function PayForm({
           isBold
         ></PaymentItem>
       </PaymentDetailsCard>
+
+      <input
+        name="actionType"
+        value={isSendMoney ? "withdrawn" : "pawn"}
+        hidden
+        readOnly
+      />
+      <input
+        name="isScheduled"
+        value={isScheduled?.toString()}
+        hidden
+        readOnly
+      />
 
       <FormButton type="submit" title="Confirm & Pay" isPending={isPending} />
     </form>

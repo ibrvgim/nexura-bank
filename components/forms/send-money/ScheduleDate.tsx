@@ -5,12 +5,14 @@ import { SendAddMoneyFieldKeys } from "@/types/types";
 import { getDaysBetweenDates, getFutureDate } from "@/utilities/formatDate";
 
 function ScheduleDate({
+  isScheduled,
   handleClose,
   handleFormData,
   selectedDate,
 }: {
+  isScheduled?: boolean;
   handleClose: () => void;
-  handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
+  handleFormData: (key: SendAddMoneyFieldKeys, value: string | boolean) => void;
   selectedDate: string;
 }) {
   const [date, setDate] = useState(selectedDate);
@@ -22,8 +24,17 @@ function ScheduleDate({
 
     if (checklValidity >= 2) {
       handleFormData("arrivesBy", date);
+      handleFormData("isScheduled", true);
       handleClose();
     } else setError("Schedule the correct date");
+  }
+
+  function cancelScheduledDate() {
+    if (!date) return;
+
+    handleFormData("arrivesBy", getFutureDate(2));
+    handleFormData("isScheduled", false);
+    handleClose();
   }
 
   return (
@@ -44,11 +55,17 @@ function ScheduleDate({
         optional
         value={date}
         onChange={(e) => setDate(e.target.value)}
-        minValue={getFutureDate()}
+        minValue={getFutureDate(2)}
         directErros={error}
       />
 
       <span className="*:mt-4">
+        <FormButton
+          title="Cancel Scheduled Date"
+          active={isScheduled}
+          onClick={cancelScheduledDate}
+          isSecondary
+        />
         <FormButton title="Schedule Date" onClick={handleScheduledDate} />
       </span>
     </div>

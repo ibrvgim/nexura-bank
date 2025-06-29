@@ -12,19 +12,15 @@ interface ActionCardType {
   icon: React.ReactNode;
   title: string;
   children?: React.ReactNode;
-  formData?:
-    | SendAddMoneyType
-    | Pick<
-        SendAddMoneyType,
-        "initialAmount" | "currency" | "payingWith" | "arrivesBy"
-      >;
+  formData?: SendAddMoneyType;
+
   pathTitle?: string;
   initialAmount?: string;
   currencySymbol?: string;
   style?: string;
   isSendMoneyForm?: boolean;
   tooltipTitle?: string;
-  handleFormData: (key: SendAddMoneyFieldKeys, value: string) => void;
+  handleFormData: (key: SendAddMoneyFieldKeys, value: string | boolean) => void;
   paymentMethod?: string;
   isPaymentMethod?: boolean;
 }
@@ -97,6 +93,7 @@ function ActionCard({
                 />
               ) : (
                 <ScheduleDate
+                  isScheduled={formData?.isScheduled}
                   handleClose={handleClose}
                   handleFormData={handleFormData}
                   selectedDate={formData?.arrivesBy || ""}
