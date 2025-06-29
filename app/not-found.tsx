@@ -1,4 +1,5 @@
 import AuthNavigation from "@/components/common/AuthNavigation";
+import GoHome from "@/components/common/GoHome";
 import Image from "next/image";
 
 export default function NotFound() {
@@ -10,17 +11,19 @@ export default function NotFound() {
         <Image
           src="/illustrations/not-found.svg"
           alt="404 not found"
-          height={400}
-          width={400}
+          height={350}
+          width={350}
           draggable={false}
           className="mx-auto"
         />
 
-        <h2 className="mt-12 mb-4 text-6xl font-extrabold tracking-widest text-gray-700 uppercase">
+        <p className="mt-12 mb-4 text-6xl font-extrabold tracking-wider text-gray-700 uppercase">
           Page Not Found
-        </h2>
+        </p>
         <p className="text-lg text-gray-400">Make sure the route is correct.</p>
       </div>
+
+      <GoHome />
     </div>
   );
 }
