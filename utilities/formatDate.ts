@@ -32,7 +32,9 @@ export function formatIntlDate(value: string) {
 
   const daysDifference = getDaysBetweenDates(value, getFutureDate(7));
 
-  if (daysDifference > 0 && daysDifference <= 7) {
+  if (daysDifference === 7) {
+    return "Today";
+  } else if (daysDifference > 0 && daysDifference <= 7) {
     const dayIndex = new Date(value).getDay();
     return days[dayIndex];
   } else

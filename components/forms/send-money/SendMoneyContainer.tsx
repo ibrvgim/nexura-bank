@@ -10,9 +10,11 @@ import PayForm from "../PayForm";
 import { getFutureDate } from "@/utilities/formatDate";
 
 function SendMoneyContainer({
+  currentUserBalance,
   allCurrencies,
   params,
 }: {
+  currentUserBalance: number;
   allCurrencies: CurrencyItem[];
   params: {
     amountToTransfer: string | undefined;
@@ -76,6 +78,7 @@ function SendMoneyContainer({
   return (
     <>
       <SendMoneyProgressBar
+        currentUserBalance={currentUserBalance}
         setFormStep={setFormStep}
         formStep={formStep}
         formData={formData}
@@ -85,6 +88,7 @@ function SendMoneyContainer({
       <div className="mx-auto mt-20 w-1/2">
         {formStep === "amount" && (
           <MoneyAmountForm
+            currentUserBalance={currentUserBalance}
             allCurrencies={allCurrencies}
             setFormStep={setFormStep}
             formData={formData}

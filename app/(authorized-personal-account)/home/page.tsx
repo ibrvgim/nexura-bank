@@ -4,6 +4,7 @@ import TransactionsOverview from "@/components/authorized/home/TransactionsOverv
 import TransferMoney from "@/components/authorized/home/TransferMoney";
 import getCurrencies from "@/data/api/getCurrencies";
 import getCurrenciesRate from "@/data/api/getCurrenciesRate";
+import { createClient } from "@/data/supabase/server";
 import { ConverterDataType } from "@/types/types";
 import { Metadata } from "next";
 
@@ -16,6 +17,7 @@ async function AuthorizedHome({
 }: {
   searchParams: Promise<ConverterDataType>;
 }) {
+  const supabase = await createClient();
   const [converterData, allCurrencies] = await Promise.all([
     searchParams,
     getCurrencies(),
@@ -26,9 +28,23 @@ async function AuthorizedHome({
     converterData.to || "eur",
   );
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: usersBalance } = await supabase
+    .from("users_balance")
+    .select("*");
+
+  const currentUserBalanceDetails = usersBalance?.find(
+    (item) => item.user_id === user?.id,
+  );
+
   return (
     <>
-      <BalanceCard />
+      <BalanceCard
+        currentBalance={currentUserBalanceDetails.personalAccountBalance}
+      />
       <TransactionsOverview />
       <TransferMoney
         converterData={converterData}

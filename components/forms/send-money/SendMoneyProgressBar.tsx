@@ -11,11 +11,13 @@ import {
 import { redirect } from "next/navigation";
 
 function SendMoneyProgressBar({
+  currentUserBalance,
   formData,
   formStep,
   setFormStep,
   params,
 }: {
+  currentUserBalance: number;
   formData: SendAddMoneyType;
   formStep: string;
   setFormStep: (value: string) => void;
@@ -27,6 +29,7 @@ function SendMoneyProgressBar({
   return (
     <ul className="flex items-center justify-center">
       <StepItem
+        currentUserBalance={currentUserBalance}
         icon={<BanknotesIcon />}
         stepName="amount"
         setFormStep={setFormStep}
@@ -41,6 +44,7 @@ function SendMoneyProgressBar({
       <ProgressLine isActive={formStep === "recipient" || formStep === "pay"} />
 
       <StepItem
+        currentUserBalance={currentUserBalance}
         icon={<UserIcon />}
         stepName="recipient"
         setFormStep={setFormStep}
@@ -52,6 +56,7 @@ function SendMoneyProgressBar({
       <ProgressLine isActive={formStep === "pay"} />
 
       <StepItem
+        currentUserBalance={currentUserBalance}
         icon={<CreditCardIcon />}
         stepName="pay"
         setFormStep={setFormStep}
@@ -64,6 +69,7 @@ function SendMoneyProgressBar({
 }
 
 function StepItem({
+  currentUserBalance,
   icon,
   isActive,
   stepName,
@@ -71,6 +77,7 @@ function StepItem({
   setFormStep,
   params,
 }: {
+  currentUserBalance: number;
   icon: React.ReactNode;
   isActive: boolean;
   stepName: string;
@@ -91,6 +98,8 @@ function StepItem({
   } = formData;
 
   function handleFormStep() {
+    if (currentUserBalance < Number(initialAmount)) return;
+
     const isAmountValid = initialAmount && Number(initialAmount) >= 5;
     const isStepSkippable = stepName === "amount" || stepName === "recipient";
 

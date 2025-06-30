@@ -3,8 +3,10 @@ import { MoneyAmountFormType } from "@/types/types";
 import FormButton from "./FormButton";
 import { redirect } from "next/navigation";
 import MoneyAmountConditions from "./MoneyAmountConditions";
+import ErrorMessageCard from "../common/ErrorMessageCard";
 
 function MoneyAmountForm({
+  currentUserBalance,
   allCurrencies,
   setFormStep,
   formData,
@@ -16,8 +18,14 @@ function MoneyAmountForm({
   isSendMoneyForm = true,
   nextForm = "recipient",
 }: MoneyAmountFormType) {
+  const isEnoughMoney = isSendMoneyForm
+    ? currentUserBalance > Number(formData.initialAmount)
+    : true;
+
   const isDataValid =
-    formData.initialAmount && Number(formData.initialAmount) >= 5;
+    formData.initialAmount &&
+    Number(formData.initialAmount) >= 5 &&
+    isEnoughMoney;
 
   function handleFormStep() {
     if (isDataValid) setFormStep(nextForm);
@@ -47,7 +55,31 @@ function MoneyAmountForm({
         onChange={handleInputChange}
       />
 
-      {formData.initialAmount && Number(formData.initialAmount) >= 5 && (
+      {!isEnoughMoney &&
+        Number(formData.initialAmount) > 0 &&
+        isSendMoneyForm && (
+          <span className="mt-4 block">
+            <ErrorMessageCard
+              error={
+                Number(formData.initialAmount) < 5
+                  ? `Please note: the minimum send amount is 5 ${formData.currency.toUpperCase()}.`
+                  : "Your balance is too low to complete this transaction."
+              }
+            />
+          </span>
+        )}
+
+      {!isSendMoneyForm &&
+        Number(formData.initialAmount) !== 0 &&
+        Number(formData.initialAmount) < 5 && (
+          <span className="mt-4 block">
+            <ErrorMessageCard
+              error={`Please note: the minimum add amount is 5 ${formData.currency.toUpperCase()}.`}
+            />
+          </span>
+        )}
+
+      {isDataValid && (
         <MoneyAmountConditions
           formData={formData}
           currentCurrencySymbol={currentCurrencySymbol}

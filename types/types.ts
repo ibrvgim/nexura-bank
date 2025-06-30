@@ -51,6 +51,7 @@ export type SendAddMoneyFieldKeys =
   | "accountSwift";
 
 export interface MoneyAmountFormType {
+  currentUserBalance: number;
   allCurrencies: CurrencyItem[];
   setFormStep: (value: string) => void;
   formData:

@@ -3,9 +3,10 @@
 import TransactionsSearchEngine from "./TransactionsSearchEngine";
 import TransactionsTable from "./TransactionsTable";
 import { useState } from "react";
-import formatString from "@/utilities/formatString";
+import formatString, { capitalizeString } from "@/utilities/formatString";
 import { TransactionDataType } from "@/types/types";
 import { UserMetadata } from "@supabase/supabase-js";
+import NoTransactionsCard from "./NoTransactionsCard";
 
 function TransactionsContainer({
   userData,
@@ -22,9 +23,10 @@ function TransactionsContainer({
 
   const transactionsBySearchResults = allTransactions.filter((transaction) =>
     searchValue
-      ? formatString(transaction.recipientFullName).includes(
-          formatString(searchValue),
-        )
+      ? formatString(
+          transaction.recipientFullName ||
+            `${userData?.firstName} ${userData?.lastName} via ${capitalizeString(transaction.paymentMethod)}`,
+        ).includes(formatString(searchValue))
       : transaction,
   );
 
@@ -33,6 +35,7 @@ function TransactionsContainer({
       <TransactionsSearchEngine
         searchValue={searchValue}
         handleSearch={handleSearch}
+        isTransactionsExist={allTransactions.length > 0}
       />
       {allTransactions.length > 0 ? (
         <TransactionsTable
@@ -40,7 +43,7 @@ function TransactionsContainer({
           userData={userData}
         />
       ) : (
-        <p>No transactions</p>
+        <NoTransactionsCard />
       )}
     </>
   );

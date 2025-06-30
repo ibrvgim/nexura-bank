@@ -1,6 +1,10 @@
 import { TransactionDataType } from "@/types/types";
 import { formatIntlDate } from "@/utilities/formatDate";
-import { capitalizeString } from "@/utilities/formatString";
+import {
+  capitalizeString,
+  extractCurrencySymbol,
+  extractNumericAmount,
+} from "@/utilities/formatString";
 import { UserMetadata } from "@supabase/supabase-js";
 
 function TransactionsTable({
@@ -13,7 +17,7 @@ function TransactionsTable({
   return (
     <table className="mt-7 w-full border-collapse">
       <thead>
-        <tr className="border-b-1 border-b-gray-300 *:text-start *:text-xs *:font-normal *:text-gray-500">
+        <tr className="border-b-1 border-b-gray-300 *:text-start *:text-xs *:font-normal *:text-gray-500 *:last:text-end">
           <th scope="col" className="py-3">
             Recipient / Sender
           </th>
@@ -27,7 +31,7 @@ function TransactionsTable({
         {transactions.map((transaction) => (
           <tr
             key={transaction.id}
-            className="border-b-1 border-b-gray-300 pb-4 *:text-start *:text-sm"
+            className="border-b-1 border-b-gray-300 pb-4 *:text-start *:text-sm *:last:text-end"
           >
             <th scope="row" className="py-5 font-medium text-gray-700">
               {transaction.recipientFullName ||
@@ -41,8 +45,8 @@ function TransactionsTable({
               className={`${transaction.actionType === "pawn" ? "text-green-500" : "text-red-500"} `}
             >
               {transaction.actionType === "pawn" ? "+" : "-"}
-              {transaction.amount.toString().slice(-1)}
-              {parseInt(transaction.amount.toString())}
+              {extractCurrencySymbol(transaction.amount.toString())}
+              {extractNumericAmount(transaction.amount.toString())?.toFixed(2)}
             </td>
           </tr>
         ))}

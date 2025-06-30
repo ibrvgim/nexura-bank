@@ -8,6 +8,7 @@ import { useActionState } from "react";
 import { handleRegistration } from "@/actions/authActions";
 import FormButton from "../forms/FormButton";
 import { useSearchParams } from "next/navigation";
+import ErrorMessageCard from "../common/ErrorMessageCard";
 
 function RegisterPersonalDetails({
   formData,
@@ -28,9 +29,9 @@ function RegisterPersonalDetails({
   return (
     <form action={formAction}>
       {errors?.message && (
-        <p className="mb-8 w-full rounded-md bg-red-100 px-8 py-3 text-center text-sm text-red-700">
-          {errors.message}
-        </p>
+        <span className="mb-8 block">
+          <ErrorMessageCard error={errors.message} />
+        </span>
       )}
 
       <FormInput

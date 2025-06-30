@@ -1,5 +1,7 @@
 export default function formatNumber(value: number | string) {
-  if (!value) return;
-  
-  return new Intl.NumberFormat("de-DE").format(Number(value));
+  if (!value && value !== 0) return;
+
+  return new Intl.NumberFormat("de-DE", {
+    minimumFractionDigits: 2,
+  }).format(Number(value));
 }

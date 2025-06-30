@@ -1,7 +1,29 @@
 import Link from "next/link";
-import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
+import { createClient } from "@/data/supabase/server";
+import { TransactionDataType } from "@/types/types";
+import {
+  capitalizeString,
+  extractCurrencySymbol,
+  extractNumericAmount,
+} from "@/utilities/formatString";
+import { formatIntlDate } from "@/utilities/formatDate";
+import { ArrowLongRightIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 
-function TransactionsOverview() {
+async function TransactionsOverview() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: allTransactions } = await supabase
+    .from("transactions_personal")
+    .select("*");
+
+  const currentUserTransactions: TransactionDataType[] = allTransactions?.find(
+    (item) => item.user_id === user?.id,
+  ).transactions;
+
   return (
     <div className="my-15">
       <div className="mb-7 flex items-center justify-between">
@@ -15,57 +37,46 @@ function TransactionsOverview() {
         </Link>
       </div>
 
-      <table className="w-full border-collapse">
-        <tbody className="*:text-start">
-          <tr className="border-b-1 border-b-gray-300 pb-4 text-sm">
-            <th
-              scope="row"
-              className="py-5 text-start font-medium text-gray-700"
-            >
-              Urban Services
-            </th>
-            <td className="font-light text-gray-500">47657378359264974</td>
-            <td className="font-light text-gray-500">23 May 2025</td>
-            <td className="text-end text-green-500">+€48,00</td>
-          </tr>
-
-          <tr className="border-b-1 border-b-gray-300 pb-4 text-sm">
-            <th
-              scope="row"
-              className="py-5 text-start font-medium text-gray-700"
-            >
-              Pixel Playground
-            </th>
-            <td className="font-light text-gray-500">59374993788747883</td>
-            <td className="font-light text-gray-500">07 March 2025</td>
-            <td className="text-end text-red-500">-€18,00</td>
-          </tr>
-
-          <tr className="border-b-1 border-b-gray-300 pb-4 text-sm">
-            <th
-              scope="row"
-              className="py-5 text-start font-medium text-gray-700"
-            >
-              Savory Bites Bistro
-            </th>
-            <td className="font-light text-gray-500">84747478359247747</td>
-            <td className="font-light text-gray-500">17 January 2025</td>
-            <td className="text-end text-red-500">-€48,00</td>
-          </tr>
-
-          <tr className="border-b-1 border-b-gray-300 pb-4 text-sm">
-            <th
-              scope="row"
-              className="py-5 text-start font-medium text-gray-700"
-            >
-              Urban Services
-            </th>
-            <td className="font-light text-gray-500">47657378359264974</td>
-            <td className="font-light text-gray-500">23 May 2025</td>
-            <td className="text-end text-green-500">+€48,00</td>
-          </tr>
-        </tbody>
-      </table>
+      {currentUserTransactions.length > 0 ? (
+        <table className="w-full border-collapse">
+          <tbody className="*:text-start">
+            {currentUserTransactions.slice(0, 4).map((transaction) => (
+              <tr
+                key={transaction.id}
+                className="border-b-1 border-b-gray-300 pb-4 text-sm"
+              >
+                <th
+                  scope="row"
+                  className="py-5 text-start font-medium text-gray-700"
+                >
+                  {transaction.recipientFullName ||
+                    `${user?.user_metadata?.firstName} ${user?.user_metadata?.lastName} via ${capitalizeString(transaction.paymentMethod)}`}
+                </th>
+                <td className="font-light text-gray-500">{transaction.id}</td>
+                <td className="font-light text-gray-500">
+                  {formatIntlDate(transaction.transactionDate)}
+                </td>
+                <td
+                  className={`text-end ${transaction.actionType === "pawn" ? "text-green-500" : "text-red-500"} `}
+                >
+                  {transaction.actionType === "pawn" ? "+" : "-"}
+                  {extractCurrencySymbol(transaction.amount.toString())}
+                  {extractNumericAmount(transaction.amount.toString())?.toFixed(
+                    2,
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <span className="flex items-center gap-4 text-gray-400 capitalize">
+          <span className="rounded-full bg-stone-200 p-3 text-gray-500">
+            <ArrowPathIcon className="size-5" />
+          </span>
+          No Transactions Yet
+        </span>
+      )}
     </div>
   );
 }

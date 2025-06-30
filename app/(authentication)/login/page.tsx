@@ -2,6 +2,7 @@
 
 import { handleLogin } from "@/actions/authActions";
 import AuthPattern from "@/components/authentication/AuthPattern";
+import ErrorMessageCard from "@/components/common/ErrorMessageCard";
 import FormButton from "@/components/forms/FormButton";
 import FormInput from "@/components/forms/FormInput";
 import { useSearchParams } from "next/navigation";
@@ -28,9 +29,9 @@ function Login() {
         }
       >
         {errors?.credentials && (
-          <p className="mb-8 w-full rounded-md bg-red-100 px-8 py-3 text-sm text-red-700">
-            {errors.credentials}
-          </p>
+          <span className="mb-8 block">
+            <ErrorMessageCard error={errors.credentials} />
+          </span>
         )}
 
         <FormInput

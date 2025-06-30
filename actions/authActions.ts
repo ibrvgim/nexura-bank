@@ -39,6 +39,11 @@ export async function handleRegistration(_: unknown, formData: FormData) {
   }
 
   await supabase
+    .from("users_balance")
+    .insert([{ user_id: data?.user?.id }])
+    .select();
+
+  await supabase
     .from("transactions_personal")
     .insert([{ user_id: data?.user?.id }])
     .select();

@@ -29,9 +29,11 @@ async function Transactions() {
         userData={user?.user_metadata}
       />
 
-      <div className="mt-10">
-        <Pagination />
-      </div>
+      {currentUserTransactions.length > 0 && (
+        <div className="mt-10">
+          <Pagination />
+        </div>
+      )}
     </>
   );
 }
