@@ -1,10 +1,6 @@
 import { TransactionDataType } from "@/types/types";
 import { formatIntlDate } from "@/utilities/formatDate";
-import {
-  capitalizeString,
-  extractCurrencySymbol,
-  extractNumericAmount,
-} from "@/utilities/formatString";
+import { capitalizeString } from "@/utilities/formatString";
 import { UserMetadata } from "@supabase/supabase-js";
 
 function TransactionsTable({
@@ -45,8 +41,7 @@ function TransactionsTable({
               className={`${transaction.actionType === "pawn" ? "text-green-500" : "text-red-500"} `}
             >
               {transaction.actionType === "pawn" ? "+" : "-"}
-              {extractCurrencySymbol(transaction.amount.toString())}
-              {extractNumericAmount(transaction.amount.toString())?.toFixed(2)}
+              {transaction.amount}
             </td>
           </tr>
         ))}

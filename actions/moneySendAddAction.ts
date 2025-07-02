@@ -6,12 +6,16 @@ import { extractNumericAmount } from "@/utilities/formatString";
 import { getID } from "@/utilities/getID";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import getCurrenciesRate from "../data/api/getCurrenciesRate";
 
 export async function handleSendAddMoney(_: unknown, formData: FormData) {
   const supabase = await createClient();
 
   const actionType = formData.get("actionType");
   const amount = formData.get("amount") as string;
+  const amountWithoutFees =
+    (formData.get("amountWithoutFees") as string) || null;
+  const currency = formData.get("currency") as string;
   const isWithdrawn = actionType === "withdrawn";
   let newTransactionData = {};
 
@@ -31,12 +35,14 @@ export async function handleSendAddMoney(_: unknown, formData: FormData) {
     newTransactionData = {
       id: getID(),
       transactionDate: getFutureDate(0),
-      amount: amount,
+      amount: amountWithoutFees || amount,
       paymentMethod: formData.get("paymentMethod"),
       arrivesBy: formData.get("arrivesBy"),
       actionType: formData.get("actionType"),
     };
   }
+
+  const exchangeRate = await getCurrenciesRate(currency, "eur");
 
   const {
     data: { user },
@@ -45,6 +51,7 @@ export async function handleSendAddMoney(_: unknown, formData: FormData) {
   const { data: usersBalance } = await supabase
     .from("users_balance")
     .select("*");
+
   const currentUserBalance = usersBalance?.find(
     (item) => item.user_id === user?.id,
   ).personalAccountBalance;
@@ -53,8 +60,10 @@ export async function handleSendAddMoney(_: unknown, formData: FormData) {
     .from("users_balance")
     .update({
       personalAccountBalance: isWithdrawn
-        ? currentUserBalance - (extractNumericAmount(amount) || 0)
-        : currentUserBalance + (extractNumericAmount(amount) || 0),
+        ? currentUserBalance -
+          (extractNumericAmount(amount) || 0) * exchangeRate
+        : currentUserBalance +
+          (extractNumericAmount(amount) || 0) * exchangeRate,
     })
     .eq("user_id", user?.id)
     .select();

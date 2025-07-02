@@ -1,5 +1,4 @@
 import TransactionsContainer from "@/components/authorized/transactions/TransactionsContainer";
-import Pagination from "@/components/common/Pagination";
 import { createClient } from "@/data/supabase/server";
 import { Metadata } from "next";
 
@@ -28,12 +27,6 @@ async function Transactions() {
         allTransactions={currentUserTransactions}
         userData={user?.user_metadata}
       />
-
-      {currentUserTransactions.length > 0 && (
-        <div className="mt-10">
-          <Pagination />
-        </div>
-      )}
     </>
   );
 }

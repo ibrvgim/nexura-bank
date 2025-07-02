@@ -38,7 +38,7 @@ function AddMoneyContainer({
     }));
   }
 
-  function handleFormData(key: SendAddMoneyFieldKeys, value: string) {
+  function handleFormData(key: SendAddMoneyFieldKeys, value: string | boolean) {
     setFormData((prev) => ({
       ...prev,
       [key]: value,

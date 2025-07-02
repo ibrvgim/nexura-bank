@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/data/supabase/server";
 import { TransactionDataType } from "@/types/types";
-import {
-  capitalizeString,
-  extractCurrencySymbol,
-  extractNumericAmount,
-} from "@/utilities/formatString";
+import { capitalizeString } from "@/utilities/formatString";
 import { formatIntlDate } from "@/utilities/formatDate";
 import { ArrowLongRightIcon, ArrowPathIcon } from "@heroicons/react/24/outline";
 
@@ -60,10 +56,7 @@ async function TransactionsOverview() {
                   className={`text-end ${transaction.actionType === "pawn" ? "text-green-500" : "text-red-500"} `}
                 >
                   {transaction.actionType === "pawn" ? "+" : "-"}
-                  {extractCurrencySymbol(transaction.amount.toString())}
-                  {extractNumericAmount(transaction.amount.toString())?.toFixed(
-                    2,
-                  )}
+                  {transaction.amount}
                 </td>
               </tr>
             ))}

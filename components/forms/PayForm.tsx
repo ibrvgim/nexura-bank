@@ -7,6 +7,7 @@ import FormButton from "./FormButton";
 import { useActionState } from "react";
 import { handleSendAddMoney } from "@/actions/moneySendAddAction";
 import { capitalizeString } from "@/utilities/formatString";
+import NoteMessageCard from "../common/NoteMessageCard";
 
 function PayForm({
   formData,
@@ -30,6 +31,7 @@ function PayForm({
     recipientFullname,
     recipientEmail,
     initialAmount,
+    currency,
     payingWith,
     isScheduled,
     accountSwift,
@@ -134,6 +136,20 @@ function PayForm({
         hidden
         readOnly
       />
+      <input name="currency" value={currency} hidden readOnly />
+
+      {!isSendMoney && (
+        <input
+          name="amountWithoutFees"
+          value={`${formatNumber(Number(initialAmount) - calculateFee)}${currentCurrencySymbol}`}
+          hidden
+          readOnly
+        />
+      )}
+
+      <span className="mt-4 block">
+        <NoteMessageCard note="Please be aware that all currencies are converted to Euro." />
+      </span>
 
       <FormButton type="submit" title="Confirm & Pay" isPending={isPending} />
     </form>

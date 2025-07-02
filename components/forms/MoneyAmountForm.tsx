@@ -18,9 +18,10 @@ function MoneyAmountForm({
   isSendMoneyForm = true,
   nextForm = "recipient",
 }: MoneyAmountFormType) {
-  const isEnoughMoney = isSendMoneyForm
-    ? currentUserBalance > Number(formData.initialAmount)
-    : true;
+  const isEnoughMoney =
+    currentUserBalance && isSendMoneyForm
+      ? currentUserBalance >= Number(formData.initialAmount)
+      : true;
 
   const isDataValid =
     formData.initialAmount &&
@@ -55,7 +56,7 @@ function MoneyAmountForm({
         onChange={handleInputChange}
       />
 
-      {!isEnoughMoney &&
+      {(!isEnoughMoney || Number(formData.initialAmount) < 5) &&
         Number(formData.initialAmount) > 0 &&
         isSendMoneyForm && (
           <span className="mt-4 block">

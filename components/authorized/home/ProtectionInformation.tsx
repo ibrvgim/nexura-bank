@@ -17,7 +17,7 @@ function ProtectionInformation() {
       </p>
 
       <div className="*:text-sm">
-        <SecondaryButton path="">Learn More</SecondaryButton>
+        <SecondaryButton path="/money-protection">Learn More</SecondaryButton>
       </div>
     </div>
   );
