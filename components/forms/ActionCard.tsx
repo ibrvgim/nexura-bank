@@ -13,7 +13,6 @@ interface ActionCardType {
   title: string;
   children?: React.ReactNode;
   formData?: SendAddMoneyType;
-
   pathTitle?: string;
   initialAmount?: string;
   currencySymbol?: string;
@@ -45,10 +44,8 @@ function ActionCard({
   const handleClose = () => setModalWindowOpen(false);
 
   const totalAmount = formatNumber(
-    (
-      calculateAmountWithoutFees(paymentMethod, initialAmount) ||
-      Number(initialAmount)
-    )?.toFixed(2),
+    calculateAmountWithoutFees(paymentMethod, initialAmount) ||
+      Number(initialAmount),
   );
 
   return (

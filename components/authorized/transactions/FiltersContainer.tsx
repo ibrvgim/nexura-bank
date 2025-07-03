@@ -29,7 +29,10 @@ function FiltersContainer({
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, formAction] = useActionState(transactionsFilterAction, null);
+  const [_, formAction, isPending] = useActionState(
+    transactionsFilterAction,
+    null,
+  );
   const [filterValues, setFilterValues] = useState(initialState);
 
   function handleFilter(key: string, value: string) {
@@ -158,6 +161,7 @@ function FiltersContainer({
       <ButtonsContainer
         isClearButtonActive={isFilterOnDefaultValues}
         resetValues={resetValues}
+        isPending={isPending}
       />
     </form>
   );
@@ -226,9 +230,11 @@ function FilterOption({
 function ButtonsContainer({
   isClearButtonActive,
   resetValues,
+  isPending,
 }: {
   isClearButtonActive: boolean;
   resetValues: () => void;
+  isPending: boolean;
 }) {
   const router = useRouter();
 
@@ -246,8 +252,16 @@ function ButtonsContainer({
         Clear all
       </button>
 
-      <button className="cursor-pointer rounded-full border border-green-400 bg-green-400 py-1 text-white transition-all duration-200 hover:border-green-500 hover:bg-green-500">
-        Apply Filters
+      <button
+        type="submit"
+        className={`rounded-full border py-1 text-white transition-all duration-200 ${isPending ? "cursor-not-allowed border-green-300 bg-green-300" : "cursor-pointer border-green-400 bg-green-400 hover:border-green-500 hover:bg-green-500"}`}
+        disabled={isPending}
+      >
+        {isPending ? (
+          <span className="button-loader inline-block">&nbsp;</span>
+        ) : (
+          "Apply Filters"
+        )}
       </button>
     </span>
   );

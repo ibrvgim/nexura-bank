@@ -1,5 +1,6 @@
 // import BusinessFormContainer from "@/components/forms/create-business-account/BusinessFormContainer";
 // import { getCountries } from "@/data/api/getCountries";
+import GoHome from "@/components/common/GoHome";
 import { createClient } from "@/data/supabase/server";
 import { UserDataType } from "@/types/types";
 import {
@@ -25,12 +26,12 @@ async function CreateBusinessAccount() {
   // return <BusinessFormContainer allCountries={allCountries} />;
 
   return (
-    <div className="mt-20 mb-10">
+    <div className="mt-20 mb-10 text-center">
       <Image
         src="/illustrations/construction-work.svg"
         alt="construction work image"
-        height={500}
-        width={500}
+        height={450}
+        width={450}
         className="mx-auto"
         draggable={false}
       />
@@ -38,16 +39,18 @@ async function CreateBusinessAccount() {
       {/* <p className="mt-14 text-center text-5xl font-extrabold tracking-widest text-gray-700 uppercase">
         Coming Soon...
       </p> */}
-      <p className="mt-14 text-center text-5xl font-extrabold tracking-widest text-gray-600 uppercase">
+      <p className="mt-14 text-center text-4xl font-extrabold tracking-widest text-gray-600 uppercase">
         Construction Works{" "}
         <CurrencyEuroIcon className={`-ml-2 ${iconValues}`} />
         <CurrencyDollarIcon className={iconValues} />
         <CurrencyPoundIcon className={iconValues} />
       </p>
-      <p className="mt-6 text-center text-lg text-gray-500">
+      <p className="mt-4 text-center text-lg text-gray-400">
         We’re currently working on building the best business banking experience
         for you. Thank you for your patience.
       </p>
+
+      <GoHome />
     </div>
   );
 }

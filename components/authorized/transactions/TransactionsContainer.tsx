@@ -91,12 +91,12 @@ function TransactionsContainer({
       {allTransactions.length > 0 &&
         transactionsBySearchResults.length <= 0 && (
           <p className="mt-8 text-center text-gray-400">
-            No results found for &lsquo;{searchValue}&lsquo;.
+            No results found{searchValue ? ` for '${searchValue}'` : ""}.
           </p>
         )}
 
       {totalPageNumber > 1 && (
-        <div className="mt-10">
+        <div className="mt-14">
           <Pagination
             onNext={handleNextPage}
             onPrevious={handlePreviousPage}

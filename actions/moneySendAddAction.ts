@@ -61,9 +61,11 @@ export async function handleSendAddMoney(_: unknown, formData: FormData) {
     .update({
       personalAccountBalance: isWithdrawn
         ? currentUserBalance -
-          (extractNumericAmount(amount) || 0) * exchangeRate
+          (extractNumericAmount(amountWithoutFees || amount) || 0) *
+            exchangeRate
         : currentUserBalance +
-          (extractNumericAmount(amount) || 0) * exchangeRate,
+          (extractNumericAmount(amountWithoutFees || amount) || 0) *
+            exchangeRate,
     })
     .eq("user_id", user?.id)
     .select();

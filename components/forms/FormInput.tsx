@@ -1,5 +1,5 @@
 import { HTMLInputTypeAttribute } from "react";
-import BasicTooltip from "../common/Tooltip";
+// import BasicTooltip from "../common/Tooltip";
 
 function FormInput({
   label,
@@ -41,7 +41,7 @@ function FormInput({
         {label}:{" "}
         {!optional && (
           <span className="text-red-500">
-            <BasicTooltip title="Must be filled in">*</BasicTooltip>
+            *{/* <BasicTooltip title="Must be filled in">*</BasicTooltip> */}
           </span>
         )}
         {(error?.message || directErros) && !isRequired && (
@@ -55,7 +55,7 @@ function FormInput({
         type={type}
         name={name}
         placeholder={placeholder}
-        className={`w-full rounded-lg px-4 py-3 outline-2 outline-gray-300 transition-all duration-200 placeholder:text-sm placeholder:tracking-wide placeholder:text-gray-400 hover:outline-gray-600 focus:outline-3 focus:outline-gray-600 ${!last ? "mb-6" : ""}`}
+        className={`w-full rounded-lg px-4 py-3 outline-2 outline-gray-300 transition-all duration-200 placeholder:text-sm placeholder:tracking-wide placeholder:text-gray-400 hover:outline-gray-600 focus:outline-3 focus:outline-gray-600 ${!last ? "mb-6" : ""} ${readonly ? "opacity-60" : ""}`}
         value={value}
         onChange={onChange}
         min={minValue}

@@ -48,6 +48,11 @@ export async function handleRegistration(_: unknown, formData: FormData) {
     .insert([{ user_id: data?.user?.id }])
     .select();
 
+  await supabase
+    .from("debit_cards")
+    .insert([{ user_id: data?.user?.id }])
+    .select();
+
   revalidatePath("/", "layout");
   if (actionType === "businessAccount") redirect("/create-business-account");
   else redirect("/home");
@@ -81,7 +86,7 @@ export async function handleLogin(_: unknown, formData: FormData) {
   const isErrorsExist = Object.entries(errors).length > 0;
   if (isErrorsExist) return errors;
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -94,10 +99,7 @@ export async function handleLogin(_: unknown, formData: FormData) {
 
   revalidatePath("/", "layout");
 
-  if (
-    actionType === "businessAccount" &&
-    data.user.user_metadata?.nexuraBusinessAccount
-  ) {
+  if (actionType === "businessAccount") {
     redirect("/business-account/home");
   } else redirect("/home");
 }

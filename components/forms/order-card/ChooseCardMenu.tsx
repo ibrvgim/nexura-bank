@@ -1,27 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const cards = [
-  {
-    image: "standard.png",
-    type: "standard",
-    price: 7,
-  },
+interface CardsType {
+  image: string;
+  type: string;
+  price: number;
+}
 
-  {
-    image: "premium.png",
-    type: "premium",
-    price: 14,
-  },
-
-  {
-    image: "platinum.png",
-    type: "platinum",
-    price: 28,
-  },
-];
-
-function ChooseCardMenu() {
+function ChooseCardMenu({ cards }: { cards: CardsType[] }) {
   return (
     <>
       <ul className="grid grid-cols-2 gap-5">

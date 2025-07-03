@@ -29,7 +29,7 @@ export default async function AuthorizedBusinessLayout({
 
   const { nexuraBusinessAccount } = user?.user_metadata as UserDataType;
 
-  if (!nexuraBusinessAccount) redirect("/home");
+  if (!nexuraBusinessAccount) redirect("/create-business-account");
 
   const businessAccountData: BusinessAccountType = await readBusinessAccount(
     user?.id,

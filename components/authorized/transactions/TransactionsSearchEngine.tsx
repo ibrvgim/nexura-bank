@@ -34,9 +34,9 @@ function TransactionsSearchEngine({
           handleClose={handleCloseFilters}
           button={
             <button
-              className={`flex items-center rounded-full px-4 py-1 text-sm tracking-wide text-white outline-1 ${isTransactionsExist && isSearchResultExist ? "cursor-pointer bg-green-400 outline-green-400 transition-colors duration-200 hover:bg-transparent hover:text-green-500" : "cursor-not-allowed bg-stone-400 text-stone-500 opacity-70 outline-stone-400"}`}
+              className={`flex items-center rounded-full px-4 py-1 text-sm tracking-wide text-white outline-1 ${isTransactionsExist || isSearchResultExist ? "cursor-pointer bg-green-400 outline-green-400 transition-colors duration-200 hover:bg-transparent hover:text-green-500" : "cursor-not-allowed bg-stone-400 text-stone-500 opacity-70 outline-stone-400"}`}
               onClick={handleOpenFilters}
-              disabled={!isTransactionsExist || !isSearchResultExist}
+              disabled={!isTransactionsExist && !isSearchResultExist}
             >
               <AdjustmentsHorizontalIcon className="mr-2 inline-block size-4" />
               Filters

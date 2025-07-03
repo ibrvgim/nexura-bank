@@ -1,10 +1,27 @@
+"use client";
+
+import { UserDataType } from "@/types/types";
 import FormButton from "../FormButton";
 import DebitCardHolder from "./DebitCardHolder";
 import DeliveryAddressCard from "./DeliveryAddressCard";
+import { useActionState } from "react";
+import { debitCardAction } from "@/actions/debitCardAction";
 
-function OrderCardFormContainer({ type }: { type: string }) {
+function OrderCardFormContainer({
+  type,
+  cardPrice,
+  userData,
+  allCountries,
+}: {
+  type: string;
+  cardPrice: number;
+  userData: UserDataType;
+  allCountries: string[];
+}) {
+  const [errors, formAction, isPending] = useActionState(debitCardAction, {});
+
   return (
-    <>
+    <form action={formAction}>
       <p className="text-4xl font-bold tracking-wide text-gray-700">
         Place an order for a{" "}
         <span className="text-green-400 capitalize">{type}</span> Debit Card
@@ -15,9 +32,13 @@ function OrderCardFormContainer({ type }: { type: string }) {
       </p>
 
       <div className="mb-14">
-        <DebitCardHolder />
+        <DebitCardHolder userData={userData} />
       </div>
-      <DeliveryAddressCard />
+
+      <DeliveryAddressCard errors={errors} allCountries={allCountries} />
+
+      <input name="cardPrice" value={cardPrice} hidden readOnly />
+      <input name="cardType" value={type} hidden readOnly />
 
       <div className="float-right mt-10 mb-32 w-1/3 *:mt-4">
         <p className="text-sm font-light text-gray-700">
@@ -25,10 +46,12 @@ function OrderCardFormContainer({ type }: { type: string }) {
           card, you accept our terms and conditions.
         </p>
         <FormButton
+          type="submit"
           title={`Order ${type[0]?.toUpperCase() + type?.slice(1)} Debit Card`}
-        ></FormButton>
+          isPending={isPending}
+        />
       </div>
-    </>
+    </form>
   );
 }
 

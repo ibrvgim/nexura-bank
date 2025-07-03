@@ -117,7 +117,7 @@ function PayForm({
         <PaymentItem
           title="Total Amount"
           value={`${formatNumber(
-            (Number(initialAmount) - calculateFee).toFixed(2),
+            Number(initialAmount) - calculateFee,
           )}${currentCurrencySymbol}`}
           last
           isBold
