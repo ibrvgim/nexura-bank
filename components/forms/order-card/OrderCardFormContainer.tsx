@@ -6,17 +6,20 @@ import DebitCardHolder from "./DebitCardHolder";
 import DeliveryAddressCard from "./DeliveryAddressCard";
 import { useActionState } from "react";
 import { debitCardAction } from "@/actions/debitCardAction";
+import ErrorMessageCard from "@/components/common/ErrorMessageCard";
 
 function OrderCardFormContainer({
   type,
   cardPrice,
   userData,
   allCountries,
+  currentUserBalance,
 }: {
   type: string;
   cardPrice: number;
   userData: UserDataType;
   allCountries: string[];
+  currentUserBalance: number;
 }) {
   const [errors, formAction, isPending] = useActionState(debitCardAction, {});
 
@@ -30,6 +33,12 @@ function OrderCardFormContainer({
         Please ensure sufficient money are available in your bank account before
         submitting an order.
       </p>
+
+      {currentUserBalance < cardPrice && (
+        <span className="mb-8 block">
+          <ErrorMessageCard error="You do not have enough money to complete this order." />
+        </span>
+      )}
 
       <div className="mb-14">
         <DebitCardHolder userData={userData} />
@@ -49,6 +58,7 @@ function OrderCardFormContainer({
           type="submit"
           title={`Order ${type[0]?.toUpperCase() + type?.slice(1)} Debit Card`}
           isPending={isPending}
+          active={currentUserBalance > cardPrice}
         />
       </div>
     </form>

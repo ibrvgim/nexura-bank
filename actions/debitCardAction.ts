@@ -1,6 +1,9 @@
 "use server";
 
 import { createClient } from "@/data/supabase/server";
+import { getFutureDate } from "@/utilities/formatDate";
+import formatNumber from "@/utilities/formatNumber";
+import { getDebitCardNumber, getID } from "@/utilities/getID";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -41,9 +44,61 @@ export async function debitCardAction(_: unknown, formData: FormData) {
 
   const { data } = await supabase.auth.getUser();
 
+  const { data: usersBalance } = await supabase
+    .from("users_balance")
+    .select("*");
+
+  const currentUserBalance = usersBalance?.find(
+    (item) => item.user_id === data.user?.id,
+  ).personalAccountBalance;
+
+  await supabase
+    .from("users_balance")
+    .update({
+      personalAccountBalance: currentUserBalance - Number(cardPrice),
+    })
+    .eq("user_id", data.user?.id)
+    .select();
+
+  const { data: allTransactions } = await supabase
+    .from("transactions_personal")
+    .select("*");
+
+  const currentUserTransactions = allTransactions?.find(
+    (item) => item.user_id === data.user?.id,
+  ).transactions;
+
+  const newTransactionData = {
+    id: getID(),
+    transactionDate: getFutureDate(0),
+    recipientFullName: `${cardType[0].toUpperCase() + cardType.slice(1).toLowerCase()} Debit Card Purchased`,
+    amount: `${formatNumber(cardPrice)}€`,
+    paymentMethod: "Bank Account",
+    actionType: "withdrawn",
+    isScheduled: false,
+  };
+
+  await supabase
+    .from("transactions_personal")
+    .update({ transactions: [newTransactionData, ...currentUserTransactions] })
+    .eq("user_id", data.user?.id)
+    .select();
+
+  const cardDetails = {
+    cardHolder:
+      `${data.user?.user_metadata.firstName} ${data.user?.user_metadata.lastName}` ||
+      "Card Holder",
+    cardNumber: getDebitCardNumber(),
+    cvv: Math.floor(Math.random() * 900 + 100),
+    expiryDate: "07/30", // Example expiry date
+    cardType: cardType,
+    price: Number(cardPrice),
+    isActive: true,
+  };
+
   const { error } = await supabase
     .from("debit_cards")
-    .update({ cardType: cardType, price: Number(cardPrice) })
+    .update(cardDetails)
     .eq("user_id", data.user?.id)
     .select();
 
@@ -51,4 +106,51 @@ export async function debitCardAction(_: unknown, formData: FormData) {
 
   revalidatePath("/", "layout");
   redirect("/cards");
+}
+
+export async function closeDebitCard() {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getUser();
+
+  const cardDetails = {
+    cardHolder: null,
+    cardNumber: null,
+    cvv: null,
+    expiryDate: null,
+    cardType: "",
+    price: 0,
+    isActive: false,
+  };
+
+  const { error } = await supabase
+    .from("debit_cards")
+    .update(cardDetails)
+    .eq("user_id", data.user?.id)
+    .select();
+
+  if (error) throw new Error(error?.message);
+
+  revalidatePath("/", "layout");
+  redirect("/cards");
+}
+
+export async function handleDebitCardStatus() {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getUser();
+
+  const { data: debitCards } = await supabase.from("debit_cards").select("*");
+
+  const currentStatus = debitCards?.find(
+    (item) => item.user_id === data.user?.id,
+  ).isActive;
+
+  const { error } = await supabase
+    .from("debit_cards")
+    .update({ isActive: !currentStatus })
+    .eq("user_id", data.user?.id)
+    .select();
+
+  if (error) throw new Error(error?.message);
+
+  revalidatePath("/", "layout");
 }

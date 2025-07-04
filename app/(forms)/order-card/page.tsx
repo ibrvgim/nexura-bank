@@ -4,7 +4,6 @@ import { getCountries } from "@/data/api/getCountries";
 import { createClient } from "@/data/supabase/server";
 import { getUserData } from "@/data/users-data/getUserData";
 import { UserDataType } from "@/types/types";
-import { redirect } from "next/navigation";
 
 const cards = [
   {
@@ -43,7 +42,13 @@ async function OrderCard({
     (item) => item.user_id === userData?.id,
   )?.cardType;
 
-  if (currentUserDebitCard) redirect("/cards");
+  const { data: usersBalance } = await supabase
+    .from("users_balance")
+    .select("*");
+
+  const currentUserBalance = usersBalance?.find(
+    (item) => item.user_id === userData?.id,
+  ).personalAccountBalance;
 
   return (
     <div className="mx-auto mt-12 mb-24">
@@ -53,9 +58,13 @@ async function OrderCard({
           userData={userData.user_metadata as UserDataType}
           cardPrice={cards.find((item) => item.type === type)?.price || 0}
           allCountries={allCountries}
+          currentUserBalance={currentUserBalance}
         />
       ) : (
-        <ChooseCardMenu cards={cards} />
+        <ChooseCardMenu
+          cards={cards}
+          currentUserDebitCard={currentUserDebitCard}
+        />
       )}
     </div>
   );

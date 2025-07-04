@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import Tooltip from "@mui/material/Tooltip";
 
@@ -10,7 +12,7 @@ export default function BasicTooltip({
 }) {
   return (
     <Tooltip title={title} placement="right" arrow disableInteractive>
-      <button>{children}</button>
+      <button className="cursor-pointer">{children}</button>
     </Tooltip>
   );
 }

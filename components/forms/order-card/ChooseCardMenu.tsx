@@ -1,3 +1,4 @@
+import formatString from "@/utilities/formatString";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,18 +8,30 @@ interface CardsType {
   price: number;
 }
 
-function ChooseCardMenu({ cards }: { cards: CardsType[] }) {
+function ChooseCardMenu({
+  cards,
+  currentUserDebitCard,
+}: {
+  cards: CardsType[];
+  currentUserDebitCard: string;
+}) {
   return (
     <>
       <ul className="grid grid-cols-2 gap-5">
-        {cards.map((item) => (
-          <CardItem
-            key={item.type}
-            cardType={item.type}
-            cardImage={item.image}
-            price={item.price}
-          />
-        ))}
+        {cards
+          .filter((item) =>
+            currentUserDebitCard
+              ? formatString(item.type) !== formatString(currentUserDebitCard)
+              : item,
+          )
+          .map((item) => (
+            <CardItem
+              key={item.type}
+              cardType={item.type}
+              cardImage={item.image}
+              price={item.price}
+            />
+          ))}
       </ul>
     </>
   );

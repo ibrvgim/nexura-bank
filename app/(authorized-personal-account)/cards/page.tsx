@@ -1,4 +1,5 @@
 import CardsList from "@/components/authorized/cards/CardsList";
+import DebitCardDetails from "@/components/authorized/cards/DebitCardDetails";
 import { createClient } from "@/data/supabase/server";
 import { Metadata } from "next";
 
@@ -13,9 +14,17 @@ async function Cards() {
 
   const currentUserDebitCard = debitCards?.find(
     (item) => item.user_id === data.user?.id,
-  )?.cardType;
+  );
 
-  return <>{currentUserDebitCard ? <div></div> : <CardsList />}</>;
+  return (
+    <>
+      {currentUserDebitCard?.cardType ? (
+        <DebitCardDetails currentUserDebitCard={currentUserDebitCard} />
+      ) : (
+        <CardsList />
+      )}
+    </>
+  );
 }
 
 export default Cards;
