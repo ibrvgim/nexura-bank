@@ -139,7 +139,7 @@ function CardBackSide({
 
   return (
     <>
-      <span className="-mx-6 mt-2 h-11 bg-black">&nbsp;</span>
+      <span className="-mx-6 h-11 bg-black">&nbsp;</span>
       <span className="flex items-center justify-between">
         <span className="flex h-full w-2/3 items-center gap-2">
           <span className="h-full w-full rounded-md bg-white"></span>

@@ -6,7 +6,10 @@ export function getID() {
 }
 
 export function getDebitCardNumber() {
-  const getRandomizeNumber = () => Math.floor(Math.random() * 10000 + 1000);
+  const getRandomizeNumber = () =>
+    Math.floor(Math.random() * 10000 + 1000)
+      .toString()
+      .slice(0, 5);
 
   return `${"4" + getRandomizeNumber().toString().slice(0, 3)} ${getRandomizeNumber()} ${getRandomizeNumber()} ${getRandomizeNumber()}`;
 }

@@ -21,7 +21,7 @@ function ConfirmationMessage({
 
       <div className="float-right mt-8 flex gap-8">
         <button
-          className="cursor-pointer text-gray-800 transition-all duration-200 hover:text-red-500 disabled:cursor-not-allowed disabled:hover:text-gray-800"
+          className="cursor-pointer text-gray-400 transition-all duration-200 hover:text-gray-800 disabled:cursor-not-allowed disabled:hover:text-gray-800"
           onClick={onClose}
           disabled={isPending}
         >
@@ -30,7 +30,7 @@ function ConfirmationMessage({
 
         <form action={formAction}>
           <button
-            className="cursor-pointer rounded-md border-2 border-red-500 bg-red-500 px-10 py-1 tracking-wide text-white transition-all duration-200 hover:bg-transparent hover:text-red-500 disabled:cursor-not-allowed disabled:border-red-400 disabled:bg-red-400 disabled:text-white disabled:opacity-70 disabled:hover:bg-red-400"
+            className="cursor-pointer rounded-md border-2 border-red-500 bg-red-500 px-10 py-1 text-white transition-all duration-200 hover:bg-transparent hover:text-red-500 disabled:cursor-not-allowed disabled:border-red-400 disabled:bg-red-400 disabled:text-white disabled:opacity-70 disabled:hover:bg-red-400"
             disabled={isPending}
           >
             {isPending ? "Processing..." : "Confirm"}

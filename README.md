@@ -9,7 +9,7 @@ Nexura - online banking. Create an account in minutes and use seamless transfers
 > - File & Photo attachments are disabled on some pages to prevent excessive data storage in the database.
 
 > [!IMPORTANT]
-> Responsive Design may be implemented occasionally; however, due to time constraints, the owner cannot fully optimize the site for all screen sizes. For the best experience, it's recommended to view the website on a larger screen.
+> Responsive Design may be implemented occasionally; however, due to time constraints, I cannot fully optimize the site for all screen sizes. For the best experience, it's recommended to view the website on a larger screen.
 
 ## OVERVIEW
 
