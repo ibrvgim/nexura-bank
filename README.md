@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nexura: Secure Online Banking
 
-## Getting Started
+Nexura - online banking. Create an account in minutes and use seamless transfers, payments, and savings. Nexura supports multiple currencies and enables fast, secure transactions across a wide range of countries — all in one intuitive interface.
 
-First, run the development server:
+> [!NOTE]
+> It's a Demo Website, for this reason:
+>
+> - Some functions disabled to keep the website nice and attractive.
+> - File & Photo attachments are disabled on some pages to prevent excessive data storage in the database.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+> [!IMPORTANT]
+> Responsive Design may be implemented occasionally; however, due to time constraints, the owner cannot fully optimize the site for all screen sizes. For the best experience, it's recommended to view the website on a larger screen.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## OVERVIEW
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Technologies used to build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- NextJS - https://nextjs.org/
+- TypeScript - https://www.typescriptlang.org/
+- Tailwind CSS - https://tailwindcss.com/
+- MUI Material UI - https://mui.com/
+- Hero Icons - https://github.com/tailwindlabs/heroicons
 
-## Learn More
+SUPABASE was used as a database : https://supabase.com/
 
-To learn more about Next.js, take a look at the following resources:
+## AUTHOR
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Created & Designed by - Ibrahim Ismayilov.
