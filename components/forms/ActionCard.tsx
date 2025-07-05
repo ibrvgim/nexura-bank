@@ -1,4 +1,4 @@
-import BasicTooltip from "@/components/common/Tooltip";
+import BasicTooltip from "@/components/common/TooltipWrapper";
 import BasicModalWindow from "../common/BasicModalWindow";
 import { useState } from "react";
 import PaymentOptions from "./PaymentOptions";

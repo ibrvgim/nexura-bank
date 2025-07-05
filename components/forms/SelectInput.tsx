@@ -5,6 +5,7 @@ import formatString from "@/utilities/formatString";
 import { useRef, useState } from "react";
 // import BasicTooltip from "../common/Tooltip";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import BasicTooltip from "../common/BasicTooltip";
 
 function SelectInput({
   label,
@@ -64,7 +65,7 @@ function SelectInput({
         {label}:{" "}
         {!optional && (
           <span className="text-red-500">
-            *{/* <BasicTooltip title="Must be filled in">*</BasicTooltip> */}
+            <BasicTooltip title="Must be filled in">*</BasicTooltip>
           </span>
         )}
         {(error?.message || directError) && (

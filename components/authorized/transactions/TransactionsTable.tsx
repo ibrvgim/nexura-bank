@@ -33,7 +33,9 @@ function TransactionsTable({
               {transaction.recipientFullName ||
                 `${userData?.firstName} ${userData?.lastName} via ${capitalizeString(transaction.paymentMethod)}`}
             </th>
-            <td className="font-light text-gray-500">{transaction.id}</td>
+            <td className="font-light tracking-wide text-gray-500">
+              {transaction.id}
+            </td>
             <td className="font-light text-gray-500">
               {formatIntlDate(transaction.transactionDate)}
             </td>

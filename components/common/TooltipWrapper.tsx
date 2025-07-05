@@ -3,7 +3,7 @@
 import * as React from "react";
 import Tooltip from "@mui/material/Tooltip";
 
-export default function BasicTooltip({
+export default function TooltipWrapper({
   children,
   title,
 }: {
@@ -12,7 +12,7 @@ export default function BasicTooltip({
 }) {
   return (
     <Tooltip title={title} placement="right" arrow disableInteractive>
-      <button className="cursor-pointer">{children}</button>
+      <span className="cursor-pointer">{children}</span>
     </Tooltip>
   );
 }

@@ -48,7 +48,9 @@ async function TransactionsOverview() {
                   {transaction.recipientFullName ||
                     `${user?.user_metadata?.firstName} ${user?.user_metadata?.lastName} via ${capitalizeString(transaction.paymentMethod)}`}
                 </th>
-                <td className="font-light text-gray-500">{transaction.id}</td>
+                <td className="font-light tracking-wide text-gray-500">
+                  {transaction.id}
+                </td>
                 <td className="font-light text-gray-500">
                   {formatIntlDate(transaction.transactionDate)}
                 </td>

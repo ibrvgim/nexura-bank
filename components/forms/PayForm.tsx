@@ -20,12 +20,8 @@ function PayForm({
   currentCurrencySymbol?: string;
   isSendMoney?: boolean;
 }) {
-  const [error, formAction, isPending] = useActionState(
-    handleSendAddMoney,
-    null,
-  );
-
-  console.log(error);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, formAction, isPending] = useActionState(handleSendAddMoney, null);
 
   const {
     recipientFullname,

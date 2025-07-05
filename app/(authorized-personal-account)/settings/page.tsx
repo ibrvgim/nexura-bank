@@ -30,8 +30,6 @@ async function Account() {
     user?.id,
   );
 
-  console.log(user);
-
   return (
     <>
       <p className="text-3xl font-semibold tracking-wide text-gray-700">

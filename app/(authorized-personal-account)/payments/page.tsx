@@ -1,4 +1,5 @@
 import ActionsContainer from "@/components/authorized/payments/ActionsContainer";
+import ScheduledTransactions from "@/components/authorized/payments/ScheduledTransactions";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,11 +9,12 @@ export const metadata: Metadata = {
 function Payments() {
   return (
     <>
-      <p className="text-3xl font-semibold tracking-wide text-gray-700">
+      <p className="text-3xl font-extrabold tracking-wide text-gray-700">
         Payments
       </p>
 
       <ActionsContainer />
+      <ScheduledTransactions />
     </>
   );
 }

@@ -24,7 +24,7 @@ function TransactionsSearchEngine({
 
   return (
     <div className="flex items-center justify-between pb-5">
-      <p className="text-3xl font-semibold tracking-wide text-gray-700">
+      <p className="text-3xl font-extrabold tracking-wide text-gray-700">
         Transactions
       </p>
 
