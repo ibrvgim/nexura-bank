@@ -28,12 +28,13 @@ function PaymentItem({
         <span
           className={`float-right ${isBold ? "text-gray-900" : "font-light text-gray-700"} ${style}`}
         >
-          {isDate && formatIntlDate(value)}
-          {cutValue
-            ? value.length > cutValue
-              ? `${value.slice(0, cutValue)}...`
-              : value
-            : value}
+          {isDate
+            ? formatIntlDate(value)
+            : cutValue
+              ? value.length > cutValue
+                ? `${value.slice(0, cutValue)}...`
+                : value
+              : value}
         </span>
         {inputName && (
           <input type="text" name={inputName} value={value} readOnly hidden />

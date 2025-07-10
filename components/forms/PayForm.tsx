@@ -32,6 +32,7 @@ function PayForm({
     isScheduled,
     accountSwift,
     accountNumber,
+    arrivesBy,
   } = formData;
 
   const calculateFee =
@@ -97,7 +98,7 @@ function PayForm({
         />
         <PaymentItem
           title="Arriving by"
-          value={formData.arrivesBy}
+          value={arrivesBy}
           style="capitalize"
           inputName="arrivesBy"
           isDate

@@ -41,6 +41,7 @@ function Login() {
           placeholder="nexura@account.com"
           directErros={errors?.email}
           optional
+          defaultValue="john.garcia@gmail.com"
         />
 
         <FormInput
@@ -50,6 +51,7 @@ function Login() {
           directErros={errors?.password}
           optional
           last
+          defaultValue="johngarcia2025"
         />
       </AuthPattern>
 

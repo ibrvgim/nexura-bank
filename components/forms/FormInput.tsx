@@ -9,6 +9,7 @@ function FormInput({
   error,
   directErros,
   value,
+  defaultValue,
   onChange,
   minValue,
   maxValue,
@@ -24,6 +25,7 @@ function FormInput({
   error?: { message?: string | undefined };
   directErros?: string;
   value?: string;
+  defaultValue?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   optional?: boolean;
   minValue?: string | number;
@@ -57,6 +59,7 @@ function FormInput({
         placeholder={placeholder}
         className={`w-full rounded-lg px-4 py-3 outline-2 outline-gray-300 transition-all duration-200 placeholder:text-sm placeholder:tracking-wide placeholder:text-gray-400 hover:outline-gray-600 focus:outline-3 focus:outline-gray-600 ${!last ? "mb-6" : ""} ${readonly ? "opacity-60" : ""}`}
         value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
         min={minValue}
         max={maxValue}
